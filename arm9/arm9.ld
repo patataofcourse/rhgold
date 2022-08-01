@@ -26,7 +26,7 @@ SECTIONS {
     __romPos = 0;
 
     . = 0x02000000;
-    .cartrom . : AT(__romPos) {
+    .arm9 . : AT(__romPos) {
         build/asm/binary_start.o(.data);
         build/asm/_entry_arm9.o(.text);
         build/asm/rest.o(.data);

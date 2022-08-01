@@ -19,9 +19,9 @@ OFILES		:=	$(addprefix $(BUILD)/,$(ASMFILES:.s=.o)) $(addprefix $(BUILD)/,$(CFIL
 OFILES		+=  $(addprefix $(BUILD)/,$(CPPFILES:.cpp=.o)) $(addprefix $(BUILD)/,$(DATAFILES:.bin=.o))
 
 bin: $(OFILES)
-	@$(LD) -e 0 $< -o $(BUILD)/arm7.elf
+	@$(LD) -e 0 $< -T arm7.ld -o $(BUILD)/arm7.elf -g -A armv4t
 	@$(OBJCOPY) -O binary $(BUILD)/arm7.elf $(BUILD)/arm7.bin
-	@ diff ../arm7.bin $(BUILD)/arm7.bin > /dev/null && echo "arm7.bin: OK" || "arm7.bin: Non-matching"
+	@ diff ../arm7.bin $(BUILD)/arm7.bin > /dev/null && echo "arm7.bin: OK" || echo "arm7.bin: Non-matching"
 
 clean:
 	@rm -rf build
@@ -36,4 +36,4 @@ $(BUILD)/%.o: %.c #TODO
 $(BUILD)/%.o: %.cpp #TODO
 
 $(BUILD)/%.o: %.s
-	@$(AS) $< -o $@
+	@$(AS) $< -o $@ -march=armv4t -g3
