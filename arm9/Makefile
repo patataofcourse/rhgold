@@ -36,4 +36,4 @@ $(BUILD)/%.o: %.c #TODO
 $(BUILD)/%.o: %.cpp #TODO
 
 $(BUILD)/%.o: %.s
-	@$(AS) $< -o $@ -march=armv4t -g3 --traditional-format
+	@$(AS) $< -o $@ -march=armv4t -g3

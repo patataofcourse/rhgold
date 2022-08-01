@@ -3,7 +3,25 @@ Disassembly/decompilation attempt for Rhythm Heaven (US), AKA Rhythm Tengoku Gol
 
 Currently produces arm9.bin and arm7.bin files to be inserted into the ROM using ndstool or similar programs, plus ELF files for debugging.
 
-# Current progress
+## Current progress
 * arm9.bin: not yet split (except for _entry_arm9)
 * arm7.bin: not yet split
 * ARM9 overlays: not yet added
+
+In the future, the filesystem, banner, etc. will be extracted from the ROM and a full NDS rom will be built (even if it ends up not being fully matching due to using ndstool rather than the official Nintendo SDK)
+
+The Metrowerks C Compiler for ARM will also be needed for decompilation, whenever it starts being worked on.
+
+The main purpose of this disassembly is research for modding purposes, with shiftability being a secondary goal. Full decompilation is likely a goal for the very distant future.
+
+## Installation
+You'll need the following dependencies:
+
+* `devKitARM`
+* `make`
+* `git`
+* `build-essentials`/`build-essential` (or whatever dependency has the GNU Compiler Collection)
+
+Extract the `arm9.bin` and `arm7.bin` files from your ROM and place them in `rhgold`.
+
+Run `make` to make both the ARM9 and ARM7 binaries. You can use `make clean` to clean up the build directories and `make re` to "remake" everything, ie, clean up and then make everything from scratch.
