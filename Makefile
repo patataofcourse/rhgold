@@ -6,9 +6,11 @@ endif
 
 all: arm9 arm7
 
+re: clean all
+
 clean:
 	@echo "clean ..."
-	@rm -rf build
+	@rm -rf build *.diff *.dump
 	@$(MAKE) -C arm9 clean --no-print-directory
 	@$(MAKE) -C arm7 clean --no-print-directory
 
