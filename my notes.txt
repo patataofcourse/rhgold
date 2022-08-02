@@ -1,0 +1,37 @@
+rom_start.s (already split)
+main.cpp (?)
+- NitroMain
+    you know what this does
+    initialization + main loop
+- func_020010e0 (referred in overlay 0 [code - general])
+    get VTable(?) D_02045cc4
+- func_020010f0 (called from func_020012cc)
+    calls some functions from near the end of the code and messes with registers
+- func_02001240 (called from NitroMain)
+    loads a bunch of... data??? rodata??? not sure wtf this is doin
+    uses a bunch of stack space fsr... probably loads a bunch of arguments?
+    calls func_0202eef0 right at the end- setting up for the call then?
+- func_020012a0 (called from NitroMain)
+    messes with IO registers
+    likely handwritten? (some optimizations seem too human)
+- func_020012cc (called from NitroMain)
+    even more IO register shit
+    also a shitton of function calls, most to the end of the rom
+- func_020013fc (called from NitroMain)
+    bunch of function calls with a bunch of data as arguments
+    yeah that's it
+    probably just a lot of initializing ngl
+- func_02001498 (called from _entry_arm9 (what))
+    probably a weak function according to E
+    i have no idea what that does but it just feels a tiny bit H
+- func_020014a8 (set to somewhere in func_020012cc)
+    reads/writes shit from a bunch of unknown ARM9 memory places
+    i have no idea what is fuckening
+- func_020014e0 (called from func_020139b8)
+    returns D_02263cd8.unk4
+    another weak function??? maybe???
+    idk this doesn't really look like sdk
+    im confus
+
+
+02003568~020036a4 is CList.cpp (thank you E)
