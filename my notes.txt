@@ -4,7 +4,7 @@ main.cpp (?)
     you know what this does
     initialization + main loop
 - func_020010e0 (referred in overlay 0 [code - general])
-    get VTable(?) D_02045cc4
+    get table D_02045cc4
 - func_020010f0 (called from func_020012cc)
     calls some functions from near the end of the code and messes with registers
 - func_02001240 (called from NitroMain)
