@@ -27,11 +27,15 @@ main.cpp (?)
 - func_020014a8 (set to somewhere in func_020012cc)
     reads/writes shit from a bunch of unknown ARM9 memory places
     i have no idea what is fuckening
+end of main.cpp?
+
 - func_020014e0 (called from func_020139b8)
     returns D_02263cd8.unk4
-    another weak function??? maybe???
-    idk this doesn't really look like sdk
-    im confus
-
+    if the function that calls it is sdk then this is another weak func
+- func_020014f0 (called from NitroMain twice)
+    loads and stores some stuff from unknown parts of ram
+    yeah thats it
 
 02003568~020036a4 is CList.cpp (thank you E)
+
+func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
