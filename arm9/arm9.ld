@@ -20,7 +20,8 @@ SECTIONS {
 
     . = 0x02000000;
     .arm9 . : AT(__romPos) {
-        build/asm/rom_start.o(.text);
+        build/asm/_secure.o(.text);
+        build/asm/entry.o(.text);
         build/asm/rest.o(.data);
     }
 }
