@@ -152,7 +152,7 @@ D_020003f0:
 
 non_word_aligned_thumb_func_start SVC_UncompressLZ8
 SVC_UncompressLZ8: @ 0x0200044a
-	swi 0x11
+	svc 0x11
 	bx lr
 thumb_func_end SVC_UncompressLZ8
 
@@ -168,7 +168,7 @@ D_0200044e:
 
 non_word_aligned_thumb_func_start SVC_WaitVBlankIntr
 SVC_WaitVBlankIntr: @ 0x020004b4
-	swi 5
+	svc 5
 	bx lr
 thumb_func_end SVC_WaitVBlankIntr
 
@@ -183,7 +183,7 @@ D_020004b8:
 
 non_word_aligned_thumb_func_start SVC_UncompressLZ16FromDevice
 SVC_UncompressLZ16FromDevice: @ 0x0200051e
-	swi 0x12
+	svc 0x12
 	bx lr
 thumb_func_end SVC_UncompressLZ16FromDevice
 
@@ -197,7 +197,7 @@ D_02000522:
 
 non_word_aligned_thumb_func_start SVC_GetCRC16
 SVC_GetCRC16: @ 0x02000580
-	swi 0xe
+	svc 0xe
 	bx lr
 thumb_func_end SVC_GetCRC16
 
@@ -212,7 +212,7 @@ D_02000584:
 
 non_word_aligned_thumb_func_start SVC_CpuSetFast
 SVC_CpuSetFast: @ 0x020005e2
-	swi 0xc
+	svc 0xc
 	bx lr
 thumb_func_end SVC_CpuSetFast
 
@@ -228,7 +228,7 @@ D_020005e6:
 
 non_word_aligned_thumb_func_start SVC_Sqrt
 SVC_Sqrt: @ 0x0200065c
-	swi 0xd
+	svc 0xd
 	bx lr
 thumb_func_end SVC_Sqrt
 
@@ -242,7 +242,7 @@ D_02000660:
 
 non_word_aligned_thumb_func_start SVC_DivRem
 SVC_DivRem: @ 0x020006b2
-	swi 9
+	svc 9
 	bx lr
 thumb_func_end SVC_DivRem
 
