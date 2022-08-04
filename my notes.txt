@@ -44,21 +44,27 @@ string functions (alternative to those in the sdk)
 - 02001558 - strncpy (char* destination, char* source, int num)
 - 02001598 - strcat (char* destination, char* source)
     first for loop may be an inlined strlen
+        update: it is not
 - 0203b1f8 - thunk_SDK_strcpy (char* destination, char* source)
     calls 0203b1f8 with a bx r12
 - func_020015f0 (char* destination, int num)
     prints that number into the destination pointer as a string
+- 02001628 - strlen (char* str)
+- 0200165c - strncmp (char* str1, char* str2, int num) -> bool
+- func_020016a0 (char* str1, char* str2)
+    runs strcmpn infinitely (for loop), returns str1 if it ever returns true, returns 0 if false
+
 
 02003568~020036a4 is CList.cpp (thank you E)
 
-020301dc - snprintf(char* dest, int dest_size, char* format, ...)
+020301dc - snprintf(char* dest, int dest_size, char* format, ...) -> char*
 02030204 - thunk to vsnprintf
 
 0203a3bc - vsnprintf
-0203b1dc - strlen
+0203b1dc - SDK_strlen
 0203b1f8 - SDK_strcpy 
 0203b2c0 - SDK_strcat
-0203b2f0 - strcmp
+0203b2f0 - SDK_strcmp
 0203b404 - probably another string operation but [E doesn't] have it labeled
 
 func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
