@@ -29,6 +29,8 @@ main.cpp (?)
     i have no idea what is fuckening
 end of main.cpp?
 
+probably also in main.cpp now that i think about it??
+
 - func_020014e0 (called from func_020139b8)
     returns D_02263cd8.unk4
     if the function that calls it is sdk then this is another weak func
@@ -36,6 +38,27 @@ end of main.cpp?
     loads and stores some stuff from unknown parts of ram
     yeah thats it
 
+string functions (alternative to those in the sdk)
+
+- 02001524 - strcpy (char* destination, char* source)
+- 02001558 - strncpy (char* destination, char* source, int num)
+- 02001598 - strcat (char* destination, char* source)
+    first for loop may be an inlined strlen
+- 0203b1f8 - thunk_SDK_strcpy (char* destination, char* source)
+    calls 0203b1f8 with a bx r12
+- func_020015f0 (char* destination, int num)
+    prints that number into the destination pointer as a string
+
 02003568~020036a4 is CList.cpp (thank you E)
+
+020301dc - snprintf(char* dest, int dest_size, char* format, ...)
+02030204 - thunk to vsnprintf
+
+0203a3bc - vsnprintf
+0203b1dc - strlen
+0203b1f8 - SDK_strcpy 
+0203b2c0 - SDK_strcat
+0203b2f0 - strcmp
+0203b404 - probably another string operation but [E doesn't] have it labeled
 
 func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
