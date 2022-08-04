@@ -57,6 +57,8 @@ string functions (alternative to those in the sdk)
 
 02003568~020036a4 is CList.cpp (thank you E)
 
+func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
+
 020301dc - snprintf(char* dest, int dest_size, char* format, ...) -> char*
 02030204 - thunk to vsnprintf
 
@@ -66,5 +68,3 @@ string functions (alternative to those in the sdk)
 0203b2c0 - SDK_strcat
 0203b2f0 - SDK_strcmp
 0203b404 - probably another string operation but [E doesn't] have it labeled
-
-func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
