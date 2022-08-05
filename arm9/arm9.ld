@@ -80,6 +80,7 @@ func_0202eca4 = 0x0202eca4;
 func_0202eef0 = 0x0202eef0;
 func_0202fbe0 = 0x0202fbe0;
 func_0202fdb0 = 0x0202fdb0;
+func_020301dc = 0x020301dc;
 func_020304c8 = 0x020304c8;
 func_02031060 = 0x02031060;
 func_020316e8 = 0x020316e8;
@@ -93,6 +94,7 @@ func_020360d4 = 0x020360d4;
 func_02036124 = 0x02036124;
 func_02038064 = 0x02038064;
 func_0203839c = 0x0203839c;
+SDK_strcpy = 0x0203b1f8;
 
 #0x027E0000 seems to be beginning of the stack?? check gbatek
 #no idea waht 0x027FFF9C is
@@ -107,6 +109,7 @@ SECTIONS {
         build/asm/_secure.o(.text);
         build/asm/entry.o(.text);
         build/asm/main.o(.text);
+        build/asm/string.o(.text);
         build/asm/rest.o(.data);
     }
 }

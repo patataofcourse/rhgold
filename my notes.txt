@@ -38,22 +38,23 @@ probably also in main.cpp now that i think about it??
     loads and stores some stuff from unknown parts of ram
     yeah thats it
 
-string functions (alternative to those in the sdk)
-
+string.cpp
 - 02001524 - strcpy (char* destination, char* source)
 - 02001558 - strncpy (char* destination, char* source, int num)
 - 02001598 - strcat (char* destination, char* source)
     first for loop may be an inlined strlen
         update: it is not
-- 0203b1f8 - thunk_SDK_strcpy (char* destination, char* source)
+- 020015e4 - thunk_SDK_strcpy (char* destination, char* source)
     calls 0203b1f8 with a bx r12
 - func_020015f0 (char* destination, int num)
     prints that number into the destination pointer as a string
 - 02001628 - strlen (char* str)
 - 0200165c - strncmp (char* str1, char* str2, int num) -> bool
 - func_020016a0 (char* str1, char* str2)
-    runs strcmpn infinitely (for loop), returns str1 if it ever returns true, returns 0 if false
-
+    runs strcmpn infinitely (for loop), returns str1 if it ever returns true,
+    0 if it reaches end of a string
+- func_020016f4 - another string function
+end string.cpp
 
 02003568~020036a4 is CList.cpp (thank you E)
 

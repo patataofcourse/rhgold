@@ -1,3 +1,3 @@
 .section .data
 
-.incbin "../arm9.bin", 0x1524
+.incbin "../arm9.bin", 0x17b0
