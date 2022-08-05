@@ -56,6 +56,10 @@ string.cpp
 - func_020016f4 - another string function
 end string.cpp
 
+020017b0~02001c30 is an unknown class' virtual functions (constructor func_02001cc8)
+    vtable at 02045d20 (no RTTI)
+    it may not actually be a vtable? dunno
+
 02003568~020036a4 is CList.cpp (thank you E)
 
 func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
