@@ -10,6 +10,10 @@ INCLUDE 	:= include
 DATA		:= data
 BUILD_DIRS 	:= $(BUILD)/$(SOURCE) $(BUILD)/$(ASM) $(BUILD)/$(DATA)
 
+CC_FLAGS	:=
+LD_FLAGS	:= -e 0 -g -A armv5t
+AS_FLAGS	:= -march=armv5t -g3 -I $(INCLUDE)
+
 CFILES 		:= $(foreach dir,$(SOURCE),$(wildcard $(dir)/*.c))
 CPPFILES 	:= $(foreach dir,$(SOURCE),$(wildcard $(dir)/*.cpp))
 ASMFILES	:= $(foreach dir,$(ASM),$(wildcard $(dir)/*.s))
@@ -21,7 +25,7 @@ OFILES		+=  $(addprefix $(BUILD)/,$(CPPFILES:.cpp=.o)) $(addprefix $(BUILD)/,$(D
 .PHONY: bin clean
 
 bin: $(OFILES)
-	@$(LD) -e 0 $< -T arm9.ld -T undefined.ld -o $(BUILD)/arm9.elf -g -A armv5t
+	@$(LD) $(LD_FLAGS) $< -T arm9.ld -T undefined.ld -o $(BUILD)/arm9.elf
 	@$(OBJCOPY) -O binary $(BUILD)/arm9.elf $(BUILD)/arm9.bin
 
 clean:
@@ -37,4 +41,4 @@ $(BUILD)/%.o: %.c #TODO
 $(BUILD)/%.o: %.cpp #TODO
 
 $(BUILD)/%.o: %.s
-	@$(AS) $< -o $@ -march=armv5t -g3 -I $(INCLUDE)
+	@$(AS) $(AS_FLAGS) $< -o $@
