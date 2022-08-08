@@ -1,27 +1,32 @@
 # rhgold
 Disassembly/decompilation attempt for Rhythm Heaven (US), AKA Rhythm Tengoku Gold, for the Nintendo DS
 
-Currently produces arm9.bin and arm7.bin files to be inserted into the ROM using ndstool or similar programs, plus ELF files for help with debugging.
+Produces individual binaries, a built .nds rom (non-matching due to using ndstool), and ELF files for debugging.
 
 ## Current progress
 * arm9.bin: in the process of disassembling
 * arm7.bin: not yet disassembled
 * ARM9 overlays: not yet added
 
-In the future, the filesystem, banner, etc. will be extracted from the ROM and a full NDS rom will be built (even if it ends up not being fully matching due to using ndstool rather than the official Nintendo SDK)
-
-The MetroWerks C Compiler for ARM will also be needed for decompilation, whenever it starts being worked on (current best known build: 3.0 build 137), but the Nintendo SDK or any other MetroWerks ARM tools won't be needed for making the ROM.
+The MetroWerks C Compiler for ARM will also be needed for compilation, whenever decomp starts being worked on (current best known build: 3.0 build 137), but the Nintendo SDK and other MetroWerks ARM tools won't be needed for compiling and making the ROM.
 
 The main purpose of this disassembly is research for modding purposes, with shiftability being a secondary goal. Full decompilation is likely a goal for the very distant future.
 
+In the future, when the disassembly and decompilation are far more mature, other language versions or revisions of the ROM (if they exist) will be supported.
+
 ## Installation
+### Windows / Mac
+Instructions coming in the future.
+
+### Linux
 You'll need the following dependencies:
 
 * `devKitARM`
+* `ndstool`
 * `make`
 * `git`
-* `build-essentials`/`build-essential` (or whatever dependency has the GNU Compiler Collection)
+* `build-essentials`/`build-essential`/`base-devel` (depends on distro)
 
-Extract the `arm9.bin` and `arm7.bin` files from your ROM and place them in `rhgold`.
+Rename your US Rhythm Heaven ROM to `baserom.nds` and place it in the root folder of the repo.
 
 Run `make` to make both the ARM9 and ARM7 binaries. You can use `make clean` to clean up the build directories and `make re` to "remake" everything, ie, clean up and then make everything from scratch.

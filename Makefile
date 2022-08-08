@@ -2,21 +2,33 @@ ifeq ($(strip $(DEVKITPRO)),)
 	$(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitPro)
 endif
 
-BASEROM := baserom.nds #TODO: regions
-BUILD	:= build
-EXTRACT := extract
+#TODO: regions
 
-COMPARE	?= 1
+BASEROM 	:= baserom.nds
+BUILD		:= build
+EXTRACT 	:= extract
+ARM9BIN		:= $(BUILD)/arm9.bin
+ARM7BIN		:= $(BUILD)/arm7.bin
+ROMFILE 	:= $(BUILD)/rhds.nds
 
+# NDS file isn't matching yet (ndstool moment), so for now comparing the NDS file is its
+# own, separate option
+
+COMPARE		?= 1
+COMPARE_NDS	?= 0
+
+.NOTPARALLEL:
 .PHONY: all arm9 arm7 checkrom clean cleanall compare
 
-ifeq (compare, 0)
-all: checkrom $(EXTRACT) arm9 arm7
+ifeq ($(COMPARE), 0)
+all: checkrom $(ROMFILE)
 else
-all: checkrom $(EXTRACT) arm9 arm7 compare
+all: checkrom $(ROMFILE) compare
 endif
 
 re: clean all
+arm9: $(ARM9BIN)
+arm7: $(ARM7BIN)
 
 clean:
 	@echo "clean ..."
@@ -27,12 +39,14 @@ clean:
 cleanall: clean
 	@rm -rf extract
 
-arm9:
+$(ARM9BIN):
+	@echo "Creating ARM9 binary..."
 	@$(MAKE) -C arm9 --no-print-directory
 	@mkdir -p build
 	@mv arm9/build/arm9.* build/
 
-arm7:
+$(ARM7BIN):
+	@echo "Creating ARM7 binary..."
 	@$(MAKE) -C arm7 --no-print-directory
 	@mkdir -p build
 	@mv arm7/build/arm7.* build/
@@ -43,14 +57,30 @@ checkrom: build/baserom.sha1
 $(BUILD)/baserom.sha1: rhds.sha1
 	@mkdir -p $(BUILD)
 	@cat rhds.sha1 > $@
-	@echo " baserom.nds" >> $@
+	@echo " $(BASEROM)" >> $@
 
-$(EXTRACT): baserom.nds
+$(BUILD)/rhds.sha1: rhds.sha1
+	@mkdir -p $(BUILD)
+	@cat rhds.sha1 > $@
+	@echo " $(ROMFILE)" >> $@
+
+$(EXTRACT): $(BASEROM)
 	@echo "Extracting base ROM..."
-	@mkdir -p extract
-	@ndstool -x baserom.nds -9 extract/arm9.bin -7 extract/arm7.bin -y9 extract/y9.bin -y7 extract/y7.bin \
-	-d extract/files -y extract/overlay -t extract/banner.bin -h extract/header.bin
+	@mkdir -p $@
+	@ndstool -x $(BASEROM) -9 $@/arm9.bin -7 $@/arm7.bin -y9 $@/y9.bin \
+	-d $@/files -y $@/overlay -t $@/banner.bin -h $@/header.bin > /dev/null
 
-compare:
+ifeq ($(COMPARE_NDS), 0)
+compare: $(ROMFILE)
+else 
+compare: $(ROMFILE) $(BUILD)/rhds.sha1
+	@sha1sum -c $(BUILD)/rhds.sha1 2> /dev/null || true
+endif
 	@diff $(EXTRACT)/arm9.bin $(BUILD)/arm9.bin > /dev/null && echo "arm9.bin: OK" || echo "arm9.bin: FAILED"
 	@diff $(EXTRACT)/arm7.bin $(BUILD)/arm7.bin > /dev/null && echo "arm7.bin: OK" || echo "arm7.bin: FAILED"
+
+#TODO: also generate banner, y9.bin and overlay files (maybe some FS files too?)
+$(ROMFILE): $(EXTRACT) $(ARM9BIN) $(ARM7BIN)
+	@echo "Creating target ROM..."
+	@ndstool -c $(ROMFILE) -9 $(BUILD)/arm9.bin -7 $(BUILD)/arm7.bin -y9 $(EXTRACT)/y9.bin \
+	-d $(EXTRACT)/files -y $(EXTRACT)/overlay -t $(EXTRACT)/banner.bin -h $(EXTRACT)/header.bin > /dev/null
