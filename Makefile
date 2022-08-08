@@ -27,8 +27,6 @@ all: checkrom $(ROMFILE) compare
 endif
 
 re: clean all
-arm9: $(ARM9BIN)
-arm7: $(ARM7BIN)
 
 clean:
 	@echo "clean ..."
@@ -39,17 +37,15 @@ clean:
 cleanall: clean
 	@rm -rf extract
 
-$(ARM9BIN):
-	@echo "Creating ARM9 binary..."
-	@$(MAKE) -C arm9 --no-print-directory
+arm9:
+	@$(MAKE) -C arm9 --no-print-directory -s
 	@mkdir -p build
-	@mv arm9/build/arm9.* build/
+	@cp arm9/build/arm9.* build/
 
-$(ARM7BIN):
-	@echo "Creating ARM7 binary..."
-	@$(MAKE) -C arm7 --no-print-directory
+arm7:
+	@$(MAKE) -C arm7 --no-print-directory -s
 	@mkdir -p build
-	@mv arm7/build/arm7.* build/
+	@cp arm7/build/arm7.* build/
 
 checkrom: build/baserom.sha1
 	@if not sha1sum -c build/baserom.sha1 2>&1 > /dev/null ; then echo "Error: Base ROM supplied is not US Rhythm Heaven"; false; fi
@@ -80,7 +76,7 @@ endif
 	@diff $(EXTRACT)/arm7.bin $(BUILD)/arm7.bin > /dev/null && echo "arm7.bin: OK" || echo "arm7.bin: FAILED"
 
 #TODO: also generate banner, y9.bin and overlay files (maybe some FS files too?)
-$(ROMFILE): $(EXTRACT) $(ARM9BIN) $(ARM7BIN)
+$(ROMFILE): $(EXTRACT) arm9 arm7
 	@echo "Creating target ROM..."
 	@ndstool -c $(ROMFILE) -9 $(BUILD)/arm9.bin -7 $(BUILD)/arm7.bin -y9 $(EXTRACT)/y9.bin \
 	-d $(EXTRACT)/files -y $(EXTRACT)/overlay -t $(EXTRACT)/banner.bin -h $(EXTRACT)/header.bin > /dev/null

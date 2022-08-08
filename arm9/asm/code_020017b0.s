@@ -1,4 +1,4 @@
-@ code_020017b0.cpp (but in asm)
+@ code_020017b0.c (but in asm)
 
 .include "global.s"
 

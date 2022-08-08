@@ -18,7 +18,10 @@ DATAFILES	:= $(foreach dir,$(DATA),$(wildcard $(dir)/*.s))
 OFILES		:=	$(addprefix $(BUILD)/,$(ASMFILES:.s=.o)) $(addprefix $(BUILD)/,$(CFILES:.c=.o))
 OFILES		+=  $(addprefix $(BUILD)/,$(CPPFILES:.cpp=.o)) $(addprefix $(BUILD)/,$(DATAFILES:.bin=.o))
 
-bin: $(OFILES)
+.PHONY: clean
+
+$(BUILD)/arm7.bin: $(OFILES)
+	@echo "Creating ARM7 binary..."
 	@$(LD) -e 0 $< -T arm7.ld -o $(BUILD)/arm7.elf -g -A armv4t
 	@$(OBJCOPY) -O binary $(BUILD)/arm7.elf $(BUILD)/arm7.bin
 
