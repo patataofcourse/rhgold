@@ -7,8 +7,6 @@ endif
 BASEROM 	:= baserom.nds
 BUILD		:= build
 EXTRACT 	:= extract
-ARM9BIN		:= $(BUILD)/arm9.bin
-ARM7BIN		:= $(BUILD)/arm7.bin
 ROMFILE 	:= $(BUILD)/rhds.nds
 
 # NDS file isn't matching yet (ndstool moment), so for now comparing the NDS file is its
@@ -38,11 +36,13 @@ cleanall: clean
 	@rm -rf extract
 
 arm9:
+	@echo "Creating ARM9 binary..."
 	@$(MAKE) -C arm9 --no-print-directory -s
 	@mkdir -p build
 	@cp arm9/build/arm9.* build/
 
 arm7:
+	@echo "Creating ARM7 binary..."
 	@$(MAKE) -C arm7 --no-print-directory -s
 	@mkdir -p build
 	@cp arm7/build/arm7.* build/

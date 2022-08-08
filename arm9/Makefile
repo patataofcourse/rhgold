@@ -22,10 +22,11 @@ DATAFILES	:= $(foreach dir,$(DATA),$(wildcard $(dir)/*.s))
 OFILES		:=	$(addprefix $(BUILD)/,$(ASMFILES:.s=.o)) $(addprefix $(BUILD)/,$(CFILES:.c=.o))
 OFILES		+=  $(addprefix $(BUILD)/,$(CPPFILES:.cpp=.o)) $(addprefix $(BUILD)/,$(DATAFILES:.bin=.o))
 
-.PHONY: clean
+.PHONY: all clean
 
-$(BUILD): $(OFILES)
-	@echo "Creating ARM9 binary..."
+all: $(BUILD)/arm9.bin
+
+$(BUILD)/arm9.bin: $(OFILES)
 	@$(LD) $(LD_FLAGS) $< -T arm9.ld -T undefined.ld -o $(BUILD)/arm9.elf
 	@$(OBJCOPY) -O binary $(BUILD)/arm9.elf $(BUILD)/arm9.bin
 
@@ -35,7 +36,7 @@ clean:
 $(BUILD_DIRS):
 	@mkdir -p $@
 
-$(OFILES): $(BUILD_DIRS)
+$(OFILES): | $(BUILD_DIRS)
 
 $(BUILD)/%.o: %.c #TODO
 
