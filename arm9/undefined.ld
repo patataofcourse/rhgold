@@ -81,9 +81,9 @@ func_020360d4 = 0x020360d4;
 func_02036124 = 0x02036124;
 func_02038064 = 0x02038064;
 func_0203839c = 0x0203839c;
+SDK_strcpy = 0x0203b1f8;
 func_0203ba38 = 0x0203ba38;
 func_0203cf5c = 0x0203cf5c;
-SDK_strcpy = 0x0203b1f8;
 
 #0x027E0000 seems to be beginning of the stack?? check gbatek
 #no idea waht 0x027FFF9C is
