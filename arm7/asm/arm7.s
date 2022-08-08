@@ -1,3 +1,3 @@
 .section .data
 
-.incbin "../arm7.bin"
+.incbin "../extract/arm7.bin"

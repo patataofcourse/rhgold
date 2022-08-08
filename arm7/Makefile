@@ -21,7 +21,6 @@ OFILES		+=  $(addprefix $(BUILD)/,$(CPPFILES:.cpp=.o)) $(addprefix $(BUILD)/,$(D
 bin: $(OFILES)
 	@$(LD) -e 0 $< -T arm7.ld -o $(BUILD)/arm7.elf -g -A armv4t
 	@$(OBJCOPY) -O binary $(BUILD)/arm7.elf $(BUILD)/arm7.bin
-	@ diff ../arm7.bin $(BUILD)/arm7.bin > /dev/null && echo "arm7.bin: OK" || echo "arm7.bin: Non-matching"
 
 clean:
 	@rm -rf build

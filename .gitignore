@@ -1,6 +1,9 @@
+baserom.nds
+
+extract/
+
 **/build/
-arm9.bin
-arm7.bin
+
 *.dump
 arm9.diff
 arm7.diff
