@@ -1,3 +1,6 @@
+.ifndef GLOBAL_HEADER
+.set GLOBAL_HEADER, 0
+
 .macro arm_func_start func
     .arm
     .global \func
@@ -19,3 +22,5 @@
 
 .macro thumb_func_end func
 .endm
+
+.endif

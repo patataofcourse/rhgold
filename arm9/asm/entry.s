@@ -2,12 +2,13 @@
 @   Stuff related to _start aka _entry_arm9
 
 .include "global.s"
+.include "nds.s"
 
 .section .text
 
 arm_func_start _entry_arm9
 _entry_arm9:
-    mov r12, #0x04000000
+    mov r12, #ARM9IOBase
     str r12, [r12, #0x208]
 _02000808:
     ldrh r0, [r12, #6]
@@ -94,13 +95,13 @@ _0200092c:
     bx r1
 _02000930: .word 0x027E0000
 _02000934: .word 0x800
-_02000938: .word 0x05000000 @ ARM9 palette data
-_0200093c: .word 0x07000000 @ ARM9 OAM
+_02000938: .word PaletteMemoryBase
+_0200093c: .word OAMBase
 _02000940: .word D_02000b9c
 _02000944: .word 0x027fff9c
 _02000948: .word 0x01ff8000
 _0200094c: .word NitroMain
-_02000950: .word 0xFFFF0000 @ ARM9 BIOS / exception handler
+_02000950: .word ExceptionVectors
 arm_func_end _entry_arm9
 
 arm_func_start func_02000954
