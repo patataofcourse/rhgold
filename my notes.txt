@@ -50,15 +50,18 @@ string.cpp
     prints that number into the destination pointer as a string
 - 02001628 - strlen (char* str)
 - 0200165c - strncmp (char* str1, char* str2, int num) -> bool
-- func_020016a0 (char* str1, char* str2)
+- func_020016a0 (char* str1, char* str2) - strcmp? 
     runs strcmpn infinitely (for loop), returns str1 if it ever returns true,
     0 if it reaches end of a string
 - func_020016f4 - another string function
 end string.cpp
 
-020017b0~02001c30 is an unknown class' virtual functions (constructor func_02001cc8)
-    vtable at 02045d20 (no RTTI)
-    it may not actually be a vtable? dunno
+code_020017b0.cpp
+- func_020017b0~func_02001c14 is a bunch of functions, with references in an array at D_02045d20
+    array accessed at func_02001cc8 - takes a struct/class, calls a function from there
+- func_02001c30~func_02001e04 - set some values in (probably) that same struct/class
+    except the aforementioned func_02001cc8
+end code_020017b0.cpp
 
 02003568~020036a4 is CList.cpp (thank you E)
 

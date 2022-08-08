@@ -36,4 +36,4 @@ $(BUILD)/%.o: %.c #TODO
 $(BUILD)/%.o: %.cpp #TODO
 
 $(BUILD)/%.o: %.s
-	@$(AS) $< -o $@ -march=armv4t -g3 -I $(INCLUDE)
+	@$(AS) $< -o $@ -march=armv5t -g3 -I $(INCLUDE)

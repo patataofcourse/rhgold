@@ -73,6 +73,7 @@ func_0202e15c = 0x0202e15c;
 func_0202e17c = 0x0202e17c;
 func_0202e224 = 0x0202e224;
 func_0202e568 = 0x0202e568;
+func_0202e58c = 0x0202e58c;
 func_0202e63c = 0x0202e63c;
 func_0202e94c = 0x0202e94c;
 func_0202eaec = 0x0202eaec;
@@ -110,6 +111,7 @@ SECTIONS {
         build/asm/entry.o(.text);
         build/asm/main.o(.text);
         build/asm/string.o(.text);
+        build/asm/code_020017b0.o(.text);
         build/asm/rest.o(.data);
     }
 }
