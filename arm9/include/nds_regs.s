@@ -5,8 +5,6 @@
 
 @ check gbatek for documentation i cant be bothered
 
-@ TODO: 3D engine, mem/irq control, math
-
 @ 2D engine - main
 .set GFX_2D_MAIN_DISPCNT,          ARM9IOBase
 .set GFX_2D_DISPSTAT,              ARM9IOBase + 4      @ Shared with Sub engine
@@ -88,6 +86,64 @@
 .set GFX_2D_SUB_MASTER_BRIGHT,     ARM9IOBase + 0x106C
 
 @ 3D engine
+.set GFX_3D_DISP3DCNT,          ARM9IOBase + 0x60
+.set GFX_3D_RDLINES_COUNT,      ARM9IOBase + 0x320
+.set GFX_3D_EDGE_COLOR,         ARM9IOBase + 0x330
+.set GFX_3D_ALPHA_TEST_REF,     ARM9IOBase + 0x340
+.set GFX_3D_CLEAR_COLOR,        ARM9IOBase + 0x350
+.set GFX_3D_CLEAR_DEPTH,        ARM9IOBase + 0x354
+.set GFX_3D_CLRIMAGE_OFFSET,    ARM9IOBase + 0x356
+.set GFX_3D_FOG_COLOR,          ARM9IOBase + 0x358
+.set GFX_3D_FOG_OFFSET,         ARM9IOBase + 0x35C
+.set GFX_3D_FOG_TABLE,          ARM9IOBase + 0x360
+.set GFX_3D_TOON_TABLE,         ARM9IOBase + 0x380
+
+@ 3D engine - geometry
+.set GFX_3D_GXFIFO,             ARM9IOBase + 0x400
+.set GFX_3D_MTX_MODE,           ARM9IOBase + 0x440
+.set GFX_3D_MTX_PUSH,           ARM9IOBase + 0x444
+.set GFX_3D_MTX_POP,            ARM9IOBase + 0x448
+.set GFX_3D_MTX_STORE,          ARM9IOBase + 0x44C
+.set GFX_3D_MTX_RESTORE,        ARM9IOBase + 0x450
+.set GFX_3D_MTX_IDENTITY,       ARM9IOBase + 0x454
+.set GFX_3D_MTX_LOAD_4x4,       ARM9IOBase + 0x458
+.set GFX_3D_MTX_LOAD_4x3,       ARM9IOBase + 0x45C
+.set GFX_3D_MTX_MULT_4x4,       ARM9IOBase + 0x460
+.set GFX_3D_MTX_MULT_4x3,       ARM9IOBase + 0x464
+.set GFX_3D_MTX_MULT_3x3,       ARM9IOBase + 0x468
+.set GFX_3D_MTX_SCALE,          ARM9IOBase + 0x46C
+.set GFX_3D_MTX_TRANS,          ARM9IOBase + 0x470
+.set GFX_3D_COLOR,              ARM9IOBase + 0x480
+.set GFX_3D_NORMAL,             ARM9IOBase + 0x484
+.set GFX_3D_TEXCOORD,           ARM9IOBase + 0x488
+.set GFX_3D_VTX_16,             ARM9IOBase + 0x48C
+.set GFX_3D_VTX_10,             ARM9IOBase + 0x490
+.set GFX_3D_VTX_XY,             ARM9IOBase + 0x494
+.set GFX_3D_VTX_XZ,             ARM9IOBase + 0x498
+.set GFX_3D_VTX_YZ,             ARM9IOBase + 0x49C
+.set GFX_3D_VTX_DIFF,           ARM9IOBase + 0x4A0
+.set GFX_3D_POLYGON_ATTR,       ARM9IOBase + 0x4A4
+.set GFX_3D_TEXIMAGE_PARAM,     ARM9IOBase + 0x4A8
+.set GFX_3D_PLTT_BASE,          ARM9IOBase + 0x4AC
+.set GFX_3D_DIF_AMB,            ARM9IOBase + 0x4C0
+.set GFX_3D_SPE_EMI,            ARM9IOBase + 0x4C4
+.set GFX_3D_LIGHT_VECTOR,       ARM9IOBase + 0x4C8
+.set GFX_3D_LIGHT_COLOR,        ARM9IOBase + 0x4CC
+.set GFX_3D_SHININESS,          ARM9IOBase + 0x4D0
+.set GFX_3D_BEGIN_VTXS,         ARM9IOBase + 0x500
+.set GFX_3D_END_VTXS,           ARM9IOBase + 0x504
+.set GFX_3D_SWAP_BUFFERS,       ARM9IOBase + 0x540
+.set GFX_3D_VIEWPORT,           ARM9IOBase + 0x580
+.set GFX_3D_BOX_TEST,           ARM9IOBase + 0x5C0
+.set GFX_3D_POS_TEST,           ARM9IOBase + 0x5C4
+.set GFX_3D_VEC_TEST,           ARM9IOBase + 0x5C8
+.set GFX_3D_GXSTAT,             ARM9IOBase + 0x600
+.set GFX_3D_RAM_COUNT,          ARM9IOBase + 0x604
+.set GFX_3D_DISP_1DOT_DEPTH,    ARM9IOBase + 0x610
+.set GFX_3D_POS_RESULT,         ARM9IOBase + 0x620
+.set GFX_3D_VEC_RESULT,         ARM9IOBase + 0x630
+.set GFX_3D_CLIPMTX_RESULT,     ARM9IOBase + 0x640
+.set GFX_3D_VECMTX_RESULT,      ARM9IOBase + 0x680
 
 @ DMA, timers, keypad
 .set DMA_CHANNEL_0,     ARM9IOBase + 0xB0
@@ -121,8 +177,32 @@
 .set CART_IN,       ARM9IOBase + 0x100010
 
 @ Memory and IRQ control
+.set REG_EXMEMCNT,  ARM9IOBase + 0x204
+.set REG_IME,       ARM9IOBase + 0x208
+.set REG_IE,        ARM9IOBase + 0x210
+.set REG_IF,        ARM9IOBase + 0x214
+.set VRAMCNT_A,     ARM9IOBase + 0x240
+.set VRAMCNT_B,     ARM9IOBase + 0x241
+.set VRAMCNT_C,     ARM9IOBase + 0x242
+.set VRAMCNT_D,     ARM9IOBase + 0x243
+.set VRAMCNT_E,     ARM9IOBase + 0x244
+.set VRAMCNT_F,     ARM9IOBase + 0x245
+.set VRAMCNT_G,     ARM9IOBase + 0x246
+.set WRAMCNT,       ARM9IOBase + 0x247
+.set VRAMCNT_H,     ARM9IOBase + 0x248
+.set VRAMCNT_I,     ARM9IOBase + 0x249
 
 @ Math
+.set DIVCNT,        ARM9IOBase + 0x280
+.set DIV_NUMER,     ARM9IOBase + 0x290
+.set DIV_DENOM,     ARM9IOBase + 0x298
+.set DIV_RESULT,    ARM9IOBase + 0x2A0
+.set DIVREM_RESULT, ARM9IOBase + 0x2A8
+.set SQRTCNT,       ARM9IOBase + 0x2B0
+.set SQRT_RESULT,   ARM9IOBase + 0x2B4
+.set SQRT_PARAM,    ARM9IOBase + 0x2B8
+.set POSTFLG,       ARM9IOBase + 0x300
+.set POWCNT1,       ARM9IOBase + 0x304
 
 @ Main memory control
 .set MEMCTL,    SharedMemoryBase - 2
