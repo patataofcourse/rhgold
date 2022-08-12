@@ -22,13 +22,14 @@ SECTIONS {
     .sbss . : {
         build/data/sbss.o(.data);
     }
-    .auto . : {
-        SDK_AUTOLOAD_LIST = .;
+    SDK_AUTOLOAD_LIST = .;
+    .sbss . : {
         build/data/autoload.o(.data);
     }
     SDK_AUTOLOAD_LIST_END = .;
     .bss . : {
 
     }
+    . = 0x0227cb20; # Remove after BSS is done
     SDK_STATIC_BSS_END = .;
 }
