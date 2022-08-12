@@ -49,13 +49,13 @@ _02000854:
     ldr r1, _0200093c
     mov r2, #0x400
     bl func_02000954
-    ldr r1, _02000940
-    ldr r0, [r1, #0x14]
+    ldr r1, _02000940	@ ModuleParams
+    ldr r0, [r1, #0x14] @ SDK_COMPRESSED_STATIC_END
     bl func_02000970
     bl func_02000a1c
-    ldr r0, _02000940
-    ldr r1, [r0, #0xc]
-    ldr r2, [r0, #0x10]
+    ldr r0, _02000940	@ ModuleParams
+    ldr r1, [r0, #0xc]	@ SDK_STATIC_BSS_START
+    ldr r2, [r0, #0x10] @ SDK_STATIC_BSS_END
     mov r3, r1
     mov r0, #0
 _020008bc:
@@ -97,7 +97,7 @@ _02000930: .word 0x027E0000
 _02000934: .word 0x800
 _02000938: .word PaletteMemoryBase
 _0200093c: .word OAMBase
-_02000940: .word D_02000b9c
+_02000940: .word ModuleParams
 _02000944: .word 0x027fff9c
 _02000948: .word 0x01ff8000
 _0200094c: .word NitroMain
@@ -175,7 +175,7 @@ arm_func_end func_02000970
 
 arm_func_start func_02000a1c
 func_02000a1c: @ 0x02000a1c
-	ldr r0, _02000aa8 @ =0x02000b9c
+	ldr r0, _02000aa8 @ =ModuleParams
 	ldr r1, [r0]
 	ldr r2, [r0, #4]
 	ldr r3, [r0, #8]
@@ -222,7 +222,7 @@ _02000a88:
 _02000aa4:
 	b _02000aac
 	.align 2, 0
-_02000aa8: .4byte D_02000b9c
+_02000aa8: .4byte ModuleParams
 _02000aac:
 	bx lr
 arm_func_end func_02000a1c
@@ -295,15 +295,15 @@ stub_02000b98:
 	bx lr
 arm_func_end stub_02000b98
 
-.global D_02000b9c
-D_02000b9c:
-	.word 0x02053b80 	@ Pointer to a pointer to 0x01FF8000
-	.word 0x02053b98 	@ Pointer to right after the end of arm9.bin (?
-	.word 0x02053560 	@ Pointer to value of 0xE92D4000
-	.word 0x02053560 	@ Pointer to value of 0xE92D4000
-	.word 0x0227cb20 	@ Pointer to entry function of overlay 0
-	.word 0
-	.word 0x04027531
-	.word 0xdec00621
-	.word 0x2106c0de
+.section .rodata
+ModuleParams:
+	.word SDK_AUTOLOAD_LIST
+	.word SDK_AUTOLOAD_LIST_END
+	.word SDK_AUTOLOAD_START
+	.word SDK_STATIC_BSS_START
+	.word 0x0227cb20 	@ SDK_STATIC_BSS_END
+	.word 0				@ SDK_COMPRESSED_STATIC_END
+	.word 0x04027531	@ SDK_VERSION_ID
+	.word 0xdec00621	@ SDK_NITROCODE_BE
+	.word 0x2106c0de	@ SDK_NITROCODE_LE
 	.asciz "[SDK+NINTENDO:BACKUP]"

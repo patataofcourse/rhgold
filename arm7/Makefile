@@ -20,7 +20,7 @@ ASMFILES	:= $(foreach dir,$(ASM),$(wildcard $(dir)/*.s))
 DATAFILES	:= $(foreach dir,$(DATA),$(wildcard $(dir)/*.s))
 
 OFILES		:=	$(addprefix $(BUILD)/,$(ASMFILES:.s=.o)) $(addprefix $(BUILD)/,$(CFILES:.c=.o))
-OFILES		+=  $(addprefix $(BUILD)/,$(CPPFILES:.cpp=.o)) $(addprefix $(BUILD)/,$(DATAFILES:.bin=.o))
+OFILES		+=  $(addprefix $(BUILD)/,$(CPPFILES:.cpp=.o)) $(addprefix $(BUILD)/,$(DATAFILES:.s=.o))
 
 .PHONY: all clean
 
