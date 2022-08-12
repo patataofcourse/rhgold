@@ -20,7 +20,7 @@ SECTIONS {
     SDK_STATIC_BSS_START = .;
     SDK_AUTOLOAD_START = .;
     .sbss . : {
-        build/data/sbss.o(.data);
+        build/data/sbss.o(.sbss);
     }
     SDK_AUTOLOAD_LIST = .;
     .sbss . : {
