@@ -4,25 +4,27 @@ endif
 
 #TODO: regions
 
-BASEROM 	:= baserom.nds
-BUILD		:= build
-EXTRACT 	:= extract
-ROMFILE 	:= $(BUILD)/rhds.nds
+BASEROM 		:= baserom.nds
+BUILD			:= build
+EXTRACT 		:= extract
+ROMFILE 		:= $(BUILD)/rhds.nds
 
 # NDS file isn't matching yet (ndstool moment), so for now comparing the NDS file is its
 # own, separate option
 
-COMPARE		?= 1
-COMPARE_NDS	?= 0
-
-.NOTPARALLEL:
-.PHONY: all arm9 arm7 checkrom clean cleanall compare fixarm9
+COMPARE			?= 1
+COMPARE_NDS		?= 0
+ALWAYS_EXTRACT 	?= 0
 
 ifeq ($(COMPARE), 0)
 all: checkrom $(ROMFILE)
 else
 all: checkrom $(ROMFILE) compare
 endif
+
+.NOTPARALLEL:
+.PHONY: all arm9 arm7 checkrom clean cleanall compare fixarm9
+FORCE:
 
 re: clean all
 
@@ -60,7 +62,11 @@ $(BUILD)/rhds.sha1: rhds.sha1
 	@cat rhds.sha1 > $@
 	@echo " $(ROMFILE)" >> $@
 
+ifeq ($(ALWAYS_EXTRACT), 0)
 $(EXTRACT): $(BASEROM)
+else
+$(EXTRACT): FORCE
+endif
 	@echo "Extracting base ROM..."
 	@mkdir -p $@
 	@ndstool -x $(BASEROM) -9 $@/arm9.bin -7 $@/arm7.bin -y9 $@/y9.bin \
