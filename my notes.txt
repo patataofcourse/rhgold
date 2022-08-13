@@ -63,6 +63,17 @@ code_020017b0.cpp (may be C instead?)
     except the aforementioned func_02001cc8
 end code_020017b0.cpp
 
+code_02001e1c.cpp (again, may be C) - yet another struct
+- func_02001e1c - constructor
+- func_02001e38~func_02001f8c - stuff with that same struct
+end code_02001e1c.cpp
+
+CDepth2D.cpp
+- func_02001f94 - constructor
+- func_02001fa4~func_02001fa8 - virtual functions
+end CDepth2D.cpp
+
+
 02003568~020036a4 is CList.cpp (thank you E)
 
 func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
@@ -81,7 +92,6 @@ START OF DATA (probably): 0203db14
 
 Types with RTTI info: (RTTI positions may be off)
 (Each dash is where I estimate a new .cpp file starts)
-- CDepth2D (02045da0) - VTable 02045dbc
 - CList (02045ddc) - VTable 02045dec
 - OMObjText (02045df8) - VTable 02045e14
 - CPageText (02045e1c) - VTable 02045e38

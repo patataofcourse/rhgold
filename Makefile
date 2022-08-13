@@ -16,14 +16,15 @@ COMPARE			?= 1
 COMPARE_NDS		?= 0
 ALWAYS_EXTRACT 	?= 0
 
+.NOTPARALLEL:
+.PHONY: all arm9 arm7 checkrom clean cleanall compare fixarm9
+
 ifeq ($(COMPARE), 0)
 all: checkrom $(ROMFILE)
 else
 all: checkrom $(ROMFILE) compare
 endif
 
-.NOTPARALLEL:
-.PHONY: all arm9 arm7 checkrom clean cleanall compare fixarm9
 FORCE:
 
 re: clean all
