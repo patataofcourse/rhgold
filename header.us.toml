@@ -1,0 +1,14 @@
+title = "RHYTHMHEAVEN"
+code = "YLZE"
+maker = "01"
+unit_code = 0
+device_type = 0
+capacity = "256M"
+revision = 0
+arm9_unkfunc = "func_02000aac"
+arm9_moduleparams = "ModuleParams"
+
+[banner]
+line1 = "Rhythm Heaven"
+line2 = "Nintendo"
+icon = "rhds.png"

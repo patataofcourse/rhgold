@@ -220,12 +220,15 @@ _02000a88:
 	blt _02000a88
 	b _02000a2c
 _02000aa4:
-	b _02000aac
+	b func_02000aac
 	.align 2, 0
 _02000aa8: .4byte ModuleParams
-_02000aac:
-	bx lr
 arm_func_end func_02000a1c
+
+arm_func_start func_02000aac
+func_02000aac:
+	bx lr
+arm_func_end func_02000aac
 
 arm_func_start func_02000ab0
 func_02000ab0: @ 0x02000ab0
