@@ -1,18 +1,32 @@
 # rhgold
-Disassembly/decompilation attempt for Rhythm Heaven (US), AKA Rhythm Tengoku Gold, for the Nintendo DS.
+Disassembly project for Rhythm Heaven (aka Rhythm Tengoku Gold, Rhythm Paradise, or Rhythm World/Rhythm Sesang), for the Nintendo DS.
 
-Produces individual binaries, a built .nds rom (non-matching due to using ndstool), and ELF files for debugging.
+Produces individual binaries, a built .nds file (which doesn't yet match the original .nds file), and ELF files for debugging purposes, one per processor.
+
+## Supported versions
+Before supporting other languages, full arm9.bin disassembly is a must.
+
+**Currently supported**
+
+* NTR-YLZE-USA (Rhythm Heaven)
+
+**Not supported yet**
+
+* NTR-YLZJ-JPN (Rhythm Tengoku Gold)
+* NTR-YLZP-EUR (Rhythm Paradise - EN/FR/DE)
+* NTR-YLZX-EUR (Rhythm Paradise - EN/ES/IT)
+* NTR-YLZK-KOR (Rhythm World)
+
+All versions of Rhythm Heaven have a single revision (rev0).
 
 ## Current progress
 * arm9.bin: in the process of disassembling
 * arm7.bin: not yet disassembled
 * ARM9 overlays: not yet added
 
-The MetroWerks C Compiler for ARM will also be needed for compilation, whenever decomp starts being worked on (current best known build: 3.0 build 137), but the Nintendo SDK and other MetroWerks ARM tools won't be needed for compiling and making the ROM.
+The Metrowerks C Compiler (version 3.0 build 137 / v2.0sp2p2) will also be needed for compiling C/C++ files (when they are added to the repository), but no other Metrowerks tool (e.g. the linker or assembler) will be used. No Nintendo SDK tools will be required, either.
 
-The main purpose of this disassembly is research for modding purposes, with shiftability being a secondary goal. Full decompilation is likely a goal for the very distant future.
-
-In the future, when the disassembly and decompilation are far more mature, other language versions or revisions of the ROM (if they exist) will be supported.
+The main purpose of this disassembly is research for modding purposes, with shiftability being a secondary goal. Full decompilation is likely for the very distant future.
 
 ## Installation
 ### Windows / Mac
