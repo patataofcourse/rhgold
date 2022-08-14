@@ -1,8 +1,6 @@
 # rhgold
 Disassembly/decompilation attempt for Rhythm Heaven (US), AKA Rhythm Tengoku Gold, for the Nintendo DS.
 
-[ARM9 currently false-negatives]
-
 Produces individual binaries, a built .nds rom (non-matching due to using ndstool), and ELF files for debugging.
 
 ## Current progress
