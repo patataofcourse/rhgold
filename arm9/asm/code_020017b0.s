@@ -512,7 +512,7 @@ func_02001cc8: @ 0x02001cc8
 	blx r2
 	pop {r3, r4, r5, pc}
 	.align 2, 0
-_02001d60: .4byte 0x02045d20
+_02001d60: .4byte D_02045d20
 	arm_func_end func_02001cc8
 
 	arm_func_start func_02001d64

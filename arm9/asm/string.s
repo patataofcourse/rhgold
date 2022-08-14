@@ -96,7 +96,7 @@ func_020015f0: @ 0x020015f0
 	add sp, sp, #0x64
 	pop {r3, r4, pc}
 	.align 2, 0
-_02001624: .4byte 0x02045d1c
+_02001624: .4byte D_02045d1c
 	arm_func_end func_020015f0
 
 	arm_func_start strlen

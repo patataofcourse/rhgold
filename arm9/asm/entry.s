@@ -93,13 +93,13 @@ _02000928:
     sub sp, sp, #4
 _0200092c:
     bx r1
-_02000930: .word 0x027E0000
+_02000930: .word SDK_AUTOLOAD_DTCM_ADDR
 _02000934: .word 0x800
 _02000938: .word PaletteMemoryBase
 _0200093c: .word OAMBase
 _02000940: .word ModuleParams
 _02000944: .word 0x027fff9c
-_02000948: .word 0x01ff8000
+_02000948: .word SDK_AUTOLOAD_ITCM_ADDR
 _0200094c: .word NitroMain
 _02000950: .word ExceptionVectors
 arm_func_end _entry_arm9

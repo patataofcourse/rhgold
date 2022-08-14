@@ -10,7 +10,7 @@ _ZN8CDepth2DC1Ev: @ 0x02001f94
 	str r1, [r0]
 	bx lr
 	.align 2, 0
-_02001fa0: .4byte 0x02045dbc
+_02001fa0: .4byte D_02045dbc
 	arm_func_end _ZN8CDepth2DC1Ev
 
 	arm_func_start _ZN8CDepth2DD2Ev
