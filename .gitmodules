@@ -1,3 +1,6 @@
 [submodule "tools/ndsdisasm"]
 	path = tools/ndsdisasm
 	url = https://github.com/patataofcourse/ndsdisasm
+[submodule "tools/ndsbuild"]
+	path = tools/ndsbuild
+	url = https://github.com/patataofcourse/ndsbuild

@@ -7,3 +7,5 @@ extract/
 *.dump
 arm9.diff
 arm7.diff
+
+.vscode
