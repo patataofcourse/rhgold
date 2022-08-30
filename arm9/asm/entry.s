@@ -98,7 +98,7 @@ _02000934: .word 0x800
 _02000938: .word PaletteMemoryBase
 _0200093c: .word OAMBase
 _02000940: .word ModuleParams
-_02000944: .word 0x027fff9c
+_02000944: .word D_027fff9c
 _02000948: .word SDK_AUTOLOAD_ITCM_ADDR
 _0200094c: .word NitroMain
 _02000950: .word ExceptionVectors
@@ -282,12 +282,12 @@ func_02000ab0: @ 0x02000ab0
 _02000b68: .4byte 0x000f9005
 _02000b6c: .4byte 0x04000033
 _02000b70: .4byte D_0200002d
-_02000b74: .4byte 0x027e0021
+_02000b74: .4byte D_027e0021
 _02000b78: .4byte 0x08000035
-_02000b7c: .4byte 0x027e0000
+_02000b7c: .4byte D_027e0000
 _02000b80: .4byte 0x0100002f
 _02000b84: .4byte 0xffff001d
-_02000b88: .4byte 0x027ff017
+_02000b88: .4byte D_027ff017
 _02000b8c: .4byte 0x05100011
 _02000b90: .4byte 0x15111011
 _02000b94: .4byte 0x0005707d
