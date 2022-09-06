@@ -7,7 +7,7 @@ capacity = "256M"
 revision = 0
 arm9_unkfunc = "func_02000aac"
 arm9_moduleparams = "ModuleParams"
-arm9_footer = true
+has_arm9_footer = true
 
 [banner]
 version = 1
