@@ -10,7 +10,7 @@ func_02003384: @ 0x02003384
 	str r0, [r1]
 	bx lr
 	.align 2, 0
-_02003390: .4byte 0x02045dcc
+_02003390: .4byte D_02045dcc
 	arm_func_end func_02003384
 
 	arm_func_start func_02003394
@@ -32,7 +32,7 @@ func_02003394: @ 0x02003394
 	bl func_02031fc0
 	pop {r4, r5, r6, pc}
 	.align 2, 0
-_020033d4: .4byte 0x02045dcc
+_020033d4: .4byte D_02045dcc
 	arm_func_end func_02003394
 _020033d8:
 	.byte 0x4c, 0x20, 0x9f, 0xe5, 0x4c, 0x10, 0x9f, 0xe5
@@ -99,7 +99,7 @@ _020034f0:
 	bx lr
 	.align 2, 0
 _020034fc: .4byte 0x04000130
-_02003500: .4byte 0x027fffa8
+_02003500: .4byte D_027fffa8
 _02003504: .4byte 0x00002fff
 	arm_func_end func_02003438
 

@@ -214,7 +214,7 @@ func_0200220c: @ 0x0200220c
 	str r3, [r0, #0x504]
 	bx lr
 	.align 2, 0
-_0200228c: .4byte 0x02045dc4
+_0200228c: .4byte D_02045dc4
 	arm_func_end func_0200220c
 
 	arm_func_start func_02002290
@@ -244,7 +244,7 @@ func_020022a4: @ 0x020022a4
 	str r0, [r4, #0x4f4]
 	pop {r4, pc}
 	.align 2, 0
-_020022e0: .4byte 0x02045dc4
+_020022e0: .4byte D_02045dc4
 	arm_func_end func_020022a4
 _020022e4:
 	.byte 0x08, 0xc0, 0x9f, 0xe5, 0x00, 0x10, 0xa0, 0xe3, 0x04, 0x10, 0x80, 0xe5
@@ -635,7 +635,7 @@ _0200281c:
 	str r0, [r4, #0x2c]
 	pop {r4, pc}
 	.align 2, 0
-_0200283c: .4byte 0x02045dc8
+_0200283c: .4byte D_02045dc8
 	arm_func_end func_0200274c
 
 	arm_func_start func_02002840
@@ -827,7 +827,7 @@ _02002aa8:
 	bl func_0200274c
 	pop {r4, r5, r6, pc}
 	.align 2, 0
-_02002ae4: .4byte 0x02270240
+_02002ae4: .4byte D_02270240
 	arm_func_end func_02002840
 
 	arm_func_start func_02002ae8
