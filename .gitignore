@@ -8,4 +8,6 @@ extract/
 arm9.diff
 arm7.diff
 
+tools/arm*.s
+
 .vscode
