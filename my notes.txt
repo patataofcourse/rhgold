@@ -94,6 +94,11 @@ code_02001fbc.c(pp)
     func_02002474 has a couple of switchcases (with jumptables)
 end code_02001fbc.c(pp)
 
+code_02003384.c(pp)
+- func_02003384 ~ func_02003558 seem to be related to some bitfields/inputs?
+    KEYINPUT reg checked in a few early functions
+end code_02003384.c(pp)
+
 02003568~020036a4 is CList.cpp (thank you E)
 
 func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
