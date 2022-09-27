@@ -1,5 +1,5 @@
 sections:
-- rom start (): _secure.s + entry.s
+- rom start (02000000~02000800): _secure.s + entry.s
     contains both .text and .rodata
 - .text (02000800~0203daf4)
 - .rodata / .data (0203daf4~02053560)
