@@ -86,10 +86,9 @@ end CDepth2D.cpp
 code_02001fbc.c(pp)
 - func_02001fbc ~ func_020020a8 seem to have stuff to do with another struct
     fields unk0~unk60, all words
-- func_020020d4 ~ func_020031a4 - massive struct, reaches up to unk504
+- func_020020d4 ~ func_0200337c - massive struct, reaches up to unk504
     func_02002290 runs 020020d4 and returns the arg0
     func_02002474 has a couple of switchcases (with jumptables)
-[more stuff here maybe? this thing is HUGE]
 end code_02001fbc.c(pp)
 
 02003568~020036a4 is CList.cpp (thank you E)

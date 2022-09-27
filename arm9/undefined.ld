@@ -149,7 +149,3 @@ D_027ff017 = 0x027ff017;
 D_027ffc20 = 0x027ffc20;
 D_027fff9c = 0x027fff9c;
 D_027fffa8 = 0x027fffa8;
-
-
-#0x027E0000 seems to be beginning of the stack?? check gbatek
-#no idea waht 0x027FFF9C is

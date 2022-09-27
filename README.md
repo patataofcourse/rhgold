@@ -40,7 +40,7 @@ You'll need the following dependencies:
 * `make`
 * `git`
 * `build-essentials`/`build-essential`/`base-devel` (depends on distro)
-* Python 3 (for the `fixarm9.py` script)
+* Python 3 (for the `fixarm9.py` script) - will eventually not be required
 
 Rename your US Rhythm Heaven ROM to `baserom.nds` and place it in the root folder of the repo.
 
