@@ -3,7 +3,10 @@ sections:
     contains both .text and .rodata
 - .text (02000800~0203daf4)
 - .rodata / .data (0203daf4~02053560)
-    don't know where the split between those is yet - 02045ce4 potentially?
+    don't know where the split between those is yet:
+    - 02045ce4 seems to be right at the end of .rodata, which is weird, since it's referred to
+      since main.s. maybe data??? but again it's a string so no idea
+    - 02045d18 is more likely: it's write accessed in main.s too
 - .itcm (02053560~02053b20)
     potentially contains .text, .rodata, and .data
 - .dtcm (02053b20~02053b80)

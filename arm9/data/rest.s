@@ -1,3 +1,3 @@
 .section .data
 
-.incbin "../extract/arm9.bin", 0x1fbc, 0x515a4
+.incbin "../extract/arm9.bin", 0x3384, 0x501dc

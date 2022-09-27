@@ -662,12 +662,12 @@ _02002878:
 	cmp r0, #0x2f
 	bne _0200289c
 	add r0, r5, #0x58
-	bl thunk_SDK_strcpy
+	bl SDK_strcpy
 	b _020028b4
 _0200289c:
 	ldr r1, [r5, #0x54]
 	add r0, r5, #0x58
-	bl thunk_SDK_strcpy
+	bl SDK_strcpy
 	mov r1, r4
 	add r0, r5, #0x58
 	bl func_0203b2c0
