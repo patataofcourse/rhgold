@@ -26,6 +26,7 @@ SECTIONS {
         build/asm/CDepth2D.o(.text);
         build/asm/code_02001fbc.o(.text);
         build/asm/code_02003384.o(.text);
+        build/asm/CList.o(.text);
         . = ALIGN(4);
         
         # non-disassembled
