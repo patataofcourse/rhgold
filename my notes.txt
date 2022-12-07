@@ -38,6 +38,7 @@ main.c(pp)
 - func_02001498 (called from _entry_arm9)
     NitroStartUp, a weak function which any dev could edit
     to initialize their own stuff at the game start up
+    seems to initialize library and heap things here
 - func_020014a8 (set to somewhere in func_020012cc)
     currently unknown structure reading-setting function
 - func_020014e0 (called from func_020139b8)
