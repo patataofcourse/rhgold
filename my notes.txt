@@ -7,6 +7,8 @@ sections:
     - 02045ce4 seems to be right at the end of .rodata, which is weird, since it's referred to
       since main.s. maybe data??? but again it's a string so no idea
     - 02045d18 is more likely: it's write accessed in main.s too
+- .bss (02053560~0227cb20)
+    uninitialized data
 - .itcm (02053560~02053b20)
     potentially contains .text, .rodata, and .data
 - .dtcm (02053b20~02053b80)
@@ -17,35 +19,29 @@ sections:
 
 main.c(pp)
 - NitroMain
-    you know what this does
     initialization + main loop
 - func_020010e0 (referred in overlay 0 [code - general])
     get table D_02045cc4
 - func_020010f0 (called from func_020012cc)
-    calls some functions from near the end of the code and messes with registers
+    seems to initialize the 2D engine A (and some other stuff)
 - func_02001240 (called from NitroMain)
-    loads a bunch of... data??? rodata??? not sure wtf this is doin
-    uses a bunch of stack space fsr... probably loads a bunch of arguments?
-    calls func_0202eef0 right at the end- setting up for the call then?
+    loads three vectors and passes them to func_0202eef0 
 - func_020012a0 (called from NitroMain)
-    messes with IO registers
-    likely handwritten? (some optimizations seem too human)
+    sets POLYGON_ATTR to "solid rendering of both back and front surfaces",
+    DIF_AMB and SPE_EMI to colors (TODO)
 - func_020012cc (called from NitroMain)
-    even more IO register shit
-    also a shitton of function calls, most to the end of the rom
+    initialize video stuff -- memset palette, LCDC VRAM, OAM
 - func_020013fc (called from NitroMain)
     bunch of function calls with a bunch of data as arguments
     yeah that's it
     probably just a lot of initializing ngl
-- func_02001498 (called from _entry_arm9 (what))
-    probably a weak function according to E
-    i have no idea what that does but it just feels a tiny bit H
+- func_02001498 (called from _entry_arm9)
+    NitroStartUp, a weak function which any dev could edit
+    to initialize their own stuff at the game start up
 - func_020014a8 (set to somewhere in func_020012cc)
-    reads/writes shit from a bunch of unknown ARM9 memory places
-    i have no idea what is fuckening
+    currently unknown structure reading-setting function
 - func_020014e0 (called from func_020139b8)
-    returns D_02263cd8.unk4
-    if the function that calls it is sdk then this is another weak func
+    returns D_02263cd4.unk4
 - func_020014f0 (called from NitroMain twice)
     loads and stores some stuff from unknown parts of ram
     yeah thats it
@@ -63,20 +59,19 @@ string.c(pp)
     prints that number into the destination pointer as a string
 - 02001628 - strlen (char* str)
 - 0200165c - strncmp (char* str1, char* str2, int num) -> bool
-- func_020016a0 (char* str1, char* str2) - strcmp? 
-    runs strcmpn infinitely (for loop), returns str1 if it ever returns true,
-    0 if it reaches end of a string
+- 020016a0 - strstr (char* haystack, char* needle)
 - func_020016f4 - another string function
 end string.c(pp)
 
 code_020017b0.c(pp)
-- func_020017b0~func_02001c14 is a bunch of functions, with references in an array at D_02045d20
+- func_020017b0~func_02001c14 control various 2D engine B registers,
+    referenced in D_02045d20
     array accessed at func_02001cc8 - takes a struct/class, calls a function from there
 - func_02001c30~func_02001e04 - set some values in (probably) that same struct/class
     except the aforementioned func_02001cc8
 end code_020017b0.c(pp)
 
-code_02001e1c.c(pp) - yet another struct
+code_02001e1c.c(pp) - yet another struct, seems to be a WININ register controller
 - func_02001e1c - constructor
 - func_02001e38~func_02001f8c - stuff with that same struct
 end code_02001e1c.c(pp)
@@ -84,11 +79,11 @@ end code_02001e1c.c(pp)
 CDepth2D.cpp (single field: vtable)
 - func_02001f94 - constructor
 - func_02001fa4~func_02001fa8 - virtual functions
+- func_02001fbc ~ func_020020a8 - actual functionality of the class
 end CDepth2D.cpp
 
 code_02001fbc.c(pp)
-- func_02001fbc ~ func_020020a8 seem to have stuff to do with another struct
-    fields unk0~unk60, all words
+
 - func_020020d4 ~ func_0200337c - massive struct, reaches up to unk504
     func_02002290 runs 020020d4 and returns the arg0
     func_02002474 has a couple of switchcases (with jumptables)
@@ -99,11 +94,12 @@ code_02003384.c(pp)
     KEYINPUT reg checked in a few early functions
 end code_02003384.c(pp)
 
-CList.cpp - smol class, lots seems to derive from it?
-- func_02003568 ~ func_02003588
+CList.cpp - doubly linked list class
+- func_02003568 ~ func_020036a4
 end CList.cpp
 
-func_020139b8 - called from overlay_0::func_0227fb30 (entry function for overlay 0)
+func_020139b8 - CProc constructor, 
+    called from overlay_0::func_0227fb30 (entry function for overlay 0, CMultisceneProc constructor)
 
 020301dc - snprintf(char* dest, int dest_size, char* format, ...) -> char*
 02030204 - thunk to vsnprintf
@@ -121,9 +117,9 @@ Types with RTTI info: (RTTI positions may be off)
 - CList (02045ddc) - VTable 02045dec
 - OMObjText (02045df8) - VTable 02045e14
 - CPageText (02045e1c) - VTable 02045e38
-- CTRInt (02045e50) - VTable 02045e8c
-  CTimeRatio (02045e5c) - VTable 02045ea4
-  CTRVec (02045e68) - VTable 02045ec0
+- CTRInt (02045e50) - VTable 02045ec0 
+  CTimeRatio (02045e5c) - VTable 02045e8c 
+  CTRVec (02045e68) - VTable 02045ea4
 - NPDivLoadSound (02045fe4) - VTable 02045ff4
 - TPItem (02046018) - VTable 02046028
 - TPIButton (02046048) - VTable 0204605c
@@ -132,4 +128,12 @@ Types with RTTI info: (RTTI positions may be off)
 - CInput (020460ec)
 - CInputBitPad (020460f4) - VTable 02046118
 - CInputGtrPad (02046130) - VTable 02046154
-[TO BE CONTINUED - CProcMan 0204616c]
+- CProcMan (0204616c) - VTable 0205168c
+  CMainProc (0204618c) - VTable 020461a0
+- CInputChecker (020512e4) - VTable 022870a8 (overlay0)
+- CICTacoPlay (020512ec) - VTable 02051320   // interesting, why are the Octopus Machine classes here?
+- CScene (020513fc) - VTable 022871a8 (overlay0)
+- CTaco00Scene (0205143c) - VTable 020514a4  // it might be weak data ordering, or they've 
+- CTptraceScene (02051584) - VTable 020515fc // been implemented near the base classes
+- CProc (02051664) - VTable 02051674
+[TO BE CONTINUED - TPEffect 02052060]
