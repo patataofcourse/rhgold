@@ -12,7 +12,7 @@ BUILD_DIRS 	:= $(BUILD)/$(SOURCE) $(BUILD)/$(ASM) $(BUILD)/$(DATA)
 
 CC_FLAGS	:=
 LD_FLAGS	:= -g -A armv5t
-AS_FLAGS	:= -march=armv5t -g3 -I $(INCLUDE)
+AS_FLAGS	:= -march=armv5t -g -I $(INCLUDE)
 
 CFILES 		:= $(foreach dir,$(SOURCE),$(wildcard $(dir)/*.c))
 CPPFILES 	:= $(foreach dir,$(SOURCE),$(wildcard $(dir)/*.cpp))
