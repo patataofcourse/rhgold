@@ -17,6 +17,16 @@ sections:
 
 ###########################################################################
 
+overlay memory distribution
+
+overlay mem start - 0227cb20
+
+0227cb20 ~ 02287660 - overlay 0
+02287660 ~ 0228fa60 - overlays 1 to 59
+0228fa60 ~ 02296f80 - overlays 60 to 164
+
+###########################################################################
+
 main.c(pp)
 - NitroMain
     initialization + main loop
