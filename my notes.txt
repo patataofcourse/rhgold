@@ -109,6 +109,13 @@ CList.cpp - doubly linked list class
 - func_02003568 ~ func_020036a4
 end CList.cpp
 
+code_020036e8.cpp - bunch of functions with some overloading?
+- func_020036e8 ~ func_02003924
+end code_000036e8.cpp?
+
+func_020039a4 - operator new(void*)
+func_020039e4 - operator delete(void*)
+
 func_020139b8 - CProc constructor, 
     called from overlay_0::func_0227fb30 (entry function for overlay 0, CMultisceneProc constructor)
 
@@ -141,6 +148,7 @@ Types with RTTI info: (RTTI positions may be off)
 - CInputGtrPad (02046130) - VTable 02046154
 - CProcMan (0204616c) - VTable 0205168c
   CMainProc (0204618c) - VTable 020461a0
+[i'm pretty sure there's more stuff in the middle...??]
 - CInputChecker (020512e4) - VTable 022870a8 (overlay0)
 - CICTacoPlay (020512ec) - VTable 02051320   // interesting, why are the Octopus Machine classes here?
 - CScene (020513fc) - VTable 022871a8 (overlay0)

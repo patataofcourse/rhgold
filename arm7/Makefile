@@ -12,7 +12,7 @@ BUILD_DIRS 	:= $(BUILD)/$(SOURCE) $(BUILD)/$(ASM) $(BUILD)/$(DATA)
 
 CC_FLAGS	:=
 AS_FLAGS	:= -march=armv4t -g
-LD_FLAGS	:= -e 0 -g -A armv4t
+LD_FLAGS	:= -e 0 -g -A armv4t --no-warn-rwx-segments
 
 CFILES 		:= $(foreach dir,$(SOURCE),$(wildcard $(dir)/*.c))
 CPPFILES 	:= $(foreach dir,$(SOURCE),$(wildcard $(dir)/*.cpp))

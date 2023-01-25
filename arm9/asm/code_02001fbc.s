@@ -677,7 +677,7 @@ _020028b4:
 	cmp r0, #0
 	bne _020028e0
 	mov r0, #0xc
-	bl func_020039a4
+	bl _ZnwPv
 	cmp r0, #0
 	beq _020028d8
 	bl func_0200e694
@@ -696,7 +696,7 @@ _020028e0:
 	cmp r0, #0
 	bne _02002924
 	mov r0, #0xc
-	bl func_020039a4
+	bl _ZnwPv
 	cmp r0, #0
 	beq _0200291c
 	bl func_0200e694

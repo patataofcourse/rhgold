@@ -11,3 +11,4 @@ arm7.diff
 tools/arm*.s
 
 .vscode
+*.code-workspace

@@ -123,7 +123,7 @@ _02000c68:
 	cmp r0, #0
 	bne _02000dc0
 	mov r0, #0xc
-	bl func_020039a4
+	bl _ZnwPv
 	cmp r0, #0
 	beq _02000db8
 	bl func_0200e694
@@ -135,7 +135,7 @@ _02000dc0:
 	ldr r0, [r0]
 	bl func_0200e770
 	mov r0, #0x410
-	bl func_020039a4
+	bl _ZnwPv
 	cmp r0, #0
 	beq _02000de0
 	bl func_0200ec00
@@ -236,7 +236,7 @@ _02000ef8:
 	cmp r0, #0
 	bne _02000f54
 	mov r0, #0xc
-	bl func_020039a4
+	bl _ZnwPv
 	cmp r0, #0
 	beq _02000f50
 	bl func_0200e694
