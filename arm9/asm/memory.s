@@ -14,7 +14,7 @@ _ZnwPv: @ 0x020039a4
 	bx ip
 	.align 2, 0
 _020039bc: .4byte D_02263ce0
-_020039c0: .4byte func_020178b4
+_020039c0: .4byte malloc
 	arm_func_end _ZnwPv
 
 	arm_func_start _ZnaPv
@@ -27,7 +27,7 @@ _ZnaPv: @ 0x020039c4
 	bx ip
 	.align 2, 0
 _020039dc: .4byte D_02263ce0
-_020039e0: .4byte func_020178b4
+_020039e0: .4byte malloc
 	arm_func_end _ZnaPv
 
 	arm_func_start _ZdlPv
@@ -37,7 +37,7 @@ _ZdlPv: @ 0x020039e4
 	popeq {r3, pc}
 	ldr r0, _02003a00 @ =D_02263ce0
 	ldr r0, [r0, #8]
-	bl func_020178e4
+	bl free
 	pop {r3, pc}
 	.align 2, 0
 _02003a00: .4byte D_02263ce0
@@ -50,7 +50,7 @@ _ZdaPv: @ 0x02003a04
 	popeq {r3, pc}
 	ldr r0, _02003a20 @ =D_02263ce0
 	ldr r0, [r0, #8]
-	bl func_020178e4
+	bl free
 	pop {r3, pc}
 	.align 2, 0
 _02003a20: .4byte D_02263ce0
@@ -96,7 +96,7 @@ _02003a94:
 	mov r1, r4
 	ldr r0, [r0, #8]
 	mov r2, #4
-	bl func_020178b4
+	bl malloc
 	pop {r4, pc}
 	.align 2, 0
 _02003aac: .4byte D_02263ce0
@@ -114,7 +114,7 @@ _02003ac4:
 	mov r1, r5
 	ldr r0, [r0, #8]
 	mov r2, r4
-	bl func_020178b4
+	bl malloc
 	pop {r3, r4, r5, pc}
 	.align 2, 0
 _02003adc: .4byte D_02263ce0
@@ -134,7 +134,7 @@ _02003b00:
 	ldr r0, _02003b14 @ =D_02263ce0
 	mov r1, r4
 	ldr r0, [r0, #8]
-	bl func_020178e4
+	bl free
 	pop {r4, pc}
 	.align 2, 0
 _02003b14: .4byte D_02263ce0
