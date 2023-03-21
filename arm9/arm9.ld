@@ -28,6 +28,7 @@ SECTIONS {
         build/asm/code_02003384.o(.text);
         build/asm/CList.o(.text);
         build/asm/code_020036e8.o(.text);
+        build/asm/memory.o(.text);
         . = ALIGN(4);
         
         # non-disassembled

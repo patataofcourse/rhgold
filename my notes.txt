@@ -94,7 +94,6 @@ CDepth2D.cpp (single field: vtable)
 end CDepth2D.cpp
 
 code_02001fbc.c(pp)
-
 - func_020020d4 ~ func_0200337c - massive struct, reaches up to unk504
     func_02002290 runs 020020d4 and returns the arg0
     func_02002474 has a couple of switchcases (with jumptables)
@@ -113,11 +112,23 @@ code_020036e8.cpp - bunch of functions with some overloading?
 - func_020036e8 ~ func_02003924
 end code_000036e8.cpp?
 
-func_020039a4 - operator new(void*)
-func_020039e4 - operator delete(void*)
+memory.cpp - probably a bunch of news and deletes, plus other memory stuff. accesses D_MemInfo?
+- func_020039a4 - operator new(void*)
+- func_020039c4 - operator new[](void*)
+- func_020039e4 - operator delete(void*)
+- func_02003a04 - operator delete[](void*)
+- func_02003axx ~ func_02003c1c
+end memory.cpp
+
+code_02003c94 next
+
+func_02003fe0 ~ func_0200400c - virtual functions for OMObjText
 
 func_020139b8 - CProc constructor, 
     called from overlay_0::func_0227fb30 (entry function for overlay 0, CMultisceneProc constructor)
+
+func_020178b4 - malloc?
+func_020178e4 - free?
 
 020301dc - snprintf(char* dest, int dest_size, char* format, ...) -> char*
 02030204 - thunk to vsnprintf
@@ -128,6 +139,8 @@ func_020139b8 - CProc constructor,
 0203b2c0 - SDK_strcat
 0203b2f0 - SDK_strcmp
 0203b404 - probably another string operation but [E doesn't] have it labeled
+
+D_02263ce0 - D_MemInfo?
 
 Types with RTTI info: (RTTI positions may be off)
 (Each dash is where I estimate a new .cpp file starts)
