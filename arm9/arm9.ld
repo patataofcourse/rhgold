@@ -31,6 +31,7 @@ SECTIONS {
         build/asm/memory.o(.text);
         build/asm/code_02003c94.o(.text);
         build/asm/OMObjText.o(.text);
+        build/asm/code_02004040.o(.text);
         . = ALIGN(4);
         
         # non-disassembled
@@ -75,7 +76,7 @@ SECTIONS {
 
     .bss : {
         SDK_STATIC_BSS_START = .;
-        . = 0x27cb20 - SIZEOF(.arm9); # Remove after BSS is done
+        build/data/rest.o(.bss);
         . = ALIGN(4);
 
         SDK_STATIC_BSS_END = .;

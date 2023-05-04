@@ -17,7 +17,7 @@ COMPARE_NDS		?= 0
 ALWAYS_EXTRACT 	?= 0
 
 .NOTPARALLEL:
-.PHONY: all arm9 arm7 checkrom clean cleanall compare fixarm9
+.PHONY: all arm9 arm7 checkrom clean cleanall compare
 
 ifeq ($(COMPARE), 0)
 all: checkrom $(ROMFILE)
@@ -72,6 +72,8 @@ endif
 	@mkdir -p $@
 	@ndstool -x $(BASEROM) -9 $@/arm9.bin -7 $@/arm7.bin -y9 $@/y9.bin \
 	-d $@/files -y $@/overlay -t $@/banner.bin -h $@/header.bin > /dev/null
+	@echo "Fixing extracted arm9.bin..."
+	@python3 tools/fixarm9.py $(BASEROM) $(EXTRACT)/arm9.bin
 
 ifeq ($(COMPARE_NDS), 0)
 compare: $(ROMFILE)
@@ -83,11 +85,7 @@ endif
 	@diff $(EXTRACT)/arm7.bin $(BUILD)/arm7.bin > /dev/null && echo "arm7.bin: OK" || echo "arm7.bin: FAILED"
 
 #TODO: also generate banner, y9.bin and overlay files (maybe some FS files too?)
-$(ROMFILE): $(EXTRACT) fixarm9 arm9 arm7
+$(ROMFILE): $(EXTRACT) arm9 arm7
 	@echo "Creating target ROM..."
 	@ndstool -c $(ROMFILE) -9 $(BUILD)/arm9.bin -7 $(BUILD)/arm7.bin -y9 $(EXTRACT)/y9.bin \
 	-d $(EXTRACT)/files -y $(EXTRACT)/overlay -t $(EXTRACT)/banner.bin -h $(EXTRACT)/header.bin > /dev/null
-
-fixarm9: $(EXTRACT)
-	@echo "Fixing extracted arm9.bin..."
-	@python3 tools/fixarm9.py $(BASEROM) $(EXTRACT)/arm9.bin

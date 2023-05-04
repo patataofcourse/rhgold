@@ -27,7 +27,7 @@ overlay mem start - 0227cb20
 
 ###########################################################################
 
-splits are not high priority now, this is mostly going to indicate patterns and similarities
+splits are not very good right now, this is mostly going to indicate patterns and similarities
 
 main.c(pp)
 - NitroMain
@@ -129,6 +129,13 @@ OMObjText.cpp
     func_02003fe0 ~ func_0200400c - virtual functions for OMObjText
     (probably some more stuff)
 end? OMObjText.cpp
+
+func_02004040 ~ func_02004770 
+    it's very likely that some of (if not all) these functions are part of OMObjText.cpp,
+    but we won't know for certain until we start REing this
+
+func_02004790 - CPageText constructor
+func_02004930 ~ func_02004988 - CPageText virtuals
 
 func_020139b8 - CProc constructor 
     called from overlay_0::func_0227fb30 (entry function for overlay 0, CMultisceneProc constructor)

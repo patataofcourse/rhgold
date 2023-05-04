@@ -20,6 +20,10 @@ dism_size = all_size - non_dism_size
 
 percent = 100 * dism_size/all_size
 
+#TODO: whenever data/rodata is done, count that as well
+text_size = 0x3daf4
+text_percent = 100 * dism_size/text_size
+
 if args.raw:
     print(dism_size, all_size, percent)
 else:
@@ -28,4 +32,5 @@ else:
         print(f"arm9: {hex(dism_size)} / {hex(all_size)} bytes disassembled ({round(percent, 2)}%)")
     else:
         print(f"arm9: {dism_size} / {all_size} bytes disassembled ({round(percent, 2)}%)")
+    print(f"    this is {round(text_percent, 2)}% of the main .text section")
     print("arm7 and overlays not started")
