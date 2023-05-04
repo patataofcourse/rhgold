@@ -1,11 +1,6 @@
 ### Undefined symbols ###
 
 # Functions
-func_02003a24 = 0x02003a24;
-func_02003a84 = 0x02003a84;
-func_02003ab0 = 0x02003ab0;
-func_02003ae0 = 0x02003ae0;
-func_02003c94 = 0x02003c94;
 func_02004d08 = 0x02004d08;
 func_02004d48 = 0x02004d48;
 func_02005a44 = 0x02005a44;

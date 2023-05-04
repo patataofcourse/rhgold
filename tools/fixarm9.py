@@ -11,10 +11,12 @@ try:
     rom = open(args.rom, "rb")
 except FileNotFoundError:
     print(f"File {args.rom} not found")
+    exit(1)
 try:
     binary = open(args.binary, "rb")
 except FileNotFoundError:
     print(f"File {args.binary} not found")
+    exit(1)
 
 # Get size of arm9.bin
 rom.seek(0x2c)

@@ -89,4 +89,5 @@ $(ROMFILE): $(EXTRACT) fixarm9 arm9 arm7
 	-d $(EXTRACT)/files -y $(EXTRACT)/overlay -t $(EXTRACT)/banner.bin -h $(EXTRACT)/header.bin > /dev/null
 
 fixarm9: $(EXTRACT)
+	@echo "Fixing extracted arm9.bin..."
 	@python3 tools/fixarm9.py $(BASEROM) $(EXTRACT)/arm9.bin

@@ -27,6 +27,8 @@ overlay mem start - 0227cb20
 
 ###########################################################################
 
+splits are not high priority now, this is mostly going to indicate patterns and similarities
+
 main.c(pp)
 - NitroMain
     initialization + main loop
@@ -119,11 +121,6 @@ memory.cpp - probably a bunch of news and deletes, plus other memory stuff. acce
 - func_02003a04 - operator delete[](void*)
 - func_02003a24 ~ func_02003c1c
 end memory.cpp
-
-############################################################
- everything from here onwards is probably badly split   
- let's focus on dism first, documenting second
-############################################################
 
 func_02003c94 ~ func_02003cbc
 
