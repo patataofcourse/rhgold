@@ -1,0 +1,1 @@
+make 2>&1 | grep -oE "undefined reference to .*" | sort | awk '!seen[$0]++' | grep -oE "(func_|_)[0-9a-f]{8}"
