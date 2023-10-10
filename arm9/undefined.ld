@@ -113,6 +113,15 @@ func_0202e94c = 0x0202e94c;
 func_0202eaec = 0x0202eaec;
 func_0202eca4 = 0x0202eca4;
 func_0202eef0 = 0x0202eef0;
+func_0202fabc = 0x0202fabc;
+func_0202fb48 = 0x0202fb48;
+func_0202fb58 = 0x0202fb58;
+func_0202fb68 = 0x0202fb68;
+func_0202fb78 = 0x0202fb78;
+func_0202fb88 = 0x0202fb88;
+func_0202fb98 = 0x0202fb98;
+func_0202fba8 = 0x0202fba8;
+func_0202fbb8 = 0x0202fbb8;
 func_0202fbe0 = 0x0202fbe0;
 func_0202fdb0 = 0x0202fdb0;
 func_020301dc = 0x020301dc;
@@ -211,12 +220,7 @@ D_02270240 = 0x02270240;
 D_02270344 = 0x02270344;
 D_0227034c = 0x0227034c;
 
-# DTCM
-D_027e0000 = 0x027e0000;
-D_027e0021 = 0x027e0021;
-
 # Unknown
-D_027ff017 = 0x027ff017;
 D_027ffc20 = 0x027ffc20;
 D_027fff9c = 0x027fff9c;
 D_027fffa8 = 0x027fffa8;
