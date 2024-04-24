@@ -32,6 +32,8 @@ SECTIONS {
         build/asm/code_02003c94.o(.text);
         build/asm/OMObjText.o(.text);
         build/asm/code_02004040.o(.text);
+        build/asm/code_02004790.o(.text);
+        build/asm/code_02004a1c.o(.text);
         . = ALIGN(4);
         
         # non-disassembled

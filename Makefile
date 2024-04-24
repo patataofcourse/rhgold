@@ -51,7 +51,10 @@ arm7:
 	@cp arm7/build/arm7.* build/
 
 checkrom: build/baserom.sha1
-	@if not sha1sum -c build/baserom.sha1 2>&1 > /dev/null ; then echo "Error: Base ROM supplied is not US Rhythm Heaven"; false; fi
+	@if ! sha1sum -c build/baserom.sha1 2>&1 > /dev/null ; then  \
+		echo "Error: Base ROM supplied is not US Rhythm Heaven"; \
+		false; 													 \
+	fi
 
 $(BUILD)/baserom.sha1: rhds.sha1
 	@mkdir -p $(BUILD)
