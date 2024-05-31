@@ -246,9 +246,17 @@ func_020022a4: @ 0x020022a4
 	.align 2, 0
 _020022e0: .4byte D_02045dc4
 	arm_func_end func_020022a4
-_020022e4:
-	.byte 0x08, 0xc0, 0x9f, 0xe5, 0x00, 0x10, 0xa0, 0xe3, 0x04, 0x10, 0x80, 0xe5
-	.byte 0x1c, 0xff, 0x2f, 0xe1, 0xd4, 0x20, 0x00, 0x02
+
+	arm_func_start func_020022e4
+func_020022e4: @ 0x020022e4
+	ldr ip, _020022f4
+	mov r1, #0
+	str r1, [r0, #4]
+	bx ip
+	.align 2, 0
+_020022f4: .4byte func_020020d4
+	arm_func_end func_020022e4
+
 
 	arm_func_start func_020022f8
 func_020022f8: @ 0x020022f8

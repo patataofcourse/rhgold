@@ -436,8 +436,11 @@ func_02001c30: @ 0x02001c30
 	mov r0, r4
 	pop {r4, pc}
 	arm_func_end func_02001c30
-_02001c58:
-	.byte 0x1e, 0xff, 0x2f, 0xe1
+
+	arm_func_start func_02001c58
+func_02001c58:
+	bx lr
+	arm_func_end func_02001c58
 
 	arm_func_start func_02001c5c
 func_02001c5c: @ 0x02001c5c

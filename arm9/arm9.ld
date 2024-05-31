@@ -34,6 +34,8 @@ SECTIONS {
         build/asm/code_02004040.o(.text);
         build/asm/code_02004790.o(.text);
         build/asm/code_02004a1c.o(.text);
+        build/asm/rand.o(.text);
+        build/asm/TimeRatio.o(.text);
         . = ALIGN(4);
         
         # non-disassembled
