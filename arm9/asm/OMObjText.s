@@ -2,8 +2,9 @@
 
 .include "global.s"
 
-.section .text
+@ TODO: fix IO registers
 
+.section .text
 
 	arm_func_start func_02003e3c
 func_02003e3c: @ 0x02003e3c

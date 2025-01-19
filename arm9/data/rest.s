@@ -1,6 +1,6 @@
 .section .data
 
-.set progress,  0x59a8  @ amount of dism'd bytes!
+.set progress,  0x6014  @ amount of dism'd bytes!
 .set total,     0x53560 @ this excludes dtcm + itcm + autoload list
 
 .incbin "../extract/arm9.bin", progress, total - progress

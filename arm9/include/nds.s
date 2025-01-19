@@ -1,8 +1,6 @@
 .ifndef NDS_HEADER
 .set NDS_HEADER, 0
 
-.include "nds_regs.s"
-
 .set ARM9MemoryBase,    0x02000000
 .set SharedMemoryBase,  0x03000000
 .set ARM9IOBase,        0x04000000
@@ -18,5 +16,7 @@
 .set VRAMMainObj,   VRAMBase + 0x00400000
 .set VRAMSubObj,    VRAMBase + 0x00600000
 .set VRAMLCDC,      VRAMBase + 0x00800000
+
+.include "nds_regs.s"
 
 .endif

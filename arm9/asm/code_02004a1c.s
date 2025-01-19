@@ -2,6 +2,8 @@
 
 .include "global.s"
 
+@ TODO: fix IO registers
+
 .section .text
 	arm_func_start func_02004a1c
 func_02004a1c: @ 0x02004a1c

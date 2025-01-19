@@ -1,6 +1,8 @@
 .ifndef GLOBAL_HEADER
 .set GLOBAL_HEADER, 0
 
+.include "nds.s"
+
 .macro arm_func_start func
     .arm
     .global \func
