@@ -20,4 +20,3 @@ build.ninja
 /wibo
 ghidra/exports
 ghidra/*$py.class
-tools/mwccarm
