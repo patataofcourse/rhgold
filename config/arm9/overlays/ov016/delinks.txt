@@ -1,0 +1,6 @@
+    .text       start:0x02287660 end:0x02288e70 kind:code align:32
+    .rodata     start:0x02288e70 end:0x02288ec0 kind:rodata align:4
+    .ctor       start:0x02288ec0 end:0x02288ec4 kind:rodata align:4
+    .data       start:0x02288ee0 end:0x02289020 kind:data align:32
+    .bss        start:0x02289020 end:0x02289040 kind:bss align:32
+
