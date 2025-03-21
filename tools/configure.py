@@ -51,6 +51,15 @@ CC_FLAGS = " ".join([
     "-nolink",              # Do not link
     "-msgstyle gcc",        # Use GCC-like messages (some IDEs will make file names clickable)
     "-requireprotos",
+    # Various SDK defines
+    "-DSDK_CW_FORCE_EXPORT_SUPPORT",
+    "-DSDK_TS",
+    "-DSDK_4M",
+    "-DSDK_ARM9",
+    "-DSDK_CW",
+    "-DSDK_FINALROM",
+    "-DSDK_CODE_ARM",
+    "-DNNS_FINALROM",
 ])
 LD_FLAGS = " ".join([
     "-proc arm946e",        # Target processor
