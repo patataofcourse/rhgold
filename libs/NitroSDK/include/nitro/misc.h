@@ -5,9 +5,7 @@
 extern "C" {
 #endif
 
-// #include <nitro/os/common/printf.h>
-#include <nitro/types.h>
-void OSi_TPanic(const char * file, int line, const char * fmt, ...);
+#include <nitro/os/common/printf.h>
 
 #ifdef __cplusplus
 #define SDK_IFDEFCPP extern "C" {

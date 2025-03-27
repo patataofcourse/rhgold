@@ -19,9 +19,11 @@ args = parser.parse_args()
 CXX_FLAGS = [
     '-nostdinc',
     '-Iinclude',
-    '-Ilibs/MSL/include',
+    '-Ilibs/MSL/include/MSL_C',
+    '-Ilibs/MSL/include/MSL_Extras',
     '-Ilibs/NitroSDK/include',
-    '-Ilibs/NitroSystem/include'
+    '-Ilibs/NitroSystem/include',
+    '-D__arm'
 ]
 
 script_dir = Path(os.path.dirname(os.path.realpath(__file__)))

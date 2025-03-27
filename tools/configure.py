@@ -41,7 +41,7 @@ CC_FLAGS = " ".join([
     "-gccext,on",           # Enable GCC extensions
     "-fp soft",             # Compute float operations in software
     "-inline noauto",       # Inline only functions marked with 'inline'
-    "-lang=c",              # Set language to C
+#    "-lang=c",              # Set language to C
     "-Cpp_exceptions off",  # Disable C++ exceptions
     "-RTTI on",             # Enable runtime type information
     "-interworking",        # Enable ARM/Thumb interworking
@@ -99,7 +99,9 @@ includes = [
 ]
 for root, dirs, _ in os.walk(libs_path):
     for dir in dirs:
-        if dir == "include":
+        if dir == "MSL_C" or dir == "MSL_Extras":
+            includes.append(Path(root) / dir)
+        elif dir == "include":
             includes.append(Path(root) / dir)
 CC_INCLUDES = " ".join(f"-i {include}" for include in includes)
 
