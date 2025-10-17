@@ -220,7 +220,7 @@ from:0x02288994 kind:load to:0x02288ca4 module:overlay(27)
 from:0x022889d4 kind:arm_call to:0x0200ae84 module:main
 from:0x022889f0 kind:arm_call to:0x0200adb4 module:main
 from:0x022889f8 kind:load to:0x02288ca4 module:overlay(27)
-from:0x02288a68 kind:load to:0x020534f4 module:main
+from:0x02288a68 kind:load to:0x020534ec add:8 module:main
 from:0x02288a6c kind:load to:0x02288a60 module:overlay(27)
 from:0x02288a70 kind:load to:0x020534e4 module:main
 from:0x02288a74 kind:load to:0x02288a7c module:overlay(27)

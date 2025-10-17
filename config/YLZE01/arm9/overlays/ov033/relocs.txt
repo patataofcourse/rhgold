@@ -361,7 +361,7 @@ from:0x02289798 kind:load to:0x02289a24 module:overlay(33)
 from:0x022897b0 kind:load to:0x022899c0 module:overlay(33)
 from:0x022897c8 kind:load to:0x022899a4 module:overlay(33)
 from:0x022897e0 kind:load to:0x022899e0 module:overlay(33)
-from:0x02289800 kind:load to:0x020534f4 module:main
+from:0x02289800 kind:load to:0x020534ec add:8 module:main
 from:0x02289804 kind:load to:0x02289808 module:overlay(33)
 from:0x02289810 kind:load to:0x020534e4 module:main
 from:0x02289814 kind:load to:0x0228981c module:overlay(33)

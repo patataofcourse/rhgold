@@ -227,7 +227,7 @@ from:0x022888d8 kind:load to:0x02288aa0 module:overlay(13)
 from:0x02288914 kind:arm_call to:0x0200ae84 module:main
 from:0x02288948 kind:arm_call to:0x0200adb4 module:main
 from:0x02288950 kind:load to:0x02288aa0 module:overlay(13)
-from:0x02288968 kind:load to:0x020534f4 module:main
+from:0x02288968 kind:load to:0x020534ec add:8 module:main
 from:0x0228896c kind:load to:0x02288960 module:overlay(13)
 from:0x02288970 kind:load to:0x020534e4 module:main
 from:0x02288974 kind:load to:0x0228897c module:overlay(13)

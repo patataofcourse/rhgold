@@ -240,7 +240,7 @@ from:0x022888f8 kind:load to:0x02288ac0 module:overlay(4)
 from:0x02288938 kind:arm_call to:0x0200ae84 module:main
 from:0x02288954 kind:arm_call to:0x0200adb4 module:main
 from:0x0228895c kind:load to:0x02288ac0 module:overlay(4)
-from:0x02288988 kind:load to:0x020534f4 module:main
+from:0x02288988 kind:load to:0x020534ec add:8 module:main
 from:0x0228898c kind:load to:0x02288980 module:overlay(4)
 from:0x02288990 kind:load to:0x020534e4 module:main
 from:0x02288994 kind:load to:0x0228899c module:overlay(4)

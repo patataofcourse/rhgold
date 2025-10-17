@@ -650,7 +650,7 @@ from:0x0228cb40 kind:load to:0x0228cd90 module:overlay(55)
 from:0x0228cb44 kind:load to:0x0228d3c0 module:overlay(55)
 from:0x0228cb48 kind:load to:0x0228c5a1 module:overlay(55)
 from:0x0228cd44 kind:load to:0x02080908 module:main
-from:0x0228e200 kind:load to:0x020534f4 module:main
+from:0x0228e200 kind:load to:0x020534ec add:8 module:main
 from:0x0228e204 kind:load to:0x0228e208 module:overlay(55)
 from:0x0228e21c kind:load to:0x020534e4 module:main
 from:0x0228e220 kind:load to:0x0228e210 module:overlay(55)

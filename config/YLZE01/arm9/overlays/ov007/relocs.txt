@@ -394,7 +394,7 @@ from:0x02289b20 kind:load to:0x02289c78 module:overlay(7)
 from:0x02289b38 kind:load to:0x02289c88 module:overlay(7)
 from:0x02289b50 kind:load to:0x02289c98 module:overlay(7)
 from:0x02289b68 kind:load to:0x02289d54 module:overlay(7)
-from:0x02289b88 kind:load to:0x020534f4 module:main
+from:0x02289b88 kind:load to:0x020534ec add:8 module:main
 from:0x02289b8c kind:load to:0x02289b80 module:overlay(7)
 from:0x02289b90 kind:load to:0x020534e4 module:main
 from:0x02289b94 kind:load to:0x02289b9c module:overlay(7)

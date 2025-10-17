@@ -290,7 +290,7 @@ from:0x0228915c kind:load to:0x02288e30 module:overlay(10)
 from:0x0228928c kind:load to:0x02289460 module:overlay(10)
 from:0x02289294 kind:load to:0x02288e30 module:overlay(10)
 from:0x022893cc kind:load to:0x02289480 module:overlay(10)
-from:0x02289400 kind:load to:0x020534f4 module:main
+from:0x02289400 kind:load to:0x020534ec add:8 module:main
 from:0x02289404 kind:load to:0x02289408 module:overlay(10)
 from:0x0228941c kind:load to:0x020534e4 module:main
 from:0x02289420 kind:load to:0x02289410 module:overlay(10)

@@ -333,7 +333,7 @@ from:0x02288e58 kind:arm_call to:0x02283e78 module:overlay(0)
 from:0x02288e6c kind:arm_call to:0x02284094 module:overlay(0)
 from:0x02288e7c kind:arm_call to:0x02284154 module:overlay(0)
 from:0x02288e8c kind:arm_call to:0x022841a4 module:overlay(0)
-from:0x02288ea8 kind:load to:0x020534f4 module:main
+from:0x02288ea8 kind:load to:0x020534ec add:8 module:main
 from:0x02288eac kind:load to:0x02288ea0 module:overlay(44)
 from:0x02288eb0 kind:load to:0x020534e4 module:main
 from:0x02288eb4 kind:load to:0x02288ebc module:overlay(44)

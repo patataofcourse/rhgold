@@ -73,7 +73,7 @@ LD_FLAGS = " ".join([
 DSD_OBJDIFF_ARGS = " ".join([
     "--scratch",                        # Metadata for creating decomp.me scratches
     f"--compiler {DECOMP_ME_COMPILER}", # decomp.me compiler name
-    f'--c-flags "{CC_FLAGS} -lang=c"',  # decomp.me compiler flags
+    f'--c-flags "{CC_FLAGS} -lang=c++"',  # decomp.me compiler flags
     "--custom-make ninja",              # Command for rebuilding files
 ])
 

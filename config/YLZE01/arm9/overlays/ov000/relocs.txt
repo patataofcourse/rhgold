@@ -1645,7 +1645,7 @@ from:0x02286bfc kind:load to:0x02286e00 module:overlay(0)
 from:0x02286ca8 kind:load to:0x02286e00 module:overlay(0)
 from:0x02286d08 kind:load to:0x02286c24 module:overlay(0)
 from:0x02286ddc kind:load to:0x02286e00 module:overlay(0)
-from:0x02286e68 kind:load to:0x020534f4 module:main
+from:0x02286e68 kind:load to:0x020534ec add:8 module:main
 from:0x02286e6c kind:load to:0x02286e60 module:overlay(0)
 from:0x02286e74 kind:load to:0x02286e68 module:overlay(0)
 from:0x02286e78 kind:load to:0x0227cb6c module:overlay(0)
@@ -1654,12 +1654,12 @@ from:0x02286e80 kind:load to:0x0227cc94 module:overlay(0)
 from:0x02286e84 kind:load to:0x0227cc98 module:overlay(0)
 from:0x02286e88 kind:load to:0x0227cc9c module:overlay(0)
 from:0x02286e8c kind:load to:0x0227cca0 module:overlay(0)
-from:0x02286e90 kind:load to:0x020534f4 module:main
+from:0x02286e90 kind:load to:0x020534ec add:8 module:main
 from:0x02286e94 kind:load to:0x02286e98 module:overlay(0)
 from:0x02286ea8 kind:load to:0x02286e90 module:overlay(0)
 from:0x02286eac kind:load to:0x0227cd18 module:overlay(0)
 from:0x02286eb0 kind:load to:0x0227cd78 module:overlay(0)
-from:0x02286ecc kind:load to:0x020534f4 module:main
+from:0x02286ecc kind:load to:0x020534ec add:8 module:main
 from:0x02286ed0 kind:load to:0x02286f04 module:overlay(0)
 from:0x02286ee8 kind:load to:0x02286ecc module:overlay(0)
 from:0x02286eec kind:load to:0x0227d620 module:overlay(0)
