@@ -7,11 +7,11 @@ class CList {
 public:
     CList(void);
     virtual ~CList(void);
-
+    
     // insert into given list, following priority (or otherwise at the end)
-    void insertInto(CList** other);
-
-private:
+    void insertInto(CList **other);
+    
+    private:
     void init(void);
     void destroy(void);
     

@@ -15,31 +15,13 @@ void CList::init(void) {
     mPriorityMaybe = 0;
 }
 
-void CList::destroy(void) {
-    if (mHead != NULL) {
-        if (mPrev != NULL) {
-            mPrev->mNext = mNext;
-        } else {
-            *mHead = mNext;
-        }
-        
-        if (mNext != NULL) {
-            mNext->mPrev = mPrev;
-        }
-
-        mHead = NULL;
-        mNext = NULL;
-        mPrev = NULL;   
-    }
-}
-
-void CList::insertInto(CList** other) {
+void CList::insertInto(CList **other) {
     if (other == NULL)
-        OS_Terminate();
+        OS_Panic("");
     mHead = other;
 
-    CList* cur;
-    CList* prev = NULL;
+    CList *cur;
+    CList *prev = NULL;
     cur = *other;
     while (cur != 0) {
         prev = cur;
@@ -68,5 +50,22 @@ void CList::insertInto(CList** other) {
             mNext = NULL;
         }
     }
+}
 
+void CList::destroy(void) {
+    if (mHead != NULL) {
+        if (mPrev != NULL) {
+            mPrev->mNext = mNext;
+        } else {
+            *mHead = mNext;
+        }
+        
+        if (mNext != NULL) {
+            mNext->mPrev = mPrev;
+        }
+
+        mHead = NULL;
+        mNext = NULL;
+        mPrev = NULL;   
+    }
 }
