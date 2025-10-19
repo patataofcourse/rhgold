@@ -2584,20 +2584,20 @@ from:0x020139cc kind:arm_call to:0x020014e0 module:main
 from:0x020139e4 kind:arm_call to:0x0200c198 module:main
 from:0x020139f8 kind:arm_call to:0x0202a55c module:main
 from:0x02013a00 kind:arm_call to:0x02013b6c module:main
-from:0x02013a0c kind:load to:0x02051674 module:main
+from:0x02013a0c kind:load to:0x0205166c add:8 module:main
 from:0x02013a30 kind:arm_call to:0x020039e4 module:main
 from:0x02013a44 kind:arm_call to:0x0200c1c0 module:main
 from:0x02013a50 kind:arm_call to:0x0202a480 module:main
-from:0x02013a5c kind:load to:0x02051674 module:main
+from:0x02013a5c kind:load to:0x0205166c add:8 module:main
 from:0x02013a80 kind:arm_call to:0x020039e4 module:main
 from:0x02013a94 kind:arm_call to:0x0200c1c0 module:main
 from:0x02013aa0 kind:arm_call to:0x0202a480 module:main
 from:0x02013aa8 kind:arm_call to:0x020039e4 module:main
-from:0x02013ab4 kind:load to:0x02051674 module:main
+from:0x02013ab4 kind:load to:0x0205166c add:8 module:main
 from:0x02013ad8 kind:arm_call to:0x020039e4 module:main
 from:0x02013aec kind:arm_call to:0x0200c1c0 module:main
 from:0x02013af8 kind:arm_call to:0x0202a480 module:main
-from:0x02013b04 kind:load to:0x02051674 module:main
+from:0x02013b04 kind:load to:0x0205166c add:8 module:main
 from:0x02013b10 kind:arm_call to:0x02014880 module:main
 from:0x02013b30 kind:arm_call to:0x02013f58 module:main
 from:0x02013b58 kind:arm_call to:0x02014374 module:main
@@ -2679,11 +2679,11 @@ from:0x02014608 kind:load to:0x0200c3d8 module:main
 from:0x0201461c kind:load to:0x0200c378 module:main
 from:0x02014624 kind:arm_call to:0x020141f4 module:main
 from:0x0201462c kind:arm_call to:0x0200c3e4 module:main
-from:0x0201464c kind:load to:0x0205168c module:main
-from:0x02014698 kind:load to:0x0205168c module:main
+from:0x0201464c kind:load to:0x02051684 add:8 module:main
+from:0x02014698 kind:load to:0x02051684 add:8 module:main
 from:0x020146e0 kind:arm_call to:0x020039e4 module:main
-from:0x020146ec kind:load to:0x0205168c module:main
-from:0x02014738 kind:load to:0x0205168c module:main
+from:0x020146ec kind:load to:0x02051684 add:8 module:main
+from:0x02014738 kind:load to:0x02051684 add:8 module:main
 from:0x0201475c kind:arm_call to:0x02013b08 module:main
 from:0x02014864 kind:load to:0x020147f4 module:main
 from:0x02014870 kind:load to:0x020147a4 module:main
