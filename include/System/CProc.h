@@ -12,10 +12,22 @@ public:
     int handleCommands(CProcState *state);
 
     u32 tempoFromSpeed(s32);
+    CProcState *createTickFlow(CProcState *state,int *entry, u32 initRest);
 
     int func_02013b08(int);
+    int func_02013bc0(int);
     int func_02014880(void);
     void func_02014374(void);
+    CProcState* func_020144c8(void);
+
+    enum Commands {
+        Spawn = 0,
+        Rest = 1,
+        StoreList = 0x22,
+        SpawnList = 0x23,
+        RestCondvar = 0x26,
+        UnkCmd0x2d = 0x2d,
+    };
 
 protected:
     virtual int update(void);
@@ -24,7 +36,7 @@ protected:
 private:
     void init(void);
 
-    int mTickflowId;
+    int mTickFlowId;
     u32 mVBlankCount;
     s32 mGameSpeed;
     s32 mGameSpeed1;
@@ -41,10 +53,10 @@ private:
     void *mCurrentSndHandle;
     CProcState *mLastProcState;
     int mHaltedProcess;
-    char pad0x68[0x4];
+    int mUnk0x68;
     int mUnk0x6c;
     char pad0x70[0xc];
-    int mTickflowIndex;
+    int mTickFlowIndex;
     s32 mUnk0x80;
     CProcState *mProcState;
     void *mUnk0x88;

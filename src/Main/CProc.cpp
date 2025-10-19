@@ -2,12 +2,100 @@
 
 #include "unk_funcs.h"
 
+// TODO: finish
 int CProc::handleCommands(CProcState *state) {
     mProcState = state;
+    u32 opInt = state->mCurTickFlow[state->mTickFlowPos];
+    int* args = &state->mCurTickFlow[state->mTickFlowPos + 1];
+    u32 num_args = (opInt & 0x3c00) >> 10;
+    u32 cmd = opInt & 0x3ff;
+    state->mTickFlowPos += num_args + 1;
+    u32 arg0 = opInt >> 14;
+    switch (cmd) {
+        case StoreList:
+            state->mUnk0x110 = (int**)args[0];
+            break;
+        case Spawn:
+            CProcState* newFlow = createTickFlow(state, (int*)args[0], state->mRestVal);
+            newFlow->mUnk0xc0 = 1;
+            mUnk0x68 = 1;
+            mUnk0x80 = -1;
+            break;
+        case SpawnList:
+            if (state->mUnk0x110 == 0) 
+                OS_Panic("");
+            
+            if (state->mUnk0x110[arg0] != NULL) {
+                CProcState* newFlow = createTickFlow(state, state->mUnk0x110[arg0], state->mRestVal);
+                newFlow->mUnk0xc0 = 1;
+                mUnk0x68 = 1;
+            }
+            mUnk0x80 = -1;
+            
+            break;
+        case UnkCmd0x2d:
+            mUnk0x80 = arg0;
+            break;
+        case Rest:
+            // fixed point?
+            state->mRestVal += arg0 << 8;
+            break;
+        case RestCondvar:
+            // fixed point?
+            state->mRestVal += state->mCondvar << 8;
+            break;
+        case 0x27:
+            // fixed point?
+            state->mRestVal += func_02015c14(arg0)->effects << 8;
+            break;
+        case 2:
+            return 0x69;
+        case 3:
+            return 0x69;
+        case 4:
+            return 0x69;
+        case 5:
+            return 0x69;
+        case 6:
+            return 0x69;
+        case 7:
+            return 0x69;
+        case 8:
+            return 0x39;
+        case 9:
+            return 0x99;
+        case 0x10:
+            return 0x39;
+        case 0x11:
+            return 0x2;
+        case 0x12:
+            return 0x39;
+        case 0x13:
+            return 0x39;
+        case 0x14:
+            return 0x39;
+        case 0x15:
+            return 0x39;
+        case 0x16:
+            return 0x39;
+        case 0x17:
+            return 0x39;
+        case 0x18:
+            return 0x39;
+        case 0x19:
+            return 0x39;
+        case 0x1a:
+            return 0x39;
+        case 0x30:
+            return 0x39;
+        default:
+            return 0x45;
+    };
+    return 0;
 }
 
 CProc::CProc(int tfID) {
-    mTickflowId = tfID;
+    mTickFlowId = tfID;
     mVBlankCount = func_020014e0();
     mUnk0x88 = NULL;
     mUnk0x8c = 0;
@@ -63,8 +151,66 @@ void CProc::init(void) {
     mUnk0x54 = 0;
     mCurrentStrmId = -1;
     mSpeedSeq = 0x100; // 100%?
-    mTickflowIndex = 1;
+    mTickFlowIndex = 1;
     mUnk0x80 = -1;
+}
+
+CProcState *CProc::createTickFlow(CProcState *state, int *entry, u32 initRest) {
+    CProcState* newState = new CProcState();
+
+    if (state == 0) {
+        state = func_020144c8();
+    }
+
+    newState->mCurTickFlow = entry;
+    newState->mTickFlowPos = 0;
+    newState->mRestVal = initRest;
+    newState->mUnk0xb8 = 0;
+    newState->mCondvar = 0;
+    newState->mUnk0x10 = 0;
+    newState->mUnk0x54 = 0;
+    newState->mUnk0xbc = 30000;
+
+    if (state != 0) {
+        if (mUnk0x80 > 0) {
+            newState->mUnk0xbc = mUnk0x80;
+        } else if (state->mUnk0xbc != 0) {
+            newState->mUnk0xbc = state->mUnk0xbc + 1;
+        }
+    }
+
+    mUnk0x80 = -1;
+    newState->mUnk0xc0 = 0;
+    newState->mUnk0xc8 = 0;
+    newState->mUnk0xcc = 0;
+    newState->mPrev = mLastProcState;
+    mLastProcState = newState;
+
+    for (int i = 0; i < 0x10; i++) {
+        newState->mUnk0xd0[i] = 0;
+    }
+
+    newState->mUnk0x110 = NULL;
+    newState->mTickFlowIndex = mTickFlowIndex;
+
+    do {
+        mTickFlowIndex += 1;
+        if (mTickFlowIndex == 0) {
+            mTickFlowIndex = 1;
+        }
+    } while (func_02013bc0(mTickFlowIndex) != 0);
+
+    if (state != 0) {
+        newState->mUnk0xc8 = state->mUnk0xc8;
+        newState->mUnk0xcc = state->mUnk0xcc;
+        newState->mUnk0x110 = state->mUnk0x110;
+
+        for (int i = 0; i < 0x10; i++) {
+            newState->mUnk0xd0[i] = state->mUnk0xd0[i];
+        }
+    }
+
+    return newState;
 }
 
 u32 CProc::tempoFromSpeed(s32 speed) {
