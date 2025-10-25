@@ -118,13 +118,13 @@ CProc::~CProc(void) {
 
 }
 
-int CProc::func_02013b08(int) {
+int CProc::func_02013b08(void) {
     if (func_02014880() != 0) {
         return 1;
     }
     
     if (mGameSpeed1 != 0) {
-        mUnk0x90 = tempoFromSpeed(mGameSpeed1);
+        mTempo = tempoFromSpeed(mGameSpeed1);
     }
 
     if (update() != 0) {
@@ -145,7 +145,7 @@ void CProc::init(void) {
     mGameSpeed1 = 0;
     mGameSpeed = 0;
     mState = 0;
-    mUnk0x90 = mSpeedStrm = 120;
+    mTempo = mSpeedStrm = 120;
     mVolume = 0x7f;
     mUnk0x6c = 0;
     mUnk0x54 = 0;
@@ -155,10 +155,21 @@ void CProc::init(void) {
     mUnk0x80 = -1;
 }
 
+bool CProc::findTickFlowIndex(int index) {
+    CProcState* temp = mLastProcState;
+    while (temp != NULL) {
+        if (temp->mTickFlowIndex == index)
+            return true;
+        else
+            temp = temp->mPrev;
+    }
+    return false;
+}
+
 CProcState *CProc::createTickFlow(CProcState *state, int *entry, u32 initRest) {
     CProcState* newState = new CProcState();
 
-    if (state == 0) {
+    if (state == NULL) {
         state = func_020144c8();
     }
 
@@ -171,7 +182,7 @@ CProcState *CProc::createTickFlow(CProcState *state, int *entry, u32 initRest) {
     newState->mUnk0x54 = 0;
     newState->mUnk0xbc = 30000;
 
-    if (state != 0) {
+    if (state != NULL) {
         if (mUnk0x80 > 0) {
             newState->mUnk0xbc = mUnk0x80;
         } else if (state->mUnk0xbc != 0) {
@@ -198,9 +209,9 @@ CProcState *CProc::createTickFlow(CProcState *state, int *entry, u32 initRest) {
         if (mTickFlowIndex == 0) {
             mTickFlowIndex = 1;
         }
-    } while (func_02013bc0(mTickFlowIndex) != 0);
+    } while (findTickFlowIndex(mTickFlowIndex));
 
-    if (state != 0) {
+    if (state != NULL) {
         newState->mUnk0xc8 = state->mUnk0xc8;
         newState->mUnk0xcc = state->mUnk0xcc;
         newState->mUnk0x110 = state->mUnk0x110;
@@ -216,6 +227,18 @@ CProcState *CProc::createTickFlow(CProcState *state, int *entry, u32 initRest) {
 u32 CProc::tempoFromSpeed(s32 speed) {
     // does the 0x80 mean there's fixed point here too...?
     return (speed * 3600 / 48 + 0x80) >> 8;
+}
+
+// finds some proc state going down the chain somehow?
+CProcState* CProc::func_020144c8(void) {
+    CProcState* temp = mLastProcState;
+    while (temp != NULL) {
+        if (temp->mUnk0xbc == 0)
+            return temp;
+        else
+            temp = temp->mPrev;
+    }
+    return 0;
 }
 
 int CProc::handleProcCommands() {

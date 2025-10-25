@@ -11,11 +11,12 @@ public:
 
     int handleCommands(CProcState *state);
 
-    u32 tempoFromSpeed(s32);
     CProcState *createTickFlow(CProcState *state,int *entry, u32 initRest);
+    bool findTickFlowIndex(int index);
 
-    int func_02013b08(int);
-    int func_02013bc0(int);
+    u32 tempoFromSpeed(s32);
+
+    int func_02013b08(void);
     int func_02014880(void);
     void func_02014374(void);
     CProcState* func_020144c8(void);
@@ -61,7 +62,7 @@ private:
     CProcState *mProcState;
     void *mUnk0x88;
     int mUnk0x8c;
-    u32 mUnk0x90;
+    u32 mTempo;
 };
 
 #endif
