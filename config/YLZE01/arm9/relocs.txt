@@ -5533,7 +5533,7 @@ from:0x0203774c kind:arm_call to:0x02031c5c module:main
 from:0x02037790 kind:arm_call to:0x02031c5c module:main
 from:0x020377bc kind:arm_call to:0x02031c5c module:main
 from:0x02037948 kind:load to:0x0227b630 module:main
-from:0x0203794c kind:load to:0x0227b64c module:main
+from:0x0203794c kind:load to:0x0227b630 add:0x1c module:main
 from:0x02037964 kind:load to:0x0227b630 module:main
 from:0x02037978 kind:load to:0x0227b630 module:main
 from:0x02037980 kind:arm_call to:0x02031c48 module:main

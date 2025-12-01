@@ -32,7 +32,7 @@
 // #include <nitro/hw/common/armArch.h>
 // #include <nitro/hw/common/lcd.h>
 
-// #include <nitro/os.h>
+#include <nitro/os.h>
 // #include <nitro/mi.h>
 // #include <nitro/pxi.h>
 // #include <nitro/snd.h>
