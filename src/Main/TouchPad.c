@@ -12,10 +12,16 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
     u16 temp = ((u16)arg1 & 0x7f00) >> 8; // seems to indicate flag position(s)?
     union {
         u16 halves[2];
-        u32 full;
+        struct {
+            u32 mUnk0x0_bf0:0xc;
+            u32 mUnk0x0_bf1:0xc;
+            u32 mUnk0x0_bf2:0x1;
+            u32 mUnk0x0_bf3:0x2;
+        } full;
     } temp2[2];
     TouchPadCallback callback;
-    u32 temp3, temp4, temp5, temp6, temp7;
+    u32 temp3, temp4, temp5, temp6;
+    TouchPad_Sub* temp7;
 
     if (arg2 != 0) {
         gTouchPadData.mErrorFlags |= 1 << temp;
@@ -32,15 +38,12 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
         temp2[1].halves[0] = DTCM_FUCKERY[0];
         temp2[1].halves[1] = DTCM_FUCKERY[1];
 
-        // TODO: all of this just gets optimized away
-        temp3 = temp2[1].full << 7 >> 0x1f;
-        temp4 = temp2[1].full << 8;
-        temp6 = temp2[1].full << 5;
-        temp5 = temp2[1].full << 0x14;
-        gTouchPadData.mUnk0x14[temp7 = gTouchPadData.mUnk0x10].mUnk0x0 = temp5 >> 0x14;
-        gTouchPadData.mUnk0x14[temp7].mUnk0x2 = temp4 >> 0x14; // how to make this not optimize to & 0xfff?
-        gTouchPadData.mUnk0x14[temp7].mUnk0x4 = temp3 & 0xff;
-        gTouchPadData.mUnk0x14[temp7].mUnk0x6 = temp6 >> 0x1e;
+        temp6 = gTouchPadData.mUnk0x10;
+        temp7 = &gTouchPadData.mUnk0x14[temp6];
+        temp7->mUnk0x0 = temp2[1].full.mUnk0x0_bf0;
+        temp7->mUnk0x2 = temp2[1].full.mUnk0x0_bf1;
+        temp7->mUnk0x4 = temp2[1].full.mUnk0x0_bf2 & 0xff;
+        temp7->mUnk0x6 = temp2[1].full.mUnk0x0_bf3 & 0xff;
 
         callback = gTouchPadData.mCallback;
         if (callback != NULL) {
@@ -56,15 +59,11 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
                         temp2[0].halves[0] = DTCM_FUCKERY[0];
                         temp2[0].halves[1] = DTCM_FUCKERY[1];
                         
-                        // TODO: all of this just gets optimized away
-                        temp3 = temp2[0].full << 7 >> 0x1f;
-                        temp4 = temp2[0].full << 8;
-                        temp6 = temp2[0].full << 5;
-                        temp5 = temp2[0].full << 0x14;
-                        gTouchPadData.mUnk0x8.mUnk0x0 = temp5 >> 0x14;
-                        gTouchPadData.mUnk0x8.mUnk0x2 = temp4 >> 0x14; // how to make this not optimize to & 0xfff?
-                        gTouchPadData.mUnk0x8.mUnk0x6 = temp6 >> 0x1e;
-                        gTouchPadData.mUnk0x8.mUnk0x4 = temp3 & 0xff;
+                        gTouchPadData.mUnk0x8.mUnk0x0 = temp2[0].full.mUnk0x0_bf0;
+                        gTouchPadData.mUnk0x8.mUnk0x2 = temp2[0].full.mUnk0x0_bf1;
+                        gTouchPadData.mUnk0x8.mUnk0x4 = temp2[0].full.mUnk0x0_bf2 & 0xff;
+                        gTouchPadData.mUnk0x8.mUnk0x6 = temp2[0].full.mUnk0x0_bf3 & 0xff;
+
                         gTouchPadData.mUnk0x36 = 0;
                         break;
                     case 1:
@@ -95,7 +94,7 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
                 temp1 = 2;
 
             test:
-                gTouchPadData.mErrorFlags |= ~(1 << temp);
+                gTouchPadData.mErrorFlags |= (1 << temp);
                 gTouchPadData.mBusyFlags &= ~(1 << temp);
                 callback = gTouchPadData.mCallback;
                 if (callback != NULL) {
