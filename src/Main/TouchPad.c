@@ -6,6 +6,19 @@
 
 static volatile struct TouchPad gTouchPadData;
 
+typedef struct FuckeryStruct {
+    u8 pad0x0[0x58];
+    u16 mUnk0x58;
+    u16 mUnk0x5a;
+    u8 mUnk0x5c;
+    u8 mUnk0x5d;
+    u16 mUnk0x5e;
+    u16 mUnk0x60;
+    u8 mUnk0x62;
+    u8 mUnk0x63;
+} FuckeryStruct;
+
+#define MORE_DTCM_FUCKERY ((volatile FuckeryStruct*)0x027ffc80)
 #define DTCM_FUCKERY ((volatile u16*)0x027fffaa)
 
 void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
@@ -128,6 +141,30 @@ void TP_Init(void) {
     func_020341e8(6, TPi_TpCallback);
 
 }
+
+int TP_CalcCalibrateParam(u16*, u16, u16, u8, u8, u16, u16, u8, u8);
+
+BOOL TP_GetUserInfo(u16* arg0) {
+    volatile FuckeryStruct* stru = MORE_DTCM_FUCKERY;
+    u16 temp1 = stru->mUnk0x58, temp2 = stru->mUnk0x5a, temp3 = stru->mUnk0x5e, temp4 = stru->mUnk0x60;
+    u8 temp5 = stru->mUnk0x5c, temp6 = stru->mUnk0x5d, temp7 = stru->mUnk0x62, temp8 = stru->mUnk0x63;
+    if ( temp1 != 0 || temp3 != 0 || temp2 != 0 || temp4 != 0 ) {
+        int res = TP_CalcCalibrateParam(arg0,
+            temp1, temp2, temp5, temp6,
+            temp3, temp4, temp7, temp8);
+
+        if (res == 0) goto out;
+    }
+
+    arg0[0] = 0;
+    arg0[1] = 0;
+    arg0[2] = 0;
+    arg0[3] = 0;
+    return TRUE;
+
+    out: return TRUE;
+}
+
 
 void TP_SetCallback(void* callback) {
     OSIntrMode mode = OS_DisableInterrupts();
