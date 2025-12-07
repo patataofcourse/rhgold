@@ -6,17 +6,17 @@
 int CProc::handleCommands(CProcState *state) {
     mProcState = state;
     u32 opInt = state->mCurTickFlow[state->mTickFlowPos];
-    int* args = &state->mCurTickFlow[state->mTickFlowPos + 1];
+    int* args = &state->mCurTickFlow[state->mTickFlowPos]; // offset by 1
     u32 num_args = (opInt & 0x3c00) >> 10;
     u32 cmd = opInt & 0x3ff;
     state->mTickFlowPos += num_args + 1;
     u32 arg0 = opInt >> 14;
     switch (cmd) {
         case StoreList:
-            state->mUnk0x110 = (int**)args[0];
+            state->mUnk0x110 = (int**)args[1];
             break;
         case Spawn:
-            CProcState* newFlow = createTickFlow(state, (int*)args[0], state->mRestVal);
+            CProcState* newFlow = createTickFlow(state, (int*)args[1], state->mRestVal);
             newFlow->mUnk0xc0 = 1;
             mUnk0x68 = 1;
             mUnk0x80 = -1;
@@ -48,12 +48,15 @@ int CProc::handleCommands(CProcState *state) {
             // fixed point?
             state->mRestVal += func_02015c14(arg0)->effects << 8;
             break;
-        case 2:
-            return 0x69;
-        case 3:
-            return 0x69;
+        case CallFunc:
+            ((void(*)(int))(args[1]))(args[2]);
+            break;
+        case SetCondvar:
+            state->mTickFlowPos = func_02014d34(state, arg0);
+            break;
         case 4:
-            return 0x69;
+            state->mCondvar = args[1];
+            break;
         case 5:
             return 0x69;
         case 6:
