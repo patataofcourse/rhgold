@@ -21,6 +21,11 @@ typedef struct FuckeryStruct {
 #define MORE_DTCM_FUCKERY ((volatile FuckeryStruct*)0x027ffc80)
 #define DTCM_FUCKERY ((volatile u16*)0x027fffaa)
 
+#define DIVCNT ((volatile u16*)0x04000280)
+#define DIV_NUMER ((volatile u32*)0x04000290)
+#define DIV_DENOM ((volatile u32*)0x04000298)
+#define DIV_RESULT ((volatile u32*)0x040002a0)
+
 void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
     u16 temp = ((u16)arg1 & 0x7f00) >> 8; // seems to indicate flag position(s)?
     union {
@@ -165,6 +170,57 @@ BOOL TP_GetUserInfo(u16* arg0) {
     out: return TRUE;
 }
 
+// TODO: arg0 is probably an array of two structs consisting of two s16s each
+void TP_SetCalibrateParam(s16* arg0) {
+    OSIntrMode mode;
+    s16 temp;
+    
+    if (arg0 == NULL) {
+        gTouchPadData.mUnk0x34 = 0;
+        return;
+    }
+
+    mode = OS_DisableInterrupts();
+
+    temp = arg0[2];
+    if (temp != 0) {
+        *DIVCNT = 0;
+        DIV_NUMER[0] = 0x10000000;
+        *(u64*)DIV_DENOM = (u32)temp;
+        gTouchPadData.mUnk0x1c = arg0[0];
+        gTouchPadData.mUnk0x20 = arg0[2];
+
+        while ((*DIVCNT & 0x8000)) {}
+
+        gTouchPadData.mUnk0x24 = *DIV_RESULT;
+
+    } else {
+        gTouchPadData.mUnk0x1c = 0;
+        gTouchPadData.mUnk0x20 = 0;
+        gTouchPadData.mUnk0x24 = 0;
+    }
+
+    temp = arg0[3];
+    if (arg0[3] != 0) {
+        *DIVCNT = 0;
+        DIV_NUMER[0] = 0x10000000;
+        *(u64*)DIV_DENOM = (u32)temp;
+        gTouchPadData.mUnk0x28 = arg0[1];
+        gTouchPadData.mUnk0x2c = arg0[3];
+
+        while ((*DIVCNT & 0x8000)) {}
+
+        gTouchPadData.mUnk0x30 = *DIV_RESULT;
+
+    } else {
+        gTouchPadData.mUnk0x28 = 0;
+        gTouchPadData.mUnk0x2c = 0;
+        gTouchPadData.mUnk0x30 = 0;
+    }
+
+    OS_RestoreInterrupts(mode);
+    gTouchPadData.mUnk0x34 = 1;
+}
 
 void TP_SetCallback(void* callback) {
     OSIntrMode mode = OS_DisableInterrupts();

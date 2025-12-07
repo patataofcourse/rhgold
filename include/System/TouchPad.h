@@ -23,7 +23,12 @@ typedef struct TouchPad {
     u16 mUnk0x10;
     TouchPad_Sub* mUnk0x14;
     u16 mUnk0x18; // maximum for mUnk0x10?
-    u8 pad0x1a[0x1a];
+    u32 mUnk0x1c;
+    u32 mUnk0x20;
+    u32 mUnk0x24;
+    u32 mUnk0x28;
+    u32 mUnk0x2c;
+    u32 mUnk0x30;
     u16 mUnk0x34;
     u16 mUnk0x36;
     u16 mErrorFlags;
