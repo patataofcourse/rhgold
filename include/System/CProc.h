@@ -16,17 +16,21 @@ public:
 
     u32 tempoFromSpeed(s32);
 
+    // unknown functions
     int func_02013b08(void);
     int func_02014880(void);
     void func_02014374(void);
     CProcState* func_020144c8(void);
     int func_02014d34(CProcState*, u32);
+    int func_02014d8c(CProcState*, int, int, int, int, int, int, int, int, int, int); // goto
+    void func_02014e5c(CProcState*);
+    void func_02014e7c(CProcState*);
+    
 
     enum Commands {
         Spawn = 0,
         Rest = 1,
         CallFunc = 2,
-        SetCondvar = 3,
         StoreList = 0x22,
         SpawnList = 0x23,
         RestCondvar = 0x26,

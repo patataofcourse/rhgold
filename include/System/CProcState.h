@@ -9,7 +9,10 @@ struct CProcState {
     u8 mUnk0x10;
     char pad0x11[0x43];
     u8 mUnk0x54;
-    char pad0x55[0x63];
+    u16 mStackPos[1]; //TODO: size
+    char pad0x58[0x20];
+    int *mStackPtrs[1]; //TODO: size
+    char pad0x7c[0x3c];
     int mUnk0xb8;
     s32 mUnk0xbc;
     int mUnk0xc0;

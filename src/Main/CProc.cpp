@@ -51,48 +51,99 @@ int CProc::handleCommands(CProcState *state) {
         case CallFunc:
             ((void(*)(int))(args[1]))(args[2]);
             break;
-        case SetCondvar:
+        case 4:
             state->mTickFlowPos = func_02014d34(state, arg0);
             break;
-        case 4:
+        case 5:
             state->mCondvar = args[1];
             break;
-        case 5:
-            return 0x69;
         case 6:
-            return 0x69;
+            state->mCondvar += args[1];
+            break;
         case 7:
-            return 0x69;
+            func_02014e5c(state);
+            break;
         case 8:
-            return 0x39;
+            func_02014e7c(state);
+            break;
         case 9:
-            return 0x99;
-        case 0x10:
-            return 0x39;
+            int condVar = state->mCondvar;
+            int arg = args[1];
+            bool is_true = false;
+            switch (arg0) {
+                case 0:
+                    is_true = condVar == arg;
+                    break;
+                case 1:
+                    is_true = condVar != arg;
+                    break;
+                case 2:
+                    is_true = condVar < arg;
+                    break;
+                case 3:
+                    is_true = condVar <= arg;
+                    break;
+                case 4:
+                    is_true = condVar > arg;
+                    break;
+                case 5:
+                    is_true = condVar >= arg;
+                    break;
+            }
+
+            if (is_true) break;
+
+            // goto to the next else/end?
+            state->mTickFlowPos = func_02014d8c(state, 10, 0, 11, 0, 11, 0, 9, 11, state->mTickFlowPos, 1);
+            break;
+        case 0xa:
+            state->mTickFlowPos = func_02014d8c(state, 11, 0, 11, 0, 11, 0, 9, 11, state->mTickFlowPos, 1);
+            break;
+        case 0xc:
+            state->mTickFlowPos = func_02014d8c(state, 13, state->mCondvar, 15, 0, 16, 0, 12, 16, state->mTickFlowPos, 1);
+            break;
+        case 0xe:
+            state->mTickFlowPos = func_02014d8c(state, 16, 0, 16, 0, 16, 0, 12, 16, state->mTickFlowPos, 1);
+            break;
         case 0x11:
-            return 0x2;
+            state->mStackPtrs[state->mUnk0x54] = state->mCurTickFlow;
+            state->mStackPos[state->mUnk0x54] = state->mTickFlowPos;
+            state->mUnk0x54++;
+            state->mCurTickFlow = (int*)args[1];
+            state->mTickFlowPos = 0;
+            break;
+        case 0x24:
+            if (state->mUnk0x110 == NULL) OS_Panic("");
+            if (state->mUnk0x110[arg0] == NULL) break;
+
+            state->mStackPtrs[state->mUnk0x54] = state->mCurTickFlow;
+            state->mStackPos[state->mUnk0x54] = state->mTickFlowPos;
+            state->mUnk0x54++;
+            state->mCurTickFlow = state->mUnk0x110[arg0];
+            state->mTickFlowPos = 0;
+            break;
         case 0x12:
-            return 0x39;
+            int unk0x54 = state->mUnk0x54--;
+            state->mCurTickFlow = state->mStackPtrs[state->mUnk0x54];
+            state->mTickFlowPos = state->mStackPos[state->mUnk0x54 * 2];
+            break;
         case 0x13:
-            return 0x39;
+            return 1;
         case 0x14:
-            return 0x39;
+            break;
         case 0x15:
-            return 0x39;
+            break;
         case 0x16:
-            return 0x39;
+            break;
         case 0x17:
-            return 0x39;
+            break;
         case 0x18:
-            return 0x39;
+            break;
         case 0x19:
-            return 0x39;
-        case 0x1a:
-            return 0x39;
+            break;
         case 0x30:
-            return 0x39;
-        default:
-            return 0x45;
+            return 2;
+            break;
     };
     return 0;
 }

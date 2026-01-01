@@ -81,7 +81,7 @@ DSD_OBJDIFF_ARGS = " ".join([
     "--scratch",                        # Metadata for creating decomp.me scratches
     f"--compiler {DECOMP_ME_COMPILER}", # decomp.me compiler name
     f'--c-flags "{CC_FLAGS} -lang=c++"',  # decomp.me compiler flags
-    "--custom-make ninja",              # Command for rebuilding files
+    "--custom-make wsl --custom-args='--' --custom-args=ninja",              # Command for rebuilding files
 ])
 DSD_BASE_FLAGS = " ".join([
     "--force-color", # Force color output
