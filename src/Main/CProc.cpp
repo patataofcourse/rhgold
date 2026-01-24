@@ -130,14 +130,22 @@ int CProc::handleCommands(CProcState *state) {
         case 0x13:
             return 1;
         case 0x14:
+            state->mCondvar = func_02004d48(arg0);
             break;
         case 0x15:
+            mHaltedProcess = 1;
             break;
         case 0x16:
+            func_02013fbc(arg0);
             break;
         case 0x17:
+            func_02014454(arg0);
             break;
         case 0x18:
+            condVar = state->mCondvar;
+            if (condVar < (func_020144c0() * state->mTickFlowPos) >> 8 || condVar > (s32)(func_020144c0() * state->mRestVal) >> 8 || (func_020144c0() * state->mTickFlowPos)) {
+
+            }
             break;
         case 0x19:
             break;

@@ -18,7 +18,10 @@ public:
 
     // unknown functions
     int func_02013b08(void);
+    void func_02013fbc(u16);
+    void func_02014454(u32);
     int func_02014880(void);
+    s32 func_020144c0(void);
     void func_02014374(void);
     CProcState* func_020144c8(void);
     int func_02014d34(CProcState*, u32);

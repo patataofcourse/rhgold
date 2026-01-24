@@ -15,7 +15,8 @@ typedef struct TempoInfo {
 // TODO: figure out args
 typedef void(*FifoRecvCallback)(u32, u32, s32);
 
-void func_020340dc();
+u32 func_02004d48(u32 arg0);
+void func_020340dc(void);
 void func_020341e8(int, FifoRecvCallback);
 BOOL func_02034234(int, int);
 void *func_0200c198(void);
