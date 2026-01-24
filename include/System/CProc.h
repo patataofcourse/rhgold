@@ -18,8 +18,13 @@ public:
 
     // unknown functions
     int func_02013b08(void);
+    int func_02013f3c(s32, s32);
+    int func_02013f80(u32);
     void func_02013fbc(u16);
+    void func_02013fec(int);
+    void func_0201408c(int);
     void func_02014454(u32);
+    void func_02014620(void);
     int func_02014880(void);
     s32 func_020144c0(void);
     void func_02014374(void);
@@ -42,7 +47,7 @@ public:
 
 protected:
     virtual int update(void);
-    virtual int handleProcCommands();
+    virtual int handleProcCommands(CProcState *state, s32 arg0, int *args);
 
 private:
     void init(void);
@@ -55,7 +60,9 @@ private:
     u16 mSpeedStrm;
     s16 mVolume;
     void *mSndHandle;
-    char pad0x20[0x18];
+    char pad0x20[0x10];
+    s32 mUnk0x30; // some sort of tempo thing?
+    char pad0x34[4];
     int mStrmHandle;
     s32 mCurrentStrmId;
     char pad0x40[0x14];

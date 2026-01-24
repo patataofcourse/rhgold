@@ -10,7 +10,7 @@ int CProc::handleCommands(CProcState *state) {
     u32 num_args = (opInt & 0x3c00) >> 10;
     u32 cmd = opInt & 0x3ff;
     state->mTickFlowPos += num_args + 1;
-    u32 arg0 = opInt >> 14;
+    s32 arg0 = opInt >> 14;
     switch (cmd) {
         case StoreList:
             state->mUnk0x110 = (int**)args[1];
@@ -143,15 +143,70 @@ int CProc::handleCommands(CProcState *state) {
             break;
         case 0x18:
             condVar = state->mCondvar;
-            if (condVar < (func_020144c0() * state->mTickFlowPos) >> 8 || condVar > (s32)(func_020144c0() * state->mRestVal) >> 8 || (func_020144c0() * state->mTickFlowPos)) {
-
+            s32 tmp = func_020144c0() * state->mTickFlowPos;
+            if (condVar < tmp >> 8) {
+                condVar = state->mRestVal;
+                tmp = func_020144c0() * state->mTickFlowPos;
+                if (condVar > tmp >> 8) {
+                    tmp = (func_020144c0() * state->mTickFlowPos) >> 8;
+                }
             }
+            func_02014454(tmp);
+            break;
+        case 0x28:
+            func_02014454((func_02015dd8(mTickFlowId, 48) << 8) / arg0);
             break;
         case 0x19:
+            tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            switch(arg0) {
+                case 0:
+                    func_0200c648(mTickFlowId, state->mUnk0xcc);
+                    break;
+                case 1:
+                    func_0200c654(mTickFlowId, state->mUnk0xcc);
+                    break;
+                case 2:
+                    func_0200c660(mTickFlowId, state->mUnk0xcc);
+                    break;
+                case 3:
+                    func_0200c66c(mTickFlowId, state->mUnk0xcc);
+                    break;
+            }
+            NNS_SndArcSetCurrent(tmp);
+            break;
+        case 0x1a:
+            tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            func_02013fec(arg0);
+            NNS_SndArcSetCurrent(tmp);
+            break;
+        case 0x25:
+            s32 tmp2 = func_02013f80(150);
+            tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            func_0200c378(mSndHandle, arg0);
+            func_02013fbc((((tmp2 << 8) / mSpeedSeq) * 150) >> 0xc);
+            NNS_SndArcSetCurrent(tmp);
+            break;
+        case 0x2f:
+            tmp2 = func_02013f80(150);
+            tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            s32 tmp3 = mUnk0x30;
+            if (tmp3 <= 0)
+                tmp3 = 120;
+            func_0200c378(mSndHandle, func_02013f3c(arg0, tmp3));
+            func_02013fbc((((tmp2 << 8) / mSpeedSeq) * 150) >> 0xc);
+            NNS_SndArcSetCurrent(tmp);
+            break;
+        case 0x1b:
+            func_0201408c(arg0);
             break;
         case 0x30:
-            return 2;
+            asm("mov r0, r6"); // temp alignment
             break;
+        case 0x2e:
+            func_02014620();
+            break;
+        default:    
+            return handleProcCommands(state, arg0, &args[1]);
     };
     return 0;
 }
@@ -303,7 +358,7 @@ CProcState* CProc::func_020144c8(void) {
     return 0;
 }
 
-int CProc::handleProcCommands() {
+int CProc::handleProcCommands(CProcState *state, s32 arg0, int *args) {
     OS_Panic("");
     return 0;
 }
