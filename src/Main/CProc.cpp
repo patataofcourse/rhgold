@@ -2,7 +2,9 @@
 
 #include "unk_funcs.h"
 
-// TODO: finish
+// TODO: figure out compiler stuff: version, flags, etc
+// TODO: unfuck the tmp vars
+// TODO: there is probably more wrong shit
 int CProc::handleCommands(CProcState *state) {
     mProcState = state;
     u32 opInt = state->mCurTickFlow[state->mTickFlowPos];
@@ -199,9 +201,53 @@ int CProc::handleCommands(CProcState *state) {
         case 0x1b:
             func_0201408c(arg0);
             break;
-        case 0x30:
-            asm("mov r0, r6"); // temp alignment
+        case 0x1c:
+            func_02013fbc(func_02015dd8(arg0, 48));
             break;
+        case 0x2a:
+            func_02014160(arg0);
+            break;
+        case 0x30:
+            func_02014160((arg0 << 8)/mGameSpeed);
+            break;
+        case 0x2b:
+            func_020142ec(arg0, args[1]);
+            break;
+        case 0x2c:
+            func_02014310(arg0, args[1]);
+            break;
+        case 0x1d:
+            func_02014320(arg0);
+            break;
+        case 0x1e:
+            func_02014408(arg0, args[1]);
+            break;
+        case 0x1f:
+        case 0x20:
+            tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+
+            u32 tmp10 = (u32) arg0 >> 7;
+            u16 tmp11 = args[1];
+            u8 tmp12 = arg0 & 0x7f;
+            s16 tmp13 = args[1] >> 16;
+            if (cmd == 0x1f) {
+                func_02014520(tmp10, tmp11, tmp12, tmp13);
+            } else {
+                func_02014588(args[2], tmp10, tmp11, tmp12, tmp13);
+            }
+            break;
+            NNS_SndArcSetCurrent(tmp);
+        case 0x21:
+            tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+
+            tmp11 = args[1];
+            tmp13 = args[1] >> 16;
+            func_020145f4(arg0, tmp11, tmp13);
+
+            NNS_SndArcSetCurrent(tmp);
+            break;
+        case 0x29:
+            state->mRestVal -= arg0 << 8;
         case 0x2e:
             func_02014620();
             break;
