@@ -4,14 +4,15 @@
 
 // TODO: figure out compiler stuff: version, flags, etc
 // TODO: unfuck the tmp vars
+// TODO: fixed point lololol (look at << 8 and >> 8)
 // TODO: there is probably more wrong shit
 int CProc::handleCommands(CProcState *state) {
     mProcState = state;
     u32 opInt = state->mCurTickFlow[state->mTickFlowPos];
     int* args = &state->mCurTickFlow[state->mTickFlowPos]; // offset by 1
     u32 num_args = (opInt & 0x3c00) >> 10;
-    u32 cmd = opInt & 0x3ff;
     state->mTickFlowPos += num_args + 1;
+    u32 cmd = opInt & 0x3ff;
     s32 arg0 = opInt >> 14;
     switch (cmd) {
         case StoreList:
@@ -144,16 +145,16 @@ int CProc::handleCommands(CProcState *state) {
             func_02014454(arg0);
             break;
         case 0x18:
-            condVar = state->mCondvar;
-            s32 tmp = func_020144c0() * state->mTickFlowPos;
-            if (condVar < tmp >> 8) {
-                condVar = state->mRestVal;
-                tmp = func_020144c0() * state->mTickFlowPos;
-                if (condVar > tmp >> 8) {
-                    tmp = (func_020144c0() * state->mTickFlowPos) >> 8;
+            s32 tmp4 = args[3];
+            s32 tmp = func_020144c0() * args[1];
+            if (tmp4 >= tmp >> 8) {
+                tmp4 = args[2];
+                tmp = func_020144c0() * args[1];
+                if (tmp4 <= tmp >> 8) {
+                    tmp4 = (func_020144c0() * args[1]) >> 8;
                 }
             }
-            func_02014454(tmp);
+            func_02014454(tmp4);
             break;
         case 0x28:
             func_02014454((func_02015dd8(mTickFlowId, 48) << 8) / arg0);
@@ -162,16 +163,16 @@ int CProc::handleCommands(CProcState *state) {
             tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
             switch(arg0) {
                 case 0:
-                    func_0200c648(mTickFlowId, state->mUnk0xcc);
+                    func_0200c648(args[1], state->mUnk0xcc);
                     break;
                 case 1:
-                    func_0200c654(mTickFlowId, state->mUnk0xcc);
+                    func_0200c654(args[1], state->mUnk0xcc);
                     break;
                 case 2:
-                    func_0200c660(mTickFlowId, state->mUnk0xcc);
+                    func_0200c660(args[1], state->mUnk0xcc);
                     break;
                 case 3:
-                    func_0200c66c(mTickFlowId, state->mUnk0xcc);
+                    func_0200c66c(args[1], state->mUnk0xcc);
                     break;
             }
             NNS_SndArcSetCurrent(tmp);
@@ -189,14 +190,14 @@ int CProc::handleCommands(CProcState *state) {
             NNS_SndArcSetCurrent(tmp);
             break;
         case 0x2f:
-            tmp2 = func_02013f80(150);
-            tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            tmp = func_02013f80(150);
+            tmp2 = NNS_SndArcSetCurrent(state->mUnk0xc8);
             s32 tmp3 = mUnk0x30;
             if (tmp3 <= 0)
                 tmp3 = 120;
             func_0200c378(mSndHandle, func_02013f3c(arg0, tmp3));
-            func_02013fbc((((tmp2 << 8) / mSpeedSeq) * 150) >> 0xc);
-            NNS_SndArcSetCurrent(tmp);
+            func_02013fbc((((tmp << 8) / mSpeedSeq) * 150) >> 0xc);
+            NNS_SndArcSetCurrent(tmp2);
             break;
         case 0x1b:
             func_0201408c(arg0);
@@ -227,32 +228,40 @@ int CProc::handleCommands(CProcState *state) {
             tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
 
             u32 tmp10 = (u32) arg0 >> 7;
-            u16 tmp11 = args[1];
             u8 tmp12 = arg0 & 0x7f;
-            s16 tmp13 = args[1] >> 16;
+            u16 tmp11 = args[1];
+            int tmp13 = args[1] >> 16;
             if (cmd == 0x1f) {
                 func_02014520(tmp10, tmp11, tmp12, tmp13);
             } else {
                 func_02014588(args[2], tmp10, tmp11, tmp12, tmp13);
             }
-            break;
             NNS_SndArcSetCurrent(tmp);
+            break;
         case 0x21:
             tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
 
-            tmp11 = args[1];
-            tmp13 = args[1] >> 16;
-            func_020145f4(arg0, tmp11, tmp13);
+            func_020145f4(arg0, args[1], args[1] >> 16);
 
             NNS_SndArcSetCurrent(tmp);
             break;
         case 0x29:
             state->mRestVal -= arg0 << 8;
+            break;
         case 0x2e:
             func_02014620();
             break;
+        
+        // non-existent commands
+        case 3:
+        case 0xb:
+        case 0xd:
+        case 0xf:
+        case 0x10:
+            break;
+
         default:    
-            return handleProcCommands(state, arg0, &args[1]);
+            return handleProcCommands(cmd, arg0, &args[1]);
     };
     return 0;
 }
@@ -404,7 +413,7 @@ CProcState* CProc::func_020144c8(void) {
     return 0;
 }
 
-int CProc::handleProcCommands(CProcState *state, s32 arg0, int *args) {
+int CProc::handleProcCommands(u32 cmd, s32 arg0, int *args) {
     OS_Panic("");
     return 0;
 }

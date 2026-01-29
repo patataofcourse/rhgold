@@ -29,9 +29,9 @@ public:
     void func_02014320(int);
     void func_02014408(int, int);
     void func_02014454(u32);
-    void func_02014520(int, u16, u8, s16);
-    void func_02014588(int, int, u16, u8, s16);
-    void func_020145f4(int, u16, s16);
+    void func_02014520(int, u16, u8, u32);
+    void func_02014588(int, int, u16, u8, u32);
+    void func_020145f4(int, u16, u32);
     void func_02014620(void);
     int func_02014880(void);
     s32 func_020144c0(void);
@@ -55,7 +55,7 @@ public:
 
 protected:
     virtual int update(void);
-    virtual int handleProcCommands(CProcState *state, s32 arg0, int *args);
+    virtual int handleProcCommands(u32 cmd, s32 arg0, int *args);
 
 private:
     void init(void);
