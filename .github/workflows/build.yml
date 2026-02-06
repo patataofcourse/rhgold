@@ -22,7 +22,7 @@ jobs:
 
       - name: Prepare
         run: |
-          mv /extract/* ./extract
+          mv /orig/* ./orig
 
       - name: Build
         run: |
