@@ -4,6 +4,8 @@
 
 #include "unk_funcs.h"
 
+#include <nitro/hw/io_reg.h>
+
 static volatile struct TouchPad gTouchPadData;
 
 typedef struct FuckeryStruct {
@@ -20,11 +22,6 @@ typedef struct FuckeryStruct {
 
 #define MORE_DTCM_FUCKERY ((volatile FuckeryStruct*)0x027ffc80)
 #define DTCM_FUCKERY ((volatile u16*)0x027fffaa)
-
-#define DIVCNT ((volatile u16*)0x04000280)
-#define DIV_NUMER ((volatile u32*)0x04000290)
-#define DIV_DENOM ((volatile u32*)0x04000298)
-#define DIV_RESULT ((volatile u32*)0x040002a0)
 
 void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
     u16 temp = ((u16)arg1 & 0x7f00) >> 8; // seems to indicate flag position(s)?
@@ -163,18 +160,18 @@ int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16
     }
 
     OS_DisableInterrupts();
-    *DIVCNT = 0;
-    *DIV_NUMER = (arg1 - arg5) << 8;
-    *DIV_DENOM = (arg3 - arg7);
+    reg_CP_DIVCNT = 0;
+    reg_CP_DIV_NUMER_L = (arg1 - arg5) << 8;
+    reg_CP_DIV_DENOM_L = (arg3 - arg7);
     tmp = arg4 - arg8;
 
-    while (*DIVCNT & 0x8000) {}
+    while (reg_CP_DIVCNT & 0x8000) {}
 
-    result = *DIV_RESULT;
+    result = reg_CP_DIV_RESULT_L;
 
-    *DIVCNT = 0;
-    *DIV_NUMER = (arg1 - arg5) << 8;
-    *(u64*)DIV_DENOM = tmp;
+    reg_CP_DIVCNT = 0;
+    reg_CP_DIV_NUMER_L = (arg1 - arg5) << 8;
+    reg_CP_DIV_DENOM_L = tmp;
     
     if (result >= 0x8000 || result < -0x8000 ) {
         OS_RestoreInterrupts(arg8);
@@ -188,11 +185,11 @@ int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16
         return 1;
     }
 
-    while (*DIVCNT & 0x8000) {}
+    while (reg_CP_DIVCNT & 0x8000) {}
 
     OS_RestoreInterrupts(arg8);
 
-    result = *DIV_RESULT;
+    result = reg_CP_DIV_RESULT_L;
 
     if (result >= 0x8000 || result < -0x8000 ) {
         return 1;
@@ -244,15 +241,15 @@ void TP_SetCalibrateParam(s16* arg0) {
 
     temp = arg0[2];
     if (temp != 0) {
-        *DIVCNT = 0;
-        DIV_NUMER[0] = 0x10000000;
-        *(u64*)DIV_DENOM = (u32)temp;
+        reg_CP_DIVCNT = 0;
+        reg_CP_DIV_NUMER_L = 0x10000000;
+        reg_CP_DIV_DENOM = (u32)temp;
         gTouchPadData.mUnk0x1c = arg0[0];
         gTouchPadData.mUnk0x20 = arg0[2];
 
-        while ((*DIVCNT & 0x8000)) {}
+        while ((reg_CP_DIVCNT & 0x8000)) {}
 
-        gTouchPadData.mUnk0x24 = *DIV_RESULT;
+        gTouchPadData.mUnk0x24 = reg_CP_DIV_RESULT_L;
 
     } else {
         gTouchPadData.mUnk0x1c = 0;
@@ -262,15 +259,15 @@ void TP_SetCalibrateParam(s16* arg0) {
 
     temp = arg0[3];
     if (arg0[3] != 0) {
-        *DIVCNT = 0;
-        DIV_NUMER[0] = 0x10000000;
-        *(u64*)DIV_DENOM = (u32)temp;
+        reg_CP_DIVCNT = 0;
+        reg_CP_DIV_NUMER_L = 0x10000000;
+        reg_CP_DIV_DENOM = (u32)temp;
         gTouchPadData.mUnk0x28 = arg0[1];
         gTouchPadData.mUnk0x2c = arg0[3];
 
-        while ((*DIVCNT & 0x8000)) {}
+        while ((reg_CP_DIVCNT & 0x8000)) {}
 
-        gTouchPadData.mUnk0x30 = *DIV_RESULT;
+        gTouchPadData.mUnk0x30 = reg_CP_DIV_RESULT_L;
 
     } else {
         gTouchPadData.mUnk0x28 = 0;

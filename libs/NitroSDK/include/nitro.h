@@ -41,7 +41,7 @@
 // #include <nitro/card.h>
 // #include <nitro/fs.h>
 // #include <nitro/rtc.h>
-// #include <nitro/gx.h>
+#include <nitro/gx.h>
 // #include <nitro/wm.h>
 // #include <nitro/wvr.h>
 // #include <nitro/ctrdg.h>

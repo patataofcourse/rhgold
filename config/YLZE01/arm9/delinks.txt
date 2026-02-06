@@ -12,6 +12,10 @@ src/Main/String.cpp:
     .text       start:0x02001524 end:0x020017b0
     .data       start:0x02045d1c end:0x02045d20
 
+src/Main/CBrightness.c:
+    complete
+    .text       start:0x02001e1c end:0x02001f94
+
 src/Main/CList.cpp:
     complete
     .text       start:0x02003568 end:0x020036e8
