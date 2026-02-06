@@ -21,6 +21,10 @@ src/Main/CList.cpp:
     .text       start:0x02003568 end:0x020036e8
     .data       start:0x02045dd4 end:0x02045df4
 
+src/Main/CPlaneVisibility.cpp:
+    complete
+    .text       start:0x02006014 end:0x020061f0
+
 src/Main/CProc.cpp:
     .text       start:0x020131a4 end:0x02014f38
     .data       start:0x0205165c end:0x02051684

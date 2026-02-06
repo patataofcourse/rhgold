@@ -206,7 +206,7 @@ int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16
     return 0;
 }
 
-BOOL TP_GetUserInfo(u16* arg0) {
+BOOL TP_GetUserInfo(u16 *arg0) {
     volatile FuckeryStruct* stru = MORE_DTCM_FUCKERY;
     u16 temp1 = stru->mUnk0x58, temp2 = stru->mUnk0x5a, temp3 = stru->mUnk0x5e, temp4 = stru->mUnk0x60;
     u8 temp5 = stru->mUnk0x5c, temp6 = stru->mUnk0x5d, temp7 = stru->mUnk0x62, temp8 = stru->mUnk0x63;
@@ -228,7 +228,7 @@ BOOL TP_GetUserInfo(u16* arg0) {
 }
 
 // TODO: arg0 is probably an array of two structs consisting of two s16s each
-void TP_SetCalibrateParam(s16* arg0) {
+void TP_SetCalibrateParam(s16 *arg0) {
     OSIntrMode mode;
     s16 temp;
     
@@ -279,7 +279,7 @@ void TP_SetCalibrateParam(s16* arg0) {
     gTouchPadData.mUnk0x34 = 1;
 }
 
-void TP_SetCallback(void* callback) {
+void TP_SetCallback(void *callback) {
     OSIntrMode mode = OS_DisableInterrupts();
     gTouchPadData.mCallback = callback;
     OS_RestoreInterrupts(mode);

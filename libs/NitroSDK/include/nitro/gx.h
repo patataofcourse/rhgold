@@ -3,7 +3,7 @@
 
 #ifdef SDK_ARM9
 // #include <nitro/gx/gxcommon.h>
-// #include <nitro/gx/gx.h>
+#include <nitro/gx/gx.h>
 // #include <nitro/gx/gx_bgcnt.h>
 #include <nitro/gx/g2.h>
 // #include <nitro/gx/g3.h>

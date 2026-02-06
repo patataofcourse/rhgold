@@ -34,6 +34,8 @@ TempoInfo* func_02015c14(int);
 void func_0202a480(int*, int);
 void func_0202a55c(int*);
 void func_0202e658(vu16*, int, int);
+void func_0202eff0(u16*, int, int);
+void func_0202f044(u16*, int, int);
 
 #ifdef __cplusplus
 };

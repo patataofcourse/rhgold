@@ -11,7 +11,7 @@ void CBrightness_init(CBrightness *this, BOOL isSubScreen) {
     this->mUpdateBrightness = FALSE;
 }
 
-void CBrightness_update(CBrightness* this) {
+void CBrightness_update(CBrightness *this) {
     int targetBright;
 
     if (this->mUpdateBrightness) {
@@ -46,12 +46,12 @@ void CBrightness_update(CBrightness* this) {
 
 }
 
-void CBrightness_set(CBrightness* this, int brightness) {
+void CBrightness_set(CBrightness *this, int brightness) {
     this->mCurrentBrightness = brightness << 12;
     this->mUpdateBrightness = FALSE;
 }
 
-void CBrightness_setInc(CBrightness* this, int time) {
+void CBrightness_setInc(CBrightness *this, int time) {
     if (time == 0) {
         CBrightness_set(this, 0);
     } else {
@@ -62,7 +62,7 @@ void CBrightness_setInc(CBrightness* this, int time) {
     }
 }
 
-void CBrightness_setDec(CBrightness* this, int time) {
+void CBrightness_setDec(CBrightness *this, int time) {
     if (time == 0) {
         CBrightness_set(this, -0x10);
     } else {
@@ -72,6 +72,6 @@ void CBrightness_setDec(CBrightness* this, int time) {
         this->mStepCount = 0x10000 / time;
     }
 }
-BOOL CBrightness_isUpdating(CBrightness* this) {
+BOOL CBrightness_isUpdating(CBrightness *this) {
     return this->mUpdateBrightness;
 }
