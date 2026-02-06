@@ -6,7 +6,7 @@
 
 #include <nitro/hw/io_reg.h>
 
-static volatile struct TouchPad gTouchPadData;
+static struct TouchPad gTouchPadData;
 
 typedef struct FuckeryStruct {
     u8 pad0x0[0x58];
