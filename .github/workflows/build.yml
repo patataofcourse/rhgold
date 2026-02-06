@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    container: ghcr.io/patataofcourse/rhds-build:main
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [YLZE01]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Prepare
+        run: |
+          mv /extract/* ./extract
+
+      - name: Build
+        run: |
+          python tools/configure.py -v ${{ matrix.version }} -w wibo --compiler /mwccarm --no-extract
+          ninja arm9 report check
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.version }}_report
+          path: build/${{ matrix.version }}/report.json
