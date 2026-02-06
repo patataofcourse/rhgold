@@ -20,23 +20,31 @@ typedef struct FuckeryStruct {
     u8 mUnk0x63;
 } FuckeryStruct;
 
+typedef union {
+    u16 halves[2];
+    struct {
+        u32 mUnk0x0_bf0:0xc;
+        u32 mUnk0x0_bf1:0xc;
+        u32 mUnk0x0_bf2:0x1;
+        u32 mUnk0x0_bf3:0x2;
+    } full;
+} JustWhy;
+
 #define MORE_DTCM_FUCKERY ((volatile FuckeryStruct*)0x027ffc80)
 #define DTCM_FUCKERY ((volatile u16*)0x027fffaa)
 
+static inline TPi_TpCallback_fuckassInline(TouchPad_Sub* f) {
+    JustWhy temp = { DTCM_FUCKERY[0], DTCM_FUCKERY[1] };
+    f->mUnk0x0 = temp.full.mUnk0x0_bf0;
+    f->mUnk0x2 = temp.full.mUnk0x0_bf1;
+    f->mUnk0x4 = temp.full.mUnk0x0_bf2 & 0xff;
+    f->mUnk0x6 = temp.full.mUnk0x0_bf3 & 0xff;
+}
+
 void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
     u16 temp = ((u16)arg1 & 0x7f00) >> 8; // seems to indicate flag position(s)?
-    union {
-        u16 halves[2];
-        struct {
-            u32 mUnk0x0_bf0:0xc;
-            u32 mUnk0x0_bf1:0xc;
-            u32 mUnk0x0_bf2:0x1;
-            u32 mUnk0x0_bf3:0x2;
-        } full;
-    } temp2[2];
     TouchPadCallback callback;
-    u32 temp3, temp4, temp5, temp6;
-    TouchPad_Sub* temp7;
+    u32 temp6;
 
     if (arg2 != 0) {
         gTouchPadData.mErrorFlags |= 1 << temp;
@@ -45,20 +53,14 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
         if (callback != NULL) {
             callback(temp, 4, 0);
         }
-    } else if (temp == 0x10) {
-        gTouchPadData.mUnk0x10 += 1;
+    }
+    else if (temp == 0x10) {
+        gTouchPadData.mUnk0x10++;
         if (gTouchPadData.mUnk0x10 >= gTouchPadData.mUnk0x18) {
             gTouchPadData.mUnk0x10 = 0;
         }
-        temp2[1].halves[0] = DTCM_FUCKERY[0];
-        temp2[1].halves[1] = DTCM_FUCKERY[1];
 
-        temp6 = gTouchPadData.mUnk0x10;
-        temp7 = &gTouchPadData.mUnk0x14[temp6];
-        temp7->mUnk0x0 = temp2[1].full.mUnk0x0_bf0;
-        temp7->mUnk0x2 = temp2[1].full.mUnk0x0_bf1;
-        temp7->mUnk0x4 = temp2[1].full.mUnk0x0_bf2 & 0xff;
-        temp7->mUnk0x6 = temp2[1].full.mUnk0x0_bf3 & 0xff;
+        TPi_TpCallback_fuckassInline(&gTouchPadData.mUnk0x14[gTouchPadData.mUnk0x10]);
 
         callback = gTouchPadData.mCallback;
         if (callback != NULL) {
@@ -71,13 +73,7 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
             case 0:
                 switch (temp) {
                     case 0:
-                        temp2[0].halves[0] = DTCM_FUCKERY[0];
-                        temp2[0].halves[1] = DTCM_FUCKERY[1];
-                        
-                        gTouchPadData.mUnk0x8.mUnk0x0 = temp2[0].full.mUnk0x0_bf0;
-                        gTouchPadData.mUnk0x8.mUnk0x2 = temp2[0].full.mUnk0x0_bf1;
-                        gTouchPadData.mUnk0x8.mUnk0x4 = temp2[0].full.mUnk0x0_bf2 & 0xff;
-                        gTouchPadData.mUnk0x8.mUnk0x6 = temp2[0].full.mUnk0x0_bf3 & 0xff;
+                        TPi_TpCallback_fuckassInline(&gTouchPadData.mUnk0x8);
 
                         gTouchPadData.mUnk0x36 = 0;
                         break;
