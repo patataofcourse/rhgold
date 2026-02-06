@@ -43,15 +43,13 @@ static inline TPi_TpCallback_fuckassInline(TouchPad_Sub* f) {
 
 void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
     u16 temp = ((u16)arg1 & 0x7f00) >> 8; // seems to indicate flag position(s)?
-    TouchPadCallback callback;
     u32 temp6;
 
     if (arg2 != 0) {
         gTouchPadData.mErrorFlags |= 1 << temp;
 
-        callback = gTouchPadData.mCallback;
-        if (callback != NULL) {
-            callback(temp, 4, 0);
+        if (gTouchPadData.mCallback != NULL) {
+            gTouchPadData.mCallback(temp, 4, 0);
         }
     }
     else if (temp == 0x10) {
@@ -62,9 +60,8 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
 
         TPi_TpCallback_fuckassInline(&gTouchPadData.mUnk0x14[gTouchPadData.mUnk0x10]);
 
-        callback = gTouchPadData.mCallback;
-        if (callback != NULL) {
-            callback(temp, 0, gTouchPadData.mUnk0x10);
+        if (gTouchPadData.mCallback != NULL) {
+            gTouchPadData.mCallback(temp, 0, gTouchPadData.mUnk0x10);
         }
     } else {
         if ((arg1 & 0x01000000) == 0) return;
@@ -88,9 +85,8 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
                 gTouchPadData.mBusyFlags &= ~(1 << temp);
 
 
-                callback = gTouchPadData.mCallback;
-                if (callback != NULL) {
-                    callback(temp, 0, 0);
+                if (gTouchPadData.mCallback != NULL) {
+                    gTouchPadData.mCallback(temp, 0, 0);
                 }
                 break;
 
@@ -107,9 +103,8 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
             test:
                 gTouchPadData.mErrorFlags |= (1 << temp);
                 gTouchPadData.mBusyFlags &= ~(1 << temp);
-                callback = gTouchPadData.mCallback;
-                if (callback != NULL) {
-                    callback(temp, temp1, 0);
+                if (gTouchPadData.mCallback != NULL) {
+                    gTouchPadData.mCallback(temp, temp1, 0);
                 }
                 break;
             
@@ -138,68 +133,6 @@ void TP_Init(void) {
 
     func_020341e8(6, TPi_TpCallback);
 
-}
-
-//TODO: finish
-int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8) {
-    u32 tmp;
-    u16 result;
-    s32 tmp2;
-    if (arg1 >= 0x1000 || arg2 >= 0x1000 || arg5 >= 0x1000 || arg6 >= 0x1000) {
-        return 1;
-    }
-    if (arg3 >= 0x100 || arg7 >= 0x100 || arg4 >= 0xc0 || arg8 >= 0xc0 ) {
-        return 1;
-    }
-    if (arg3 == arg7 || arg4 == arg8 || arg1 == arg5 || arg2 == arg6) {
-        return 1;
-    }
-
-    OS_DisableInterrupts();
-    reg_CP_DIVCNT = 0;
-    reg_CP_DIV_NUMER_L = (arg1 - arg5) << 8;
-    reg_CP_DIV_DENOM_L = (arg3 - arg7);
-    tmp = arg4 - arg8;
-
-    while (reg_CP_DIVCNT & 0x8000) {}
-
-    result = reg_CP_DIV_RESULT_L;
-
-    reg_CP_DIVCNT = 0;
-    reg_CP_DIV_NUMER_L = (arg1 - arg5) << 8;
-    reg_CP_DIV_DENOM_L = tmp;
-    
-    if (result >= 0x8000 || result < -0x8000 ) {
-        OS_RestoreInterrupts(arg8);
-        return 1;
-    }
-
-    arg0[2] = result;
-
-    if (result >= 0x8000 || result < -0x8000 ) {
-        OS_RestoreInterrupts(arg8);
-        return 1;
-    }
-
-    while (reg_CP_DIVCNT & 0x8000) {}
-
-    OS_RestoreInterrupts(arg8);
-
-    result = reg_CP_DIV_RESULT_L;
-
-    if (result >= 0x8000 || result < -0x8000 ) {
-        return 1;
-    }
-    arg0[3] = result;
-
-    tmp2 = (((arg2 + arg6) << 8) - arg0[3] * (arg4 + arg8)) << 9 >> 16;
-
-    if (tmp2 >= 0x8000 || tmp2 < -0x8000 ) {
-        return 1;
-    }
-    arg0[1] = tmp2;
-    
-    return 0;
 }
 
 BOOL TP_GetUserInfo(u16 *arg0) {
@@ -279,6 +212,69 @@ void TP_SetCallback(void *callback) {
     OSIntrMode mode = OS_DisableInterrupts();
     gTouchPadData.mCallback = callback;
     OS_RestoreInterrupts(mode);
+}
+
+
+//TODO: finish
+int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8) {
+    u32 tmp;
+    u16 result;
+    s32 tmp2;
+    if (arg1 >= 0x1000 || arg2 >= 0x1000 || arg5 >= 0x1000 || arg6 >= 0x1000) {
+        return 1;
+    }
+    if (arg3 >= 0x100 || arg7 >= 0x100 || arg4 >= 0xc0 || arg8 >= 0xc0 ) {
+        return 1;
+    }
+    if (arg3 == arg7 || arg4 == arg8 || arg1 == arg5 || arg2 == arg6) {
+        return 1;
+    }
+
+    OS_DisableInterrupts();
+    reg_CP_DIVCNT = 0;
+    reg_CP_DIV_NUMER_L = (arg1 - arg5) << 8;
+    reg_CP_DIV_DENOM_L = (arg3 - arg7);
+    tmp = arg4 - arg8;
+
+    while (reg_CP_DIVCNT & 0x8000) {}
+
+    result = reg_CP_DIV_RESULT_L;
+
+    reg_CP_DIVCNT = 0;
+    reg_CP_DIV_NUMER_L = (arg1 - arg5) << 8;
+    reg_CP_DIV_DENOM_L = tmp;
+    
+    if (result >= 0x8000 || result < -0x8000 ) {
+        OS_RestoreInterrupts(arg8);
+        return 1;
+    }
+
+    arg0[2] = result;
+
+    if (result >= 0x8000 || result < -0x8000 ) {
+        OS_RestoreInterrupts(arg8);
+        return 1;
+    }
+
+    while (reg_CP_DIVCNT & 0x8000) {}
+
+    OS_RestoreInterrupts(arg8);
+
+    result = reg_CP_DIV_RESULT_L;
+
+    if (result >= 0x8000 || result < -0x8000 ) {
+        return 1;
+    }
+    arg0[3] = result;
+
+    tmp2 = (((arg2 + arg6) << 8) - arg0[3] * (arg4 + arg8)) << 9 >> 16;
+
+    if (tmp2 >= 0x8000 || tmp2 < -0x8000 ) {
+        return 1;
+    }
+    arg0[1] = tmp2;
+    
+    return 0;
 }
 
 void TP_WaitBusy(u16 bitMask) {

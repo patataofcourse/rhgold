@@ -37,6 +37,7 @@ typedef struct TouchPad {
 
 void TP_Init(void);
 void TP_SetCallback(void* callback);
+int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8);
 void TP_WaitBusy(u16 bitMask);
 u32 TP_CheckError(u16 bitMask);
 
