@@ -3,8 +3,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-
-class CProc;
 #endif
 
 #include "System/TouchPad.h"
@@ -13,6 +11,8 @@ typedef struct TempoInfo {
     char pad0x0[8];
     int effects; // ?
 } TempoInfo;
+
+typedef struct CProc CProc;
 
 // TODO: figure out args
 typedef void(*FifoRecvCallback)(u32, u32, s32);
