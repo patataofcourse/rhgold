@@ -43,4 +43,5 @@ CMultisceneProc::CMultisceneProc(int a) : CProc(a) {
     CSub0xa4 *sub = new CSub0xa4(this);
     mUnk0xa4 = sub;
     mTickFlowId_ = mTickFlowId;
+    func_02013e48(func_02011098(mTickFlowId_));
 }

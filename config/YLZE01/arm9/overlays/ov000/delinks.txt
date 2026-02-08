@@ -6,5 +6,5 @@
 
 
 src/Common/MultisceneProc.cpp:
-    .text       start:0x0227f81c end:0x02280560
+    .text       start:0x0227f81c end:0x02283dc0
     .data       start:0x022870fc end:0x02287198

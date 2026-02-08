@@ -20,6 +20,7 @@ public:
     // unknown functions
     int func_02013b08(void);
     int func_02013f3c(s32, s32);
+    void func_02013e48(int*);
     int func_02013f80(u32);
     void func_02013fbc(u16);
     void func_02013fec(int);
