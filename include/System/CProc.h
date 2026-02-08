@@ -57,10 +57,11 @@ protected:
     virtual int update(void);
     virtual int handleProcCommands(u32 cmd, s32 arg0, int *args);
 
+    int mTickFlowId;
+
 private:
     void init(void);
 
-    int mTickFlowId;
     u32 mVBlankCount;
     s32 mGameSpeed;
     s32 mGameSpeed1;

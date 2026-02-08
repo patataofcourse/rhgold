@@ -1,4 +1,5 @@
 #include "global.h"
+#include "unk_funcs.h"
 
 #include <nitro.h>
 

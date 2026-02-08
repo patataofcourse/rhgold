@@ -100,7 +100,7 @@ func_ov000_0227e338 kind:function(arm,size=0x1c) addr:0x0227e338
 func_ov000_0227e354 kind:function(arm,size=0xc) addr:0x0227e354
 func_ov000_0227e360 kind:function(arm,size=0x8) addr:0x0227e360
 func_ov000_0227e368 kind:function(arm,size=0x10) addr:0x0227e368
-func_ov000_0227e378 kind:function(arm,size=0xac) addr:0x0227e378
+_ZN15CMultisceneProc8CSub0xa4C1EPS_ kind:function(arm,size=0xac) addr:0x0227e378
 func_ov000_0227e424 kind:function(arm,size=0x2c) addr:0x0227e424
 func_ov000_0227e450 kind:function(arm,size=0x34) addr:0x0227e450
 func_ov000_0227e484 kind:function(arm,size=0x1a8) addr:0x0227e484
@@ -160,7 +160,7 @@ func_ov000_0227f81c kind:function(arm,size=0x5c) addr:0x0227f81c
 func_ov000_0227f878 kind:function(arm,size=0x244) addr:0x0227f878
 func_ov000_0227fabc kind:function(arm,size=0x18) addr:0x0227fabc
 func_ov000_0227fad4 kind:function(arm,size=0x5c) addr:0x0227fad4
-func_ov000_0227fb30 kind:function(arm,size=0x2f0) addr:0x0227fb30
+_ZN15CMultisceneProcC1Ei kind:function(arm,size=0x2f0) addr:0x0227fb30
 func_ov000_0227fe20 kind:function(arm,size=0xf8) addr:0x0227fe20
 func_ov000_0227ff18 kind:function(arm,size=0x100) addr:0x0227ff18
 func_ov000_02280018 kind:function(arm,size=0x88) addr:0x02280018
@@ -175,7 +175,7 @@ func_ov000_02280568 kind:function(arm,size=0x74) addr:0x02280568
 func_ov000_022805dc kind:function(arm,size=0x8) addr:0x022805dc
 func_ov000_022805e4 kind:function(arm,size=0x8) addr:0x022805e4
 func_ov000_022805ec kind:function(arm,size=0x44) addr:0x022805ec
-func_ov000_02280630 kind:function(arm,size=0x5c) addr:0x02280630
+_ZN15CMultisceneProc19func_ov000_02280630Ev kind:function(arm,size=0x5c) addr:0x02280630
 func_ov000_0228068c kind:function(arm,size=0x94) addr:0x0228068c
 func_ov000_02280720 kind:function(arm,size=0x34) addr:0x02280720
 func_ov000_02280754 kind:function(arm,size=0x38) addr:0x02280754
@@ -641,7 +641,7 @@ data_ov000_022870e0 kind:data(any) addr:0x022870e0
 data_ov000_022870e8 kind:data(any) addr:0x022870e8
 data_ov000_022870fc kind:data(any) addr:0x022870fc
 data_ov000_02287108 kind:data(any) addr:0x02287108
-data_ov000_02287124 kind:data(any) addr:0x02287124
+_ZTV15CMultisceneProc kind:data(any) addr:0x02287124
 data_ov000_02287134 kind:data(any) addr:0x02287134
 data_ov000_02287140 kind:data(any) addr:0x02287140
 data_ov000_0228716c kind:data(any) addr:0x0228716c
