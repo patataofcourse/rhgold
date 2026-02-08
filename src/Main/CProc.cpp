@@ -422,7 +422,7 @@ void a();
 
 
 // goto lookup
-int CProc::func_02014d8c(CProcState* state, int cmd_A, int arg0_A, int cmd_B, int arg0_B, int cmd_C, int arg0_C, int cmd_depth, volatile int cmd_undepth, u32 offset, bool arg10) {
+int CProc::func_02014d8c(CProcState* state, int cmd_A, int arg0_A, int cmd_B, int arg0_B, int cmd_C, int arg0_C, int cmd_depth, volatile int cmd_undepth, int offset, int arg10) {
     // arg8 = arg8;
     u32 i = 0;
     int depth = 0;
