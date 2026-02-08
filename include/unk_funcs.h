@@ -19,10 +19,13 @@ u32 NNS_SndArcSetCurrent(u32);
 
 u32 func_02004d48(u32 arg0);
 void func_0200c378(void*, int);
+void func_0200c49c(void*, u16);
 void func_0200c648(int, int);
 void func_0200c654(int, int);
 void func_0200c660(int, int);
 void func_0200c66c(int, int);
+int func_0200c70c(int*);
+int func_0200dc44(void*); // unknown struct, touchpad related?
 s32 func_02015dd8(int, int);
 void func_020340dc(void);
 void func_020341e8(int, FifoRecvCallback);
@@ -32,6 +35,7 @@ void func_0200c1c0(void*);
 u32 func_020014e0(void);
 TempoInfo* func_02015c14(int);
 void func_0202a480(int*, int);
+void func_0202a4e0(int*, u16, int);
 void func_0202a55c(int*);
 void func_0202e658(vu16*, int, int);
 void func_0202eff0(u16*, int, int);

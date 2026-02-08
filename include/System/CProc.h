@@ -80,8 +80,11 @@ private:
     CProcState *mLastProcState;
     int mHaltedProcess;
     int mUnk0x68;
-    int mUnk0x6c;
-    char pad0x70[0xc];
+    s32 mUnk0x6c;
+    u16 mUnk0x70;
+    u16 mUnk0x72;
+    s32 mUnk0x74;
+    s32 mUnk0x78;
     int mTickFlowIndex;
     s32 mUnk0x80;
     CProcState *mProcState;

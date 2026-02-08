@@ -412,14 +412,29 @@ CProcState* CProc::func_020144c8(void) {
     }
     return 0;
 }
+void CProc::func_02014374() {
+    if (mUnk0x6c == 0) return;
+    
+    mUnk0x74 += mGameSpeed;
 
-int CProc::handleProcCommands(u32 cmd, s32 arg0, int *args) {
-    OS_Panic("");
-    return 0;
+    s32 tmp;
+    if (mUnk0x78 <= (mUnk0x74 >> 8)) {
+        tmp = mUnk0x72;
+        mUnk0x6c = 0;
+    } else {
+        tmp = mUnk0x70 + ((mUnk0x74 >> 8) * (mUnk0x72 - mUnk0x70) / mUnk0x78);
+    }
+
+    if (tmp > 0x7f) {
+        tmp = 0x7f;
+    } else if (tmp < 0) {
+        tmp = 0;
+    }
+    mVolume = tmp;
+    
+    func_0200c49c(mSndHandle, mVolume);
+    func_0202a4e0(&mStrmHandle, mVolume, 0);
 }
-
-void a();
-
 
 // goto lookup
 int CProc::func_02014d8c(CProcState* state, int cmd_A, int arg0_A, int cmd_B, int arg0_B, int cmd_C, int arg0_C, int cmd_depth, volatile int cmd_undepth, int offset, int arg10) {
@@ -452,6 +467,11 @@ int CProc::func_02014d8c(CProcState* state, int cmd_A, int arg0_A, int cmd_B, in
     } while (i < 0x10000);
 
     // not found
+    OS_Panic("");
+    return 0;
+}
+
+int CProc::handleProcCommands(u32 cmd, s32 arg0, int *args) {
     OS_Panic("");
     return 0;
 }
