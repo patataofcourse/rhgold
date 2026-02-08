@@ -64,9 +64,6 @@ void CPlaneVisibility::setPalSub(u16 palette) {
     mBgPalSub = palette;
 }
 
-void a();
-void b();
-
 void CPlaneVisibility::setPalette(u16* src, u32 offset, u32 size) {
     if (offset != 0) {
         if (!mIsSubEngine) {

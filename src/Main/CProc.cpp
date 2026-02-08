@@ -25,7 +25,7 @@ int CProc::handleCommands(CProcState *state) {
             mUnk0x80 = -1;
             break;
         case SpawnList:
-            if (state->mUnk0x110 == 0) 
+            if (state->mUnk0x110 == NULL) 
                 OS_Panic("");
             
             if (state->mUnk0x110[arg0] != NULL) {
@@ -414,6 +414,44 @@ CProcState* CProc::func_020144c8(void) {
 }
 
 int CProc::handleProcCommands(u32 cmd, s32 arg0, int *args) {
+    OS_Panic("");
+    return 0;
+}
+
+void a();
+
+
+// goto lookup
+int CProc::func_02014d8c(CProcState* state, fun cmds, u32 offset, bool arg10) {
+    // arg8 = arg8;
+    u32 i = 0;
+    int depth = 0;
+    
+    do {
+        u32 opInt = state->mCurTickFlow[offset];
+        u32 args = (opInt & 0x3c00) >> 10;
+        u32 cmd = opInt & 0x3ff;
+        u32 arg0 = opInt >> 14;
+        if (depth == 0) {
+            if ((cmd == cmd_A && arg0 == arg0_A) || (cmd == cmd_B && arg0 == arg0_B) || (cmd == cmd_C && arg0 == arg0_C)) {
+                if (arg10 != 0) {
+                    offset += (args + 1);
+                }
+                return offset;
+            } else {
+                if (cmd == cmd_depth) {
+                    depth++;
+                }
+                i++;
+                if (cmd == cmd_undepth) {
+                    depth--;
+                }
+                offset += args + 1; 
+            }
+        }
+    } while (i < 0x10000);
+
+    // not found
     OS_Panic("");
     return 0;
 }
