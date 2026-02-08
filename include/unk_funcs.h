@@ -3,11 +3,11 @@
 
 #ifdef __cplusplus
 extern "C" {
+
+class CProc;
 #endif
 
 #include "System/TouchPad.h"
-
-class CProc;
 
 typedef struct TempoInfo {
     char pad0x0[8];
