@@ -4,16 +4,6 @@
 #include "global.h"
 #include "CProcState.h"
 
-struct fun {
-    int cmd_A;
-    int arg0_A;
-    int cmd_B;
-    int arg0_B;
-    int cmd_C;
-    int arg0_C;
-    int cmd_depth;
-    int cmd_undepth;
-};
 class CProc {
 public:
     CProc(int tfID);
@@ -24,7 +14,6 @@ public:
     CProcState *createTickFlow(CProcState *state,int *entry, u32 initRest);
     bool findTickFlowIndex(int index);
     int func_02014d8c(CProcState*, int, int, int, int, int, int, int, int, int, int); // goto
-    int func_02014d8c(CProcState*, fun, u32, bool); // goto
 
     u32 tempoFromSpeed(s32);
 
