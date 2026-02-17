@@ -11,14 +11,20 @@ from typing import Any
 import ninja_syntax
 from get_platform import Platform, get_platform
 
+platform = get_platform()
+if platform is None:
+    exit(1)
 
 # Game versions
 VERSIONS = [
     "YLZE01",
 ]
 DEFAULT_VERSION = VERSIONS.index("YLZE01")
-DEFAULT_WIBO_PATH = "./wibo"
 
+if platform.system == "macos":
+    DEFAULT_WIBO_PATH = "./wibo-macos"
+else:
+    DEFAULT_WIBO_PATH = f"./wibo-{platform.machine}"
 
 parser = argparse.ArgumentParser(description="Generates build.ninja")
 parser.add_argument('-w', type=str, default=DEFAULT_WIBO_PATH, dest="wine", required=False, help="Path to Wine/Wibo (linux only)")
@@ -31,7 +37,7 @@ args = parser.parse_args()
 
 # Config
 DSD_VERSION = 'v0.10.2'
-WIBO_VERSION = '0.6.16'
+WIBO_VERSION = '1.0.1'
 OBJDIFF_VERSION = 'v3.0.0-beta.6'
 MWCC_VERSION = "2.0/sp1p2"
 DECOMP_ME_COMPILER = "mwcc_30_126"
@@ -117,9 +123,6 @@ CC_INCLUDES = " ".join(f"-i {include}" for include in includes)
 
 
 # Platform info
-platform = get_platform()
-if platform is None:
-    exit(1)
 EXE = platform.exe
 WINE = args.wine if platform.system != "windows" else ""
 DSD = str(args.dsd or os.path.join('.', str(root_path / f"dsd{EXE}")))

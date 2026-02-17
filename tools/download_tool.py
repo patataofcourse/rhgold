@@ -27,7 +27,9 @@ def mwccarm_url(tag: str) -> str:
     return 'http://decomp.aetias.com/files/mwccarm.zip'
 
 def wibo_url(tag: str) -> str:
-    return f'https://github.com/decompals/wibo/releases/download/{tag}/wibo'
+    if platform.system == "macos":
+        return f'https://github.com/decompals/wibo/releases/download/{tag}/wibo-macos'
+    return f'https://github.com/decompals/wibo/releases/download/{tag}/wibo-{platform.machine}'
 
 def objdiff_url(tag: str) -> str:
     return f'https://github.com/encounter/objdiff/releases/download/{tag}/objdiff-cli-{platform.system}-{platform.machine}{platform.exe}'
