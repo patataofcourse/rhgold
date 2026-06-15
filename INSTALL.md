@@ -12,6 +12,7 @@ Contents:
 1. Use one of these platforms:
     - Windows (recommended)
     - Linux
+    - macOS
 2. Install the following:
     - Python 3.11+ and pip
     - GCC 9+
@@ -33,7 +34,7 @@ Now you can run `ninja` to build a ROM for the chosen version.
 > Rerun `configure.py` often to ensure that all C/C++ code gets compiled.
 
 > [!NOTE]
-> For Linux users: Wibo is used by default. If you want to use Wine instead, run `configure.py` with `-w <path/to/wine>`.
+> For Linux & macOS users: Wibo is used by default. If you want to use Wine instead, run `configure.py` with `-w <path/to/wine>`.
 
 ### Matching the base ROM
 
