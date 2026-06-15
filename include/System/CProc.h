@@ -14,13 +14,16 @@ public:
     CProcState *createTickFlow(CProcState *state,int *entry, u32 initRest);
     bool findTickFlowIndex(int index);
     int func_02014d8c(CProcState*, int, int, int, int, int, int, int, int, int, int); // goto
+    void stackPush(CProcState* state);
+    void stackPop(CProcState* state);
 
     u32 tempoFromSpeed(s32);
 
     // unknown functions
     int func_02013b08(void);
+    void func_02013dcc(void);
+    CProcState* func_02013e48(int*);
     int func_02013f3c(s32, s32);
-    void func_02013e48(int*);
     int func_02013f80(u32);
     void func_02013fbc(u16);
     void func_02013fec(int);
@@ -40,8 +43,6 @@ public:
     void func_02014374(void);
     CProcState* func_020144c8(void);
     int func_02014d34(CProcState*, u32);
-    void func_02014e5c(CProcState*);
-    void func_02014e7c(CProcState*);
     
 
     enum Commands {
@@ -75,7 +76,8 @@ private:
     char pad0x34[4];
     int mStrmHandle;
     s32 mCurrentStrmId;
-    char pad0x40[0x14];
+    char pad0x40[0x10];
+    char mUnk0x50[4];
     u32 mUnk0x54;
     u16 mSpeedSeq;
     void *mCurrentSndHandle;

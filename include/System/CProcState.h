@@ -6,13 +6,12 @@ struct CProcState {
     int mTickFlowPos;
     u32 mRestVal;
     u32 mCondvar;
-    u8 mUnk0x10;
-    char pad0x11[0x43];
+    u8 mStackPos;
+    char pad0x11[3];
+    int mStack[16];
     u8 mUnk0x54;
-    u16 mStackPos[1]; //TODO: size
-    char pad0x58[0x20];
-    int *mStackPtrs[1]; //TODO: size
-    char pad0x7c[0x3c];
+    u16 mCallStackPos[16];
+    int *mCallStackPtrs[16];
     int mUnk0xb8;
     s32 mUnk0xbc;
     int mUnk0xc0;
