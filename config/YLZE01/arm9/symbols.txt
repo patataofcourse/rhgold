@@ -4832,7 +4832,6 @@ data_02263e80 kind:bss addr:0x02263e80
 data_02263e90 kind:bss addr:0x02263e90
 data_02263eb0 kind:bss addr:0x02263eb0
 sTPManager kind:bss addr:0x02263ec8
-data_02263ed2 kind:bss addr:0x02263ed2
 sTPDataRaw kind:bss addr:0x02263efc
 sTPDataDisp kind:bss addr:0x02263f3c
 sTPInfo kind:bss addr:0x02263f7c
