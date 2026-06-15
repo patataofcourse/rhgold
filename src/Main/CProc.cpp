@@ -9,17 +9,17 @@
 int CProc::handleCommands(CProcState *state) {
     mProcState = state;
     u32 opInt = state->mCurTickFlow[state->mTickFlowPos];
-    int* args = &state->mCurTickFlow[state->mTickFlowPos]; // offset by 1
+    u32 *args = &state->mCurTickFlow[state->mTickFlowPos]; // offset by 1
     u32 num_args = (opInt & 0x3c00) >> 10;
     state->mTickFlowPos += num_args + 1;
     u32 cmd = opInt & 0x3ff;
     s32 arg0 = opInt >> 14;
     switch (cmd) {
         case StoreList:
-            state->mUnk0x110 = (int**)args[1];
+            state->mUnk0x110 = (TickFlow**)args[1];
             break;
         case Spawn:
-            CProcState* newFlow = createTickFlow(state, (int*)args[1], state->mRestVal);
+            CProcState *newFlow = createTickFlow(state, (TickFlow*)args[1], state->mRestVal);
             newFlow->mUnk0xc0 = 1;
             mUnk0x68 = 1;
             mUnk0x80 = -1;
@@ -29,7 +29,7 @@ int CProc::handleCommands(CProcState *state) {
                 OS_Panic("");
             
             if (state->mUnk0x110[arg0] != NULL) {
-                CProcState* newFlow = createTickFlow(state, state->mUnk0x110[arg0], state->mRestVal);
+                CProcState *newFlow = createTickFlow(state, state->mUnk0x110[arg0], state->mRestVal);
                 newFlow->mUnk0xc0 = 1;
                 mUnk0x68 = 1;
             }
@@ -55,7 +55,7 @@ int CProc::handleCommands(CProcState *state) {
             ((void(*)(int))(args[1]))(args[2]);
             break;
         case 4:
-            state->mTickFlowPos = func_02014d34(state, arg0);
+            state->mTickFlowPos = gotoLabel(state, arg0);
             break;
         case 5:
             state->mCondvar = args[1];
@@ -112,7 +112,7 @@ int CProc::handleCommands(CProcState *state) {
             state->mCallStackPtrs[state->mUnk0x54] = state->mCurTickFlow;
             state->mCallStackPos[state->mUnk0x54] = state->mTickFlowPos;
             state->mUnk0x54++;
-            state->mCurTickFlow = (int*)args[1];
+            state->mCurTickFlow = (TickFlow*)args[1];
             state->mTickFlowPos = 0;
             break;
         case 0x24:
@@ -328,7 +328,7 @@ void CProc::init(void) {
 }
 
 bool CProc::findTickFlowIndex(int index) {
-    CProcState* temp = mLastProcState;
+    CProcState *temp = mLastProcState;
     while (temp != NULL) {
         if (temp->mTickFlowIndex == index)
             return true;
@@ -338,8 +338,8 @@ bool CProc::findTickFlowIndex(int index) {
     return false;
 }
 
-CProcState *CProc::createTickFlow(CProcState *state, int *entry, u32 initRest) {
-    CProcState* newState = new CProcState();
+CProcState *CProc::createTickFlow(CProcState *state, TickFlow *entry, u32 initRest) {
+    CProcState *newState = new CProcState();
 
     if (state == NULL) {
         state = func_020144c8();
@@ -396,17 +396,17 @@ CProcState *CProc::createTickFlow(CProcState *state, int *entry, u32 initRest) {
     return newState;
 }
 
-CProcState* CProc::func_02013e48(int* arg0) {
+CProcState *CProc::func_02013e48(TickFlow *arg0) {
     func_02013dcc();
 
     if (arg0 == NULL) {
         return;
     }
 
-    CProcState* out = createTickFlow(0, arg0, 0);
+    CProcState *out = createTickFlow(0, arg0, 0);
 
     if (mLastProcState != NULL) {
-        CProcState* curState = mLastProcState;
+        CProcState *curState = mLastProcState;
         do {
             if (curState->mUnk0xbc == 0) {
                 curState->mUnk0xbc = 10000;
@@ -424,8 +424,8 @@ u32 CProc::tempoFromSpeed(s32 speed) {
 }
 
 // finds some proc state going down the chain somehow?
-CProcState* CProc::func_020144c8(void) {
-    CProcState* temp = mLastProcState;
+CProcState *CProc::func_020144c8(void) {
+    CProcState *temp = mLastProcState;
     while (temp != NULL) {
         if (temp->mUnk0xbc == 0)
             return temp;
@@ -465,8 +465,25 @@ void CProc::func_02014374() {
     func_0202a4e0(&mStrmHandle, mVolume, 0);
 }
 
+int CProc::gotoLabel(CProcState *state, u32 label) {
+    u32 *tickFlow = (u32*)state->mCurTickFlow;
+    int offset = 0;
+
+    for (u32 i = 0; i < 0x10000; i++) {
+        u32 cmd = (tickFlow[offset] & 0x3ff);
+        u32 num_args = (tickFlow[offset] & 0x3c00) >> 10;
+        u32 arg0 = (tickFlow[offset] >> 14);
+        if (cmd == 3 && arg0 == label) {
+            return offset;
+        }
+        offset += num_args + 1;
+    }
+    OS_Panic("");
+    return 0;
+}
+
 // goto lookup
-int CProc::func_02014d8c(CProcState* state, int cmd_A, int arg0_A, int cmd_B, int arg0_B, int cmd_C, int arg0_C, int cmd_depth, volatile int cmd_undepth, int offset, int arg10) {
+int CProc::func_02014d8c(CProcState *state, int cmd_A, int arg0_A, int cmd_B, int arg0_B, int cmd_C, int arg0_C, int cmd_depth, volatile int cmd_undepth, int offset, int arg10) {
     // arg8 = arg8;
     u32 i = 0;
     int depth = 0;
@@ -500,17 +517,18 @@ int CProc::func_02014d8c(CProcState* state, int cmd_A, int arg0_A, int cmd_B, in
     return 0;
 }
 
-int CProc::handleProcCommands(u32 cmd, s32 arg0, int *args) {
+int CProc::handleProcCommands(u32 cmd, u32 arg0, u32 *args) {
     OS_Panic("");
     return 0;
 }
 
-void CProc::stackPush(CProcState* state) {
+void CProc::stackPush(CProcState *state) {
     state->mStack[state->mStackPos] = state->mCondvar;
     state->mStackPos += 1;
 }
 
-void CProc::stackPop(CProcState* state) {
+void CProc::stackPop(CProcState *state) {
     state->mStackPos -= 1;
     state->mCondvar = state->mStack[state->mStackPos];
 }
+

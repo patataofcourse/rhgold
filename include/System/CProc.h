@@ -11,18 +11,19 @@ public:
 
     int handleCommands(CProcState *state);
 
-    CProcState *createTickFlow(CProcState *state,int *entry, u32 initRest);
+    CProcState *createTickFlow(CProcState *state, TickFlow *entry, u32 initRest);
     bool findTickFlowIndex(int index);
-    int func_02014d8c(CProcState*, int, int, int, int, int, int, int, int, int, int); // goto
-    void stackPush(CProcState* state);
-    void stackPop(CProcState* state);
+    int gotoLabel(CProcState *state, u32 label);
+    int func_02014d8c(CProcState*, int, int, int, int, int, int, int, int, int, int); // goto??? prob for ifs
+    void stackPush(CProcState *state);
+    void stackPop(CProcState *state);
 
     u32 tempoFromSpeed(s32);
 
     // unknown functions
     int func_02013b08(void);
     void func_02013dcc(void);
-    CProcState* func_02013e48(int*);
+    CProcState *func_02013e48(TickFlow*);
     int func_02013f3c(s32, s32);
     int func_02013f80(u32);
     void func_02013fbc(u16);
@@ -41,8 +42,7 @@ public:
     int func_02014880(void);
     s32 func_020144c0(void);
     void func_02014374(void);
-    CProcState* func_020144c8(void);
-    int func_02014d34(CProcState*, u32);
+    CProcState *func_020144c8(void);
     
 
     enum Commands {
@@ -57,7 +57,7 @@ public:
 
 protected:
     virtual int update(void);
-    virtual int handleProcCommands(u32 cmd, s32 arg0, int *args);
+    virtual int handleProcCommands(u32 cmd, u32 arg0, u32 *args);
 
     int mTickFlowId;
 
