@@ -466,10 +466,11 @@ void CProc::func_02014374() {
 }
 
 int CProc::gotoLabel(CProcState *state, u32 label) {
+    u32 i;
     u32 *tickFlow = (u32*)state->mCurTickFlow;
     int offset = 0;
 
-    for (u32 i = 0; i < 0x10000; i++) {
+    for (i = 0; i < 0x10000; i++) {
         u32 cmd = (tickFlow[offset] & 0x3ff);
         u32 num_args = (tickFlow[offset] & 0x3c00) >> 10;
         u32 arg0 = (tickFlow[offset] >> 14);
