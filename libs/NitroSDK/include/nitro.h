@@ -45,7 +45,7 @@
 // #include <nitro/wm.h>
 // #include <nitro/wvr.h>
 // #include <nitro/ctrdg.h>
-// #include <nitro/math.h>
+#include <nitro/math.h>
 // #include <nitro/utest.h>
 // #include <nitro/std.h>
 

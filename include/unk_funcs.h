@@ -5,7 +5,9 @@
 extern "C" {
 #endif
 
-#include "System/TouchPad.h"
+#include <nitro/spi/tp.h>
+
+typedef u32 Tickflow;
 
 typedef struct TempoInfo {
     char pad0x0[8];
@@ -18,6 +20,9 @@ typedef struct CProc CProc;
 typedef void(*FifoRecvCallback)(u32, u32, s32);
 
 u32 NNS_SndArcSetCurrent(u32);
+void OS_InitVAlarm(void);
+volatile int OS_DisableIrq(void);
+void OS_RestoreIrq(volatile int);
 
 u32 func_02004d48(u32 arg0);
 void func_02008aec(int);
@@ -41,7 +46,7 @@ BOOL func_02034234(int, int);
 void *func_0200c198(void);
 void func_0200c1c0(void*);
 u32 func_020014e0(void);
-int *func_02011098(int);
+Tickflow *func_02011098(int);
 TempoInfo *func_02015c14(int);
 void func_0202a480(int*, int);
 void func_0202a4e0(int*, u16, int);

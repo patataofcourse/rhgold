@@ -583,8 +583,8 @@ from:0x02005a0c kind:arm_call to:0x02031f14 module:main
 from:0x02005a14 kind:arm_call to:0x020059a8 module:main
 from:0x02005a30 kind:arm_call to:0x020059a8 module:main
 from:0x02005a38 kind:load to:0x02263ec8 module:main
-from:0x02005a3c kind:load to:0x02263ed2 module:main
-from:0x02005a40 kind:load to:0x02263ecc module:main
+from:0x02005a3c kind:load to:0x02263ec8 add:10 module:main
+from:0x02005a40 kind:load to:0x02263ec8 add:4 module:main
 from:0x02005a6c kind:arm_call to:0x02005ae0 module:main
 from:0x02005a70 kind:arm_call to:0x02031bec module:main
 from:0x02005a74 kind:arm_call to:0x020372ec module:main

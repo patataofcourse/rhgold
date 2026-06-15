@@ -1,6 +1,4 @@
-// will probably need to move to SDK
-
-#include "System/TouchPad.h"
+#include <nitro/spi/tp.h>
 
 #include "unk_funcs.h"
 
@@ -33,12 +31,12 @@ typedef union {
 #define MORE_DTCM_FUCKERY ((volatile FuckeryStruct*)0x027ffc80)
 #define DTCM_FUCKERY ((volatile u16*)0x027fffaa)
 
-static inline TPi_TpCallback_fuckassInline(TouchPad_Sub* f) {
+static inline TPi_TpCallback_fuckassInline(TPData *f) {
     JustWhy temp = { DTCM_FUCKERY[0], DTCM_FUCKERY[1] };
-    f->mUnk0x0 = temp.full.mUnk0x0_bf0;
-    f->mUnk0x2 = temp.full.mUnk0x0_bf1;
-    f->mUnk0x4 = temp.full.mUnk0x0_bf2 & 0xff;
-    f->mUnk0x6 = temp.full.mUnk0x0_bf3 & 0xff;
+    f->x = temp.full.mUnk0x0_bf0;
+    f->y = temp.full.mUnk0x0_bf1;
+    f->touch = temp.full.mUnk0x0_bf2 & 0xff;
+    f->validity = temp.full.mUnk0x0_bf3 & 0xff;
 }
 
 void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
@@ -61,7 +59,7 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
         TPi_TpCallback_fuckassInline(&gTouchPadData.mUnk0x14[gTouchPadData.mUnk0x10]);
 
         if (gTouchPadData.mCallback != NULL) {
-            gTouchPadData.mCallback(temp, 0, gTouchPadData.mUnk0x10);
+            gTouchPadData.mCallback(temp, 0, gTouchPadData.mUnk0x10 & 0xff);
         }
     } else {
         if ((arg1 & 0x01000000) == 0) return;
@@ -104,7 +102,7 @@ void TPi_TpCallback(u32 arg0, u32 arg1, s32 arg2) {
                 gTouchPadData.mErrorFlags |= (1 << temp);
                 gTouchPadData.mBusyFlags &= ~(1 << temp);
                 if (gTouchPadData.mCallback != NULL) {
-                    gTouchPadData.mCallback(temp, temp1, 0);
+                    gTouchPadData.mCallback(temp, temp1 & 0xff, 0);
                 }
                 break;
             
@@ -135,7 +133,7 @@ void TP_Init(void) {
 
 }
 
-BOOL TP_GetUserInfo(u16 *arg0) {
+BOOL TP_GetUserInfo(TPCalibrateParam *arg0) {
     volatile FuckeryStruct* stru = MORE_DTCM_FUCKERY;
     u16 temp1 = stru->mUnk0x58, temp2 = stru->mUnk0x5a, temp3 = stru->mUnk0x5e, temp4 = stru->mUnk0x60;
     u8 temp5 = stru->mUnk0x5c, temp6 = stru->mUnk0x5d, temp7 = stru->mUnk0x62, temp8 = stru->mUnk0x63;
@@ -147,17 +145,17 @@ BOOL TP_GetUserInfo(u16 *arg0) {
         if (res == 0) goto out;
     }
 
-    arg0[0] = 0;
-    arg0[1] = 0;
-    arg0[2] = 0;
-    arg0[3] = 0;
+    arg0->x0 = 0;
+    arg0->y0 = 0;
+    arg0->xDotSize = 0;
+    arg0->yDotSize = 0;
     return TRUE;
 
     out: return TRUE;
 }
 
 // TODO: arg0 is probably an array of two structs consisting of two s16s each
-void TP_SetCalibrateParam(s16 *arg0) {
+void TP_SetCalibrateParam(TPCalibrateParam *arg0) {
     OSIntrMode mode;
     s16 temp;
     
@@ -168,13 +166,13 @@ void TP_SetCalibrateParam(s16 *arg0) {
 
     mode = OS_DisableInterrupts();
 
-    temp = arg0[2];
+    temp = arg0->xDotSize;
     if (temp != 0) {
         reg_CP_DIVCNT = 0;
         reg_CP_DIV_NUMER_L = 0x10000000;
         reg_CP_DIV_DENOM = (u32)temp;
-        gTouchPadData.mUnk0x1c = arg0[0];
-        gTouchPadData.mUnk0x20 = arg0[2];
+        gTouchPadData.mUnk0x1c = arg0->x0;
+        gTouchPadData.mUnk0x20 = arg0->xDotSize;
 
         while ((reg_CP_DIVCNT & 0x8000)) {}
 
@@ -186,13 +184,13 @@ void TP_SetCalibrateParam(s16 *arg0) {
         gTouchPadData.mUnk0x24 = 0;
     }
 
-    temp = arg0[3];
-    if (arg0[3] != 0) {
+    temp = arg0->yDotSize;
+    if (arg0->yDotSize != 0) {
         reg_CP_DIVCNT = 0;
         reg_CP_DIV_NUMER_L = 0x10000000;
         reg_CP_DIV_DENOM = (u32)temp;
-        gTouchPadData.mUnk0x28 = arg0[1];
-        gTouchPadData.mUnk0x2c = arg0[3];
+        gTouchPadData.mUnk0x28 = arg0->y0;
+        gTouchPadData.mUnk0x2c = arg0->yDotSize;
 
         while ((reg_CP_DIVCNT & 0x8000)) {}
 
@@ -216,7 +214,7 @@ void TP_SetCallback(void *callback) {
 
 
 //TODO: finish
-int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8) {
+int TP_CalcCalibrateParam(TPCalibrateParam *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8) {
     u32 tmp;
     u16 result;
     s32 tmp2;
@@ -249,7 +247,7 @@ int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16
         return 1;
     }
 
-    arg0[2] = result;
+    arg0->yDotSize = result;
 
     if (result >= 0x8000 || result < -0x8000 ) {
         OS_RestoreInterrupts(arg8);
@@ -265,14 +263,14 @@ int TP_CalcCalibrateParam(s16* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16
     if (result >= 0x8000 || result < -0x8000 ) {
         return 1;
     }
-    arg0[3] = result;
+    arg0->yDotSize = result;
 
-    tmp2 = (((arg2 + arg6) << 8) - arg0[3] * (arg4 + arg8)) << 9 >> 16;
+    tmp2 = (((arg2 + arg6) << 8) - arg0->yDotSize * (arg4 + arg8)) << 9 >> 16;
 
     if (tmp2 >= 0x8000 || tmp2 < -0x8000 ) {
         return 1;
     }
-    arg0[1] = tmp2;
+    arg0->y0 = tmp2;
     
     return 0;
 }
