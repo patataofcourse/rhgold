@@ -23,12 +23,17 @@ char *strCopyN(char *dest, char *src, int n) {
     return tmp;
 }
 
-char *strCat(char *dest, char *src) {
+char *strCat(char *dest, char *src, int n) {
     char *tmp = dest;
     while (*dest) {
         dest++;
+        n--;
     }
     while (*src) {
+        n--;
+        if (n <= 0) {
+            break;
+        }
         *dest++ = *src++;
     }
     *dest = '\0';

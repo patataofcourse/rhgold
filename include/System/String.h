@@ -5,7 +5,7 @@
 
 extern char *strCopy(char *dest, char *src);
 extern char *strCopyN(char *dest, char *src, int n);
-extern char *strCat(char *dest, char *src);
+extern char *strCat(char *dest, char *src, int n);
 extern char *strGetDec(char *dest, int n);
 extern int strLen(char *str);
 extern BOOL strCmpN(char *str1, char *str2, int n);
