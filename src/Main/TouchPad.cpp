@@ -93,14 +93,16 @@ void func_02005b10(u16 valid, u16 x, u16 y) {
     if (sTPManager.unk1C >= 8) {
         OS_Panic("");
     }
-    TPInfo &info = sTPInfo[sTPManager.unk1C];
+    
+    u32 tmp = sTPManager.unk1C;
+    TPInfo &info = sTPInfo[tmp];
 
     // non matching here
     info.valid = valid;
     info.x = x;
     info.y = y;
     info.unk6 = 0;
-    sTPManager.unk1C++;
+    sTPManager.unk1C = tmp + 1;
 }
 
 // non matching
