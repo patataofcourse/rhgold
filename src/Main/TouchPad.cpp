@@ -70,7 +70,9 @@ void func_02005a44(void) {
         TP_SetCalibrateParam(&calibrate);
     }
     TP_SetCallback(func_020059c8);
-    if (TP_RequestAutoSamplingStart(0, 4, sTPDataRaw, NELEMU(sTPDataRaw))) { 
+    TP_RequestAutoSamplingStart(0, 4, sTPDataRaw, NELEMU(sTPDataRaw));
+    TP_WaitBusy(2);
+    if (TP_CheckError(2)) { 
         OS_Panic(""); 
     };
 }
@@ -226,12 +228,13 @@ void func_02005e9c(void) {
 }
 
 void func_02005ec8(void) {
-    // non matching here
-    volatile BOOL prep = OS_DisableIrq();
+    volatile BOOL prep = reg_OS_IME;
+    reg_OS_IME = 0;
     sTPManager.unk6 = sTPManager.unk4;
     sTPManager.unk8 = sTPManager.unkA;
     sTPManager.unk4 = sTPManager.unkA;
-    OS_RestoreIrq(prep);
+    reg_OS_IME;
+    reg_OS_IME = prep;
 
     u16 sp0 = sTPManager.unk6;
     u16 temp_r7 = sTPManager.unk8;
