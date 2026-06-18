@@ -21,7 +21,7 @@ public:
     u32 tempoFromSpeed(s32);
 
     // unknown functions
-    int func_02013b08(void);
+    int func_02013b08(int);
     void func_02013dcc(void);
     CProcState *func_02013e48(TickFlow*);
     int func_02013f3c(s32, s32);
@@ -39,10 +39,16 @@ public:
     void func_02014588(int, int, u16, u8, u32);
     void func_020145f4(int, u16, u32);
     void func_02014620(void);
-    int func_02014880(void);
+    int func_02014880(int);
     s32 func_020144c0(void);
     void func_02014374(void);
     CProcState *func_020144c8(void);
+    void func_02014980(void);
+    void func_020149a8(void);
+    void func_02014b4c(void);
+    void func_02014c8c(void);
+    int func_02014ca4(CProcState*);
+    void func_02013d6c(CProcState*);
     
 
     enum Commands {
@@ -82,7 +88,7 @@ private:
     u16 mSpeedSeq;
     void *mCurrentSndHandle;
     CProcState *mLastProcState;
-    int mHaltedProcess;
+    BOOL mHaltedProcess;
     int mUnk0x68;
     s32 mUnk0x6c;
     u16 mUnk0x70;

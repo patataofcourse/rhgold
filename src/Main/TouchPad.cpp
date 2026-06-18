@@ -230,11 +230,15 @@ void func_02005e9c(void) {
 }
 
 void func_02005ec8(void) {
+    // TODO: replace with inline
     volatile BOOL prep = reg_OS_IME;
     reg_OS_IME = 0;
+
     sTPManager.unk6 = sTPManager.unk4;
     sTPManager.unk8 = sTPManager.unkA;
     sTPManager.unk4 = sTPManager.unkA;
+
+    // TODO: replace with inline
     reg_OS_IME;
     reg_OS_IME = prep;
 

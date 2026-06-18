@@ -11,7 +11,7 @@ struct CProcState {
     u8 mStackPos;
     char pad0x11[3];
     int mStack[16];
-    u8 mUnk0x54;
+    u8 mCallDepth;
     u16 mCallStackPos[16];
     TickFlow *mCallStackPtrs[16];
     int mUnk0xb8;

@@ -109,9 +109,9 @@ int CProc::handleCommands(CProcState *state) {
             state->mTickFlowPos = func_02014d8c(state, 16, 0, 16, 0, 16, 0, 12, 16, state->mTickFlowPos, 1);
             break;
         case 0x11:
-            state->mCallStackPtrs[state->mUnk0x54] = state->mCurTickFlow;
-            state->mCallStackPos[state->mUnk0x54] = state->mTickFlowPos;
-            state->mUnk0x54++;
+            state->mCallStackPtrs[state->mCallDepth] = state->mCurTickFlow;
+            state->mCallStackPos[state->mCallDepth] = state->mTickFlowPos;
+            state->mCallDepth++;
             state->mCurTickFlow = (TickFlow*)args[1];
             state->mTickFlowPos = 0;
             break;
@@ -119,16 +119,16 @@ int CProc::handleCommands(CProcState *state) {
             if (state->mUnk0x110 == NULL) OS_Panic("");
             if (state->mUnk0x110[arg0] == NULL) break;
 
-            state->mCallStackPtrs[state->mUnk0x54] = state->mCurTickFlow;
-            state->mCallStackPos[state->mUnk0x54] = state->mTickFlowPos;
-            state->mUnk0x54++;
+            state->mCallStackPtrs[state->mCallDepth] = state->mCurTickFlow;
+            state->mCallStackPos[state->mCallDepth] = state->mTickFlowPos;
+            state->mCallDepth++;
             state->mCurTickFlow = state->mUnk0x110[arg0];
             state->mTickFlowPos = 0;
             break;
         case 0x12:
-            int unk0x54 = state->mUnk0x54--;
-            state->mCurTickFlow = state->mCallStackPtrs[state->mUnk0x54];
-            state->mTickFlowPos = state->mCallStackPos[state->mUnk0x54 * 2];
+            int unk0x54 = state->mCallDepth--;
+            state->mCurTickFlow = state->mCallStackPtrs[state->mCallDepth];
+            state->mTickFlowPos = state->mCallStackPos[state->mCallDepth];
             break;
         case 0x13:
             return 1;
@@ -151,13 +151,13 @@ int CProc::handleCommands(CProcState *state) {
                 tmp4 = args[2];
                 tmp = func_020144c0() * args[1];
                 if (tmp4 <= tmp >> 8) {
-                    tmp4 = (func_020144c0() * args[1]) >> 8;
+                    tmp4 = (func_020144c0() * (s32)args[1]) >> 8;
                 }
             }
             func_02014454(tmp4);
             break;
         case 0x28:
-            func_02014454((func_02015dd8(mTickFlowId, 48) << 8) / arg0);
+            func_02014454((func_02015dd8(args[1], 48) << 8) / arg0);
             break;
         case 0x19:
             tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
@@ -227,10 +227,10 @@ int CProc::handleCommands(CProcState *state) {
         case 0x20:
             tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
 
-            u32 tmp10 = (u32) arg0 >> 7;
+            u32 tmp10 = (u32)arg0 >> 7;
             u8 tmp12 = arg0 & 0x7f;
             u16 tmp11 = args[1];
-            int tmp13 = args[1] >> 16;
+            s32 tmp13 = (s32)args[1] >> 16;
             if (cmd == 0x1f) {
                 func_02014520(tmp10, tmp11, tmp12, tmp13);
             } else {
@@ -241,7 +241,7 @@ int CProc::handleCommands(CProcState *state) {
         case 0x21:
             tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
 
-            func_020145f4(arg0, args[1], args[1] >> 16);
+            func_020145f4(arg0, args[1], (s32)args[1] >> 16);
 
             NNS_SndArcSetCurrent(tmp);
             break;
@@ -290,8 +290,8 @@ CProc::~CProc(void) {
 
 }
 
-int CProc::func_02013b08(void) {
-    if (func_02014880() != 0) {
+int CProc::func_02013b08(int arg0) {
+    if (func_02014880(arg0) != 0) {
         return 1;
     }
     
@@ -351,7 +351,7 @@ CProcState *CProc::createTickFlow(CProcState *state, TickFlow *entry, u32 initRe
     newState->mUnk0xb8 = 0;
     newState->mCondvar = 0;
     newState->mStackPos = 0;
-    newState->mUnk0x54 = 0;
+    newState->mCallDepth = 0;
     newState->mUnk0xbc = 30000;
 
     if (state != NULL) {
@@ -394,6 +394,26 @@ CProcState *CProc::createTickFlow(CProcState *state, TickFlow *entry, u32 initRe
     }
 
     return newState;
+}
+
+// removes the specified CProcState from the mPrev chain, replacing it with its parent / mPrev
+void CProc::func_02013d6c(CProcState *target) {
+    if (target == NULL) {
+        return;
+    }
+
+    CProcState **current = &mLastProcState;
+    while (*current != NULL) {
+        if (*current == target) {
+            CProcState *toDelete = *current;
+            *current = (*current)->mPrev;
+            delete(toDelete);
+            break;
+        } else {
+            current = &(*current)->mPrev;
+        }
+    }
+
 }
 
 CProcState *CProc::func_02013e48(TickFlow *arg0) {
@@ -463,6 +483,60 @@ void CProc::func_02014374() {
     
     func_0200c49c(mSndHandle, mVolume);
     func_0202a4e0(&mStrmHandle, mVolume, 0);
+}
+
+// THIS MATCHES: objdiff bugs out
+int CProc::func_02014880(int) {
+    if (mHaltedProcess)
+        return 0;
+
+    switch (mState) {
+        case 0:
+            func_02014980();
+            break;
+        case 1:
+            func_020149a8();
+            break;
+        case 2:
+            func_02014b4c();
+            break;
+        case 3:
+            func_02014c8c();
+            break;
+    }
+
+    if (mLastProcState == NULL) {
+        return 0;
+    }
+
+    for (CProcState *state = mLastProcState; state != NULL; state = state->mPrev) {
+        state->mUnk0xc0 = 0;
+    }
+
+    CProcState *nextState;
+    int temp_r9;
+    do {
+        mUnk0x68 = 0;
+        temp_r9 = 1;
+        CProcState *state = mLastProcState;
+        while (state != NULL) {
+            nextState = state->mPrev;
+            if (func_02014ca4(state) != 0) {
+                if (state->mUnk0xbc == 0)
+                    return 1;
+                func_02013d6c(state);
+            } else {
+                temp_r9 = 0;
+            }
+            state = nextState;
+        }
+    } while (mUnk0x68 == 0);
+
+    if (temp_r9) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 int CProc::gotoLabel(CProcState *state, u32 label) {
