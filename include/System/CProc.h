@@ -22,7 +22,7 @@ public:
 
     // unknown functions
     int func_02013b08(int);
-    void func_02013dcc(void);
+    void func_02013dcc(TickFlow*);
     CProcState *func_02013e48(TickFlow*);
     int func_02013f3c(s32, s32);
     int func_02013f80(u32);

@@ -102,10 +102,10 @@ void func_02005b10(u16 valid, u16 x, u16 y) {
     info.x = x;
     info.y = y;
     info.unk6 = 0;
+
     sTPManager.unk1C = tmp + 1;
 }
 
-// non matching
 void func_02005b70(TPData *data) {
     if (sTPManager.unkE) {
         sTPManager.unkE--;
@@ -122,6 +122,7 @@ void func_02005b70(TPData *data) {
     }
     if (data->validity & TP_VALIDITY_INVALID_XY) {
         func_02005b10(FALSE, 0, 0);
+        return;
     }
     sTPManager.unk18 = TRUE;
     sTPManager.unk2 = data->x;
@@ -145,11 +146,14 @@ void func_02005c48(TPData *data) {
         u32 temp_r4;
         u32 temp_r2;
         s32 temp_r3;
+        u16 temp_unk2;
+        u16 temp_unkC;
 
         temp_r4 = (!(data->validity & TP_VALIDITY_INVALID_X)) ? data->x : sTPManager.unk2 + sTPManager.unk24;
-        temp_r2 = (!(data->validity & TP_VALIDITY_INVALID_Y)) ? data->y : sTPManager.unk4 + sTPManager.unk10;
+        temp_r2 = (!(data->validity & TP_VALIDITY_INVALID_Y)) ? data->y : sTPManager.unkC + sTPManager.unk10;
 
         temp_r3 = sTPManager.unk24;
+        temp_unk2 = sTPManager.unk2;
         temp_r4 -= sTPManager.unk2;
         sTPManager.unk24 = temp_r4;
         if (sTPManager.unk24 > 0) {
@@ -174,6 +178,7 @@ void func_02005c48(TPData *data) {
         sTPManager.unk24 = temp_r3;
 
         temp_r12 = sTPManager.unk10;
+        temp_unkC = sTPManager.unkC;
         temp_r2 -= sTPManager.unkC;
         sTPManager.unk10 = temp_r2;
         if (sTPManager.unk10 > 0) {
@@ -196,8 +201,8 @@ void func_02005c48(TPData *data) {
 
         temp_r12 = MATH_CLAMP(temp_r12, -20, 20);
         sTPManager.unk10 = temp_r12;
-        sTPManager.unk2 = MATH_CLAMP(sTPManager.unk2 + temp_r3, 0, 255);
-        sTPManager.unkC = MATH_CLAMP(sTPManager.unkC + temp_r12, 0, 192);
+        sTPManager.unk2 = MATH_CLAMP(temp_unk2 + temp_r3, 0, 255);
+        sTPManager.unkC = MATH_CLAMP(temp_unkC + temp_r12, 0, 192);
         func_02005b10(TRUE, sTPManager.unk2, sTPManager.unkC);
     } else {
         sTPManager.unk18 = FALSE;
@@ -230,17 +235,13 @@ void func_02005e9c(void) {
 }
 
 void func_02005ec8(void) {
-    // TODO: replace with inline
-    volatile BOOL prep = reg_OS_IME;
-    reg_OS_IME = 0;
+    volatile BOOL irq = OS_DisableIrq();
 
     sTPManager.unk6 = sTPManager.unk4;
     sTPManager.unk8 = sTPManager.unkA;
     sTPManager.unk4 = sTPManager.unkA;
 
-    // TODO: replace with inline
-    reg_OS_IME;
-    reg_OS_IME = prep;
+    OS_RestoreIrq(irq);
 
     u16 sp0 = sTPManager.unk6;
     u16 temp_r7 = sTPManager.unk8;

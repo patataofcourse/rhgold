@@ -423,8 +423,21 @@ void CProc::func_02013d6c(CProcState *target) {
 
 }
 
+// clean up entire LastProcState tree
+void CProc::func_02013dcc(TickFlow *arg0) {
+    if (mLastProcState != NULL) {
+        CProcState *state = mLastProcState;
+        while (state != NULL) {
+            CProcState *prevState = state->mPrev;
+            delete state;
+            state = prevState;
+        }
+    }
+    mLastProcState = NULL;
+}
+
 CProcState *CProc::func_02013e48(TickFlow *arg0) {
-    func_02013dcc();
+    func_02013dcc(arg0);
 
     if (arg0 == NULL) {
         return;
@@ -537,7 +550,7 @@ int CProc::func_02014880(int) {
             }
             state = nextState;
         }
-    } while (mUnk0x68 == 0);
+    } while (mUnk0x68 != 0);
 
     if (temp_r9) {
         return 1;
@@ -566,7 +579,6 @@ int CProc::gotoLabel(CProcState *state, u32 label) {
 
 // goto lookup
 int CProc::func_02014d8c(CProcState *state, int cmd_A, int arg0_A, int cmd_B, int arg0_B, int cmd_C, int arg0_C, int cmd_depth, volatile int cmd_undepth, int offset, int arg10) {
-    // arg8 = arg8;
     u32 i = 0;
     int depth = 0;
     
