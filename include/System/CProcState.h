@@ -18,7 +18,7 @@ struct CProcState {
     s32 mUnk0xbc;
     int mUnk0xc0;
     CProcState *mPrev;
-    int mUnk0xc8;
+    SndArc* mUnk0xc8;
     int mUnk0xcc;
     int mUnk0xd0[0x10];
     TickFlow **mUnk0x110;

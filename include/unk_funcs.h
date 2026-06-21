@@ -19,7 +19,8 @@ typedef struct CProc CProc;
 // TODO: figure out args
 typedef void(*FifoRecvCallback)(u32, u32, s32);
 
-u32 NNS_SndArcSetCurrent(u32);
+typedef struct SndArc {} SndArc;
+SndArc* NNS_SndArcSetCurrent(SndArc*);
 void OS_InitVAlarm(void);
 volatile int OS_DisableIrq(void);
 void OS_RestoreIrq(volatile int);
