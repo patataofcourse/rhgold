@@ -12,21 +12,23 @@ void CList::init(void) {
     mHead = NULL;
     mNext = NULL;
     mPrev = NULL;
-    mPriorityMaybe = 0;
+    mPriority = 0;
 }
 
 void CList::insertInto(CList **other) {
-    if (other == NULL)
+    if (other == NULL) {
         OS_Panic("");
+    }
     mHead = other;
 
     CList *cur;
     CList *prev = NULL;
     cur = *other;
-    while (cur != 0) {
+    while (cur != NULL) {
         prev = cur;
-        if (mPriorityMaybe >= cur->mPriorityMaybe)
+        if (mPriority >= cur->mPriority) {
             break;
+        }
         cur = cur->mNext;
     }
 

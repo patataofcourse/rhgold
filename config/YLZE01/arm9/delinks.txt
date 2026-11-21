@@ -12,7 +12,7 @@ src/Main/String.cpp:
     .text       start:0x02001524 end:0x020017b0
     .data       start:0x02045d1c end:0x02045d20
 
-src/Main/CBrightness.c:
+src/Main/CBrightness.cpp:
     complete
     .text       start:0x02001e1c end:0x02001f94
 

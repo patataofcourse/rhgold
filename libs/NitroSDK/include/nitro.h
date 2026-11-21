@@ -50,7 +50,7 @@
 // #include <nitro/std.h>
 
 #ifdef SDK_ARM9
-// #include <nitro/fx/fx.h>
+#include <nitro/fx/fx.h>
 // #include <nitro/fx/fx_const.h>
 // #include <nitro/fx/fx_trig.h>
 // #include <nitro/fx/fx_cp.h>

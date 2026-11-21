@@ -11,9 +11,9 @@
 // #include <nitro/gx/g3x.h>
 // #include <nitro/gx/g3_util.h>
 // #include <nitro/gx/g3imm.h>
-// #include <nitro/gx/gx_load.h>
+#include <nitro/gx/gx_load.h>
 // #include <nitro/gx/g2_oam.h>
-// #include <nitro/gx/gx_vramcnt.h>
+#include <nitro/gx/gx_vramcnt.h>
 #else
 // #include <nitro/gx/gx_sp.h>
 #endif //SDK_ARM9

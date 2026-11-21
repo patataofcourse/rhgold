@@ -3,13 +3,23 @@
 
 #include "global.h"
 
-typedef struct {
-    int mIsSubScreen;
-    int mCurrentBrightness;
-    int mSurfaceMask;
+class CBrightness {
+public:
+    void init(BOOL isSubScreen);
+    void update(void);
+    void set(s32 brightness);
+    void setInc(s32 time);
+    void setDec(s32 time);
+    BOOL isUpdating(void);
+
+protected:
+    BOOL mIsSubScreen;
+    fx32 mCurrentBrightness;
+    u32 mSurfaceMask;
     BOOL mUpdateBrightness;
     BOOL mIncreaseBrightness;
-    int mStepCount; // ?
-} CBrightness;
+    s32 mStepCount;
+
+};
 
 #endif

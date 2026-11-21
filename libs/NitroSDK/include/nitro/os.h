@@ -37,7 +37,7 @@ extern "C" {
 // #include <nitro/os/ARM9/tcm.h>
 // #include <nitro/os/ARM9/cache.h>
 // #include <nitro/os/ARM9/protectionUnit.h>
-// #include <nitro/os/ARM9/vramExclusive.h>
+#include <nitro/os/ARM9/vramExclusive.h>
 // #include <nitro/os/ARM9/china.h>
 // #include <nitro/os/ARM9/argument.h>
 #else

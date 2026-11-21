@@ -11,14 +11,14 @@ public:
     // insert into given list, following priority (or otherwise at the end)
     void insertInto(CList **other);
     
-    private:
+protected:
     void init(void);
     void destroy(void);
     
     CList **mHead;
     CList *mPrev;
     CList *mNext;
-    int mPriorityMaybe;
+    s32 mPriority;
 };
 
 #endif
