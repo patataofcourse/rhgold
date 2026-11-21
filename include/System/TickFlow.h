@@ -4,9 +4,8 @@
 #include "global.h"
 #include "TickFlowDecl.h"
 
-typedef u32 TickFlowCode;
-
-struct CTickFlow {
+class CTickFlow {
+public:
     TickFlowCode *mCode;
     s32 mNextInstructionPos;
     s24_8 mCurrentRest;

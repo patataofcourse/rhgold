@@ -10,11 +10,6 @@ typedef struct TempoInfo {
     int effects; // ?
 } TempoInfo;
 
-typedef struct CProc CProc;
-
-// TODO: figure out args
-typedef void(*FifoRecvCallback)(u32, u32, s32);
-
 typedef struct SndArc {} SndArc;
 SndArc *NNS_SndArcSetCurrent(SndArc *);
 
