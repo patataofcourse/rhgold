@@ -1,8 +1,7 @@
-#include <nitro/spi/tp.h>
+#error Please kill me off and replace with NitroSDK ver!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#include "global.h"
 
 #include "unk_funcs.h"
-
-#include <nitro/hw/io_reg.h>
 
 static struct TouchPad gTouchPadData;
 

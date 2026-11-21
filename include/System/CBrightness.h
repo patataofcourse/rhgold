@@ -1,7 +1,7 @@
 #ifndef _SYSTEM_CBRIGHTNESS_H_
 #define _SYSTEM_CBRIGHTNESS_H_
 
-#include <nitro.h>
+#include "global.h"
 
 typedef struct {
     int mIsSubScreen;

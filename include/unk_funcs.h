@@ -5,8 +5,6 @@
 extern "C" {
 #endif
 
-#include <nitro/spi/tp.h>
-
 typedef u32 Tickflow;
 
 typedef struct TempoInfo {
@@ -21,19 +19,6 @@ typedef void(*FifoRecvCallback)(u32, u32, s32);
 
 typedef struct SndArc {} SndArc;
 SndArc* NNS_SndArcSetCurrent(SndArc*);
-
-// TODO: move to SDK
-void OS_InitVAlarm(void);
-inline BOOL OS_DisableIrq(void) {
-    u16 irq = reg_OS_IME;
-    reg_OS_IME = 0;
-    return (BOOL)irq;
-}
-inline BOOL OS_RestoreIrq(BOOL enable) {
-    u16 irq = reg_OS_IME;
-    reg_OS_IME = enable;
-    return (BOOL)irq;
-}
 
 u32 func_02004d48(u32 arg0);
 void func_02008aec(int);

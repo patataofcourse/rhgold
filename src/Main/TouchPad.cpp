@@ -70,9 +70,7 @@ void func_02005a44(void) {
         TP_SetCalibrateParam(&calibrate);
     }
     TP_SetCallback(func_020059c8);
-    TP_RequestAutoSamplingStart(0, 4, sTPDataRaw, NELEMU(sTPDataRaw));
-    TP_WaitBusy(2);
-    if (TP_CheckError(2)) { 
+    if (TP_RequestAutoSamplingStart(0, 4, sTPDataRaw, NELEMU(sTPDataRaw)) { 
         OS_Panic(""); 
     };
 }

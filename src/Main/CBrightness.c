@@ -1,7 +1,5 @@
 #include "global.h"
 
-#include <nitro/hw/io_reg.h>
-
 #include "System/CBrightness.h"
 
 void CBrightness_init(CBrightness *this, BOOL isSubScreen) {

@@ -162,7 +162,7 @@ int CProc::handleCommands(CProcState *state) {
             func_02014454((func_02015dd8(args[1], 48) << 8) / arg0);
             break;
         case 0x19: {
-            SndArc* tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            SndArc *tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
             switch(arg0) {
                 case 0:
                     func_0200c648(args[1], state->mUnk0xcc);
@@ -181,14 +181,14 @@ int CProc::handleCommands(CProcState *state) {
             break;
         }
         case 0x1a: {
-            SndArc* tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            SndArc *tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
             func_02013fec(arg0);
             NNS_SndArcSetCurrent(tmp);
             break;
         }
         case 0x25: {
             s32 tmp2 = func_02013f80(150);
-            SndArc* tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            SndArc *tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
             func_0200c378(mSndHandle, arg0);
             func_02013fbc((((tmp2 << 8) / mSpeedSeq) * 150) >> 0xc);
             NNS_SndArcSetCurrent(tmp);
@@ -196,7 +196,7 @@ int CProc::handleCommands(CProcState *state) {
         }
         case 0x2f: {
             s32 tmp = func_02013f80(150);
-            SndArc* tmp2 = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            SndArc *tmp2 = NNS_SndArcSetCurrent(state->mUnk0xc8);
             s32 tmp3 = mUnk0x30;
             if (tmp3 <= 0)
                 tmp3 = 120;
@@ -231,7 +231,7 @@ int CProc::handleCommands(CProcState *state) {
             break;
         case 0x1f:
         case 0x20: {
-            SndArc* tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            SndArc *tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
             u32 a0 = (u32)arg0 / 128;
             u32 a2 = arg0 & 0x7f;
             u32 a1 = args[1] & 0xffff;
@@ -245,7 +245,7 @@ int CProc::handleCommands(CProcState *state) {
             break;
         }
         case 0x21: {
-            SndArc* tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
+            SndArc *tmp = NNS_SndArcSetCurrent(state->mUnk0xc8);
 
             func_020145f4(arg0, args[1], (s32)args[1] >> 16);
 

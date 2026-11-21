@@ -2,7 +2,7 @@
 #define NITRO_GX_H_
 
 #ifdef SDK_ARM9
-// #include <nitro/gx/gxcommon.h>
+#include <nitro/gx/gxcommon.h>
 #include <nitro/gx/gx.h>
 // #include <nitro/gx/gx_bgcnt.h>
 #include <nitro/gx/g2.h>

@@ -37,7 +37,7 @@
 // #include <nitro/pxi.h>
 // #include <nitro/snd.h>
 // #include <nitro/pad.h>
-// #include <nitro/spi.h>
+#include <nitro/spi.h>
 // #include <nitro/card.h>
 // #include <nitro/fs.h>
 // #include <nitro/rtc.h>

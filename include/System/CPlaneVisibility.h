@@ -1,7 +1,7 @@
 #ifndef _SYSTEM_CPLANEVISIBILITY_H_
 #define _SYSTEM_CPLANEVISIBILITY_H_
 
-#include <nitro.h>
+#include "global.h"
 
 class CPlaneVisibility {
 public:
@@ -20,7 +20,7 @@ public:
 
     void setPalMain(u16 palette);
     void setPalSub(u16 palette);
-    void setPalette(u16* src, u32 offset, u32 size);
+    void setPalette(u16 *src, u32 offset, u32 size);
 
     
 private:

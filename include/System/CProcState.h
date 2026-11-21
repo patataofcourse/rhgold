@@ -1,6 +1,8 @@
 #ifndef _SYSTEM_CTICKFLOWMANAGER_H_
 #define _SYSTEM_CTICKFLOWMANAGER_H_
 
+#include "global.h"
+
 typedef u32 TickFlow;
 
 struct CProcState {
@@ -18,7 +20,7 @@ struct CProcState {
     s32 mUnk0xbc;
     int mUnk0xc0;
     CProcState *mPrev;
-    SndArc* mUnk0xc8;
+    SndArc *mUnk0xc8;
     int mUnk0xcc;
     int mUnk0xd0[0x10];
     TickFlow **mUnk0x110;
