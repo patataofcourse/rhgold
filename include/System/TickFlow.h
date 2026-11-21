@@ -30,4 +30,6 @@ struct CTickFlow {
     s32 mTickFlowIndex;
 };
 
+TickFlowCode *func_02011098(s32 id);
+
 #endif
