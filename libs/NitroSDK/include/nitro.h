@@ -4,8 +4,8 @@
 #ifdef SDK_ASM
 #include <nitro/spec.h>
 #include <nitro/types.h>
-// #include <nitro/memorymap.h>
-// #include <nitro/hw/common/armArch.h>
+#include <nitro/memorymap.h>
+#include <nitro/hw/common/armArch.h>
 #else
 #ifdef __MWERKS__
 #ifdef __cplusplus
@@ -28,13 +28,13 @@
 #include <nitro/init/crt0.h>
 
 #include <nitro/types.h>
-// #include <nitro/memorymap.h>
-// #include <nitro/hw/common/armArch.h>
+#include <nitro/memorymap.h>
+#include <nitro/hw/common/armArch.h>
 // #include <nitro/hw/common/lcd.h>
 
 #include <nitro/os.h>
-// #include <nitro/mi.h>
-// #include <nitro/pxi.h>
+#include <nitro/mi.h>
+#include <nitro/pxi.h>
 // #include <nitro/snd.h>
 // #include <nitro/pad.h>
 #include <nitro/spi.h>

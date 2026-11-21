@@ -808,19 +808,19 @@ func_0201305c kind:function(arm,size=0x1c) addr:0x0201305c
 func_02013078 kind:function(arm,size=0x8c) addr:0x02013078
 func_02013104 kind:function(arm,size=0xa0) addr:0x02013104
 _ZN5CProc14handleCommandsEP9CTickFlow kind:function(arm,size=0x814) addr:0x020131a4
-_ZN5CProcC2Ei kind:function(arm,size=0x58) addr:0x020139b8
+_ZN5CProcC2El kind:function(arm,size=0x58) addr:0x020139b8
 _ZN5CProcD1Ev kind:function(arm,size=0x50) addr:0x02013a10
 _ZN5CProcD0Ev kind:function(arm,size=0x58) addr:0x02013a60
 _ZN5CProcD2Ev kind:function(arm,size=0x50) addr:0x02013ab8
-_ZN5CProc13func_02013b08Ei kind:function(arm,size=0x5c) addr:0x02013b08
+_ZN5CProc13func_02013b08Ev kind:function(arm,size=0x5c) addr:0x02013b08
 _ZN5CProc6updateEv kind:function(arm,size=0x8) addr:0x02013b64
 _ZN5CProc4initEv kind:function(arm,size=0x54) addr:0x02013b6c
-_ZN5CProc17findTickFlowIndexEi kind:function(arm,size=0x30) addr:0x02013bc0
-_ZN5CProc14createTickFlowEP9CTickFlowPmm kind:function(arm,size=0x13c) addr:0x02013bf0
+_ZN5CProc17findTickFlowIndexEl kind:function(arm,size=0x30) addr:0x02013bc0
+_ZN5CProc14createTickFlowEP9CTickFlowPml kind:function(arm,size=0x13c) addr:0x02013bf0
 func_02013d2c kind:function(arm,size=0x40) addr:0x02013d2c
 _ZN5CProc13func_02013d6cEP9CTickFlow kind:function(arm,size=0x44) addr:0x02013d6c
 func_02013db0 kind:function(arm,size=0x1c) addr:0x02013db0
-_ZN5CProc13func_02013dccEPm kind:function(arm,size=0x34) addr:0x02013dcc
+_ZN5CProc13func_02013dccEv kind:function(arm,size=0x34) addr:0x02013dcc
 func_02013e00 kind:function(arm,size=0x48) addr:0x02013e00
 _ZN5CProc13func_02013e48EPm kind:function(arm,size=0x64) addr:0x02013e48
 func_02013eac kind:function(arm,size=0x58) addr:0x02013eac
@@ -840,7 +840,7 @@ func_020141ac kind:function(arm,size=0x48) addr:0x020141ac
 func_020141f4 kind:function(arm,size=0x64) addr:0x020141f4
 func_02014258 kind:function(arm,size=0x38) addr:0x02014258
 func_02014290 kind:function(arm,size=0x5c) addr:0x02014290
-_ZN5CProc13func_020142ecEii kind:function(arm,size=0x24) addr:0x020142ec
+_ZN5CProc13func_020142ecEll kind:function(arm,size=0x24) addr:0x020142ec
 _ZN5CProc13func_02014310Eii kind:function(arm,size=0x10) addr:0x02014310
 _ZN5CProc13func_02014320Ei kind:function(arm,size=0x34) addr:0x02014320
 func_02014354 kind:function(arm,size=0x20) addr:0x02014354
@@ -867,14 +867,14 @@ func_020147f4 kind:function(arm,size=0x68) addr:0x020147f4
 func_0201485c kind:function(arm,size=0xc) addr:0x0201485c
 func_02014868 kind:function(arm,size=0xc) addr:0x02014868
 func_02014874 kind:function(arm,size=0xc) addr:0x02014874
-_ZN5CProc13func_02014880Ei kind:function(arm,size=0x100) addr:0x02014880
+_ZN5CProc13func_02014880Ev kind:function(arm,size=0x100) addr:0x02014880
 _ZN5CProc13func_02014980Ev kind:function(arm,size=0x28) addr:0x02014980
 _ZN5CProc13func_020149a8Ev kind:function(arm,size=0x1a4) addr:0x020149a8
 _ZN5CProc13func_02014b4cEv kind:function(arm,size=0x140) addr:0x02014b4c
 _ZN5CProc13func_02014c8cEv kind:function(arm,size=0x18) addr:0x02014c8c
 _ZN5CProc13func_02014ca4EP9CTickFlow kind:function(arm,size=0x90) addr:0x02014ca4
 _ZN5CProc9gotoLabelEP9CTickFlowm kind:function(arm,size=0x58) addr:0x02014d34
-_ZN5CProc13func_02014d8cEP9CTickFlowiiiiiiiiii kind:function(arm,size=0xc0) addr:0x02014d8c
+_ZN5CProc13func_02014d8cEP9CTickFlowmmmmmmmmmi kind:function(arm,size=0xc0) addr:0x02014d8c
 _ZN5CProc18handleProcCommandsEmmPm kind:function(arm,size=0x10) addr:0x02014e4c
 _ZN5CProc9stackPushEP9CTickFlow kind:function(arm,size=0x20) addr:0x02014e5c
 _ZN5CProc8stackPopEP9CTickFlow kind:function(arm,size=0x20) addr:0x02014e7c
@@ -1919,12 +1919,12 @@ func_02033eb4 kind:function(arm,size=0x1b0) addr:0x02033eb4
 func_02034064 kind:function(arm,size=0x8) addr:0x02034064
 func_0203406c kind:function(arm,size=0x34) addr:0x0203406c
 func_020340a0 kind:function(arm,size=0x3c) addr:0x020340a0
-func_020340dc kind:function(arm,size=0xc) addr:0x020340dc
-func_020340e8 kind:function(arm,size=0x100) addr:0x020340e8
-func_020341e8 kind:function(arm,size=0x4c) addr:0x020341e8
-func_02034234 kind:function(arm,size=0x24) addr:0x02034234
-func_02034258 kind:function(arm,size=0x88) addr:0x02034258
-func_020342e0 kind:function(arm,size=0x118) addr:0x020342e0
+PXI_Init kind:function(arm,size=0xc) addr:0x020340dc
+PXI_InitFifo kind:function(arm,size=0x100) addr:0x020340e8
+PXI_SetFifoRecvCallback kind:function(arm,size=0x4c) addr:0x020341e8
+PXI_IsCallbackReady kind:function(arm,size=0x24) addr:0x02034234
+PXI_SendWordByFifo kind:function(arm,size=0x88) addr:0x02034258
+PXIi_HandlerRecvFifoNotEmpty kind:function(arm,size=0x118) addr:0x020342e0
 func_020343f8 kind:function(arm,size=0x5c) addr:0x020343f8
 func_02034454 kind:function(arm,size=0x190) addr:0x02034454
 func_020345e4 kind:function(arm,size=0x50) addr:0x020345e4
@@ -2000,7 +2000,7 @@ func_02036ba4 kind:function(arm,size=0x1b8) addr:0x02036ba4
 func_02036d70 kind:function(arm,size=0x294) addr:0x02036d70
 func_02036ff0 kind:function(arm,size=0x40) addr:0x02036ff0
 func_02037030 kind:function(arm,size=0x3c) addr:0x02037030
-TPi_TpCallback kind:function(arm,size=0x280) addr:0x0203706c
+TPi_TpCallback kind:function(arm,size=0x280) addr:0x0203706c local
 TP_Init kind:function(arm,size=0x78) addr:0x020372ec
 TP_GetUserInfo kind:function(arm,size=0x94) addr:0x02037364
 TP_SetCalibrateParam kind:function(arm,size=0x128) addr:0x020373f8
@@ -5019,7 +5019,8 @@ data_0227b5bc kind:bss addr:0x0227b5bc
 data_0227b5c4 kind:bss addr:0x0227b5c4
 data_0227b5cc kind:bss addr:0x0227b5cc
 data_0227b5d4 kind:bss addr:0x0227b5d4
-gTouchPadData kind:bss addr:0x0227b630
+initial$2096 kind:bss addr:0x0227b630 local
+tpState kind:bss addr:0x0227b634 local
 data_0227b66c kind:bss addr:0x0227b66c
 data_0227b678 kind:bss addr:0x0227b678
 data_0227b684 kind:bss addr:0x0227b684

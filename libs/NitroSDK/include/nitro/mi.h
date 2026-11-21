@@ -4,7 +4,7 @@
 // #include <nitro/mi/dma.h>
 // #include <nitro/mi/exMemory.h>
 // #include <nitro/mi/wram.h>
-// #include <nitro/mi/memory.h>
+#include <nitro/mi/memory.h>
 // #include <nitro/mi/swap.h>
 #include <nitro/mi/uncompress.h>
 // #include <nitro/mi/byteAccess.h>

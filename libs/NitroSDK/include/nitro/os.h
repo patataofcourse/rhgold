@@ -9,7 +9,7 @@ extern "C" {
 #include <nitro/os/common/interrupt.h>
 #include <nitro/os/common/thread.h>
 #include <nitro/os/common/context.h>
-// #include <nitro/os/common/spinLock.h>
+#include <nitro/os/common/spinLock.h>
 // #include <nitro/os/common/timer.h>
 #include <nitro/os/common/systemCall.h>
 #include <nitro/os/common/printf.h>
@@ -18,7 +18,7 @@ extern "C" {
 // #include <nitro/os/common/mutex.h>
 // #include <nitro/os/common/exception.h>
 // #include <nitro/os/common/init.h>
-// #include <nitro/os/common/arena.h>
+#include <nitro/os/common/arena.h>
 // #include <nitro/os/common/alloc.h>
 // #include <nitro/os/common/tick.h>
 // #include <nitro/os/common/alarm.h>
@@ -27,7 +27,7 @@ extern "C" {
 // #include <nitro/os/common/reset.h>
 // #include <nitro/os/common/ownerInfo.h>
 // #include <nitro/os/common/entropy.h>
-// #include <nitro/os/common/systemWork.h>
+#include <nitro/os/common/systemWork.h>
 #include <nitro/os/common/profile.h>
 #include <nitro/os/common/callTrace.h>
 // #include <nitro/os/common/functionCost.h>
