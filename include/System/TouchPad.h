@@ -1,8 +1,6 @@
 #ifndef _SYSTEM_TOUCHPAD_H_
 #define _SYSTEM_TOUCHPAD_H_
 
-#include <nitro/spi/tp.h>
-
 #include "global.h"
 
 struct TPInfo {

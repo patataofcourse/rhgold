@@ -10,6 +10,6 @@ extern char *strGetDec(char *dest, int n);
 extern int strLen(char *str);
 extern BOOL strCmpN(char *str1, char *str2, int n);
 extern char *strStr(char *str, char *substr);
-extern void str020016f4(char *dest, char *arg1, char *arg2, char *src, int arg4);
+extern void strReplace(char *dest, char *src, char *substr, char *substrRep, int len);
 
 #endif

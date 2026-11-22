@@ -1,29 +1,29 @@
 #ifndef _SYSTEM_CPLANEVISIBILITY_H_
 #define _SYSTEM_CPLANEVISIBILITY_H_
 
-#include <nitro.h>
+#include "global.h"
 
 class CPlaneVisibility {
 public:
     CPlaneVisibility(bool isSub);
 
-    void update();
+    void update(void);
 
     void setUpdate(bool update);
-    void disableBitfield2();
-    void enableBitfield2();
+    void disableBitfield2(void);
+    void enableBitfield2(void);
     void setFading(bool fading);
-    bool getFading();
+    bool getFading(void);
 
     void setPlaneMain(GXPlaneMask plane);
     void setPlaneSub(GXPlaneMask plane);
 
     void setPalMain(u16 palette);
     void setPalSub(u16 palette);
-    void setPalette(u16* src, u32 offset, u32 size);
+    void setPalette(u16 *src, u32 offset, u32 size);
 
-    
-private:
+
+protected:
     u32 mUpdate:1;
     u32 mIsSubEngine:1;
     u32 mUnk0x0_bf2:1;

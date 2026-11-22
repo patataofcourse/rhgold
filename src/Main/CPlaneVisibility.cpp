@@ -15,25 +15,28 @@ CPlaneVisibility::CPlaneVisibility(bool isSub) {
     mBgPalMain = 0;
 }
 
-void CPlaneVisibility::update() {
-    u16 *tmp1;
-    GXPlaneMask tmp2;
-    if (!mUpdate) return;
+void CPlaneVisibility::update(void) {
+    u16 *pal;
+    GXPlaneMask plane;
+
+    if (!mUpdate) {
+        return;
+    }
 
     if (mUnk0x0_bf2 || mFading) {
-        tmp1 = &mBgPalSub;
-        tmp2 = mPlaneSubScreen;
+        pal = &mBgPalSub;
+        plane = mPlaneSubScreen;
     } else {
-        tmp1 = &mBgPalMain;
-        tmp2 = mPlaneMainScreen;
+        pal = &mBgPalMain;
+        plane = mPlaneMainScreen;
     }
 
     if (!mIsSubEngine) {
-        GX_SetVisiblePlane(tmp2);
-        func_0202eff0(tmp1, 0, 2);
+        GX_SetVisiblePlane(plane);
+        GX_LoadBGPltt(pal, 0, sizeof(*pal));
     } else {
-        GXS_SetVisiblePlane(tmp2);
-        func_0202f044(tmp1, 0, 2);
+        GXS_SetVisiblePlane(plane);
+        GXS_LoadBGPltt(pal, 0, sizeof(*pal));
     }
 }
 
@@ -41,12 +44,12 @@ void CPlaneVisibility::setUpdate(bool update) {
     mUpdate = update;
 }
 
-void CPlaneVisibility::disableBitfield2() {
-    mUnk0x0_bf2 = 0;
+void CPlaneVisibility::disableBitfield2(void) {
+    mUnk0x0_bf2 = false;
 }
 
-void CPlaneVisibility::enableBitfield2() {
-    mUnk0x0_bf2 = 1;
+void CPlaneVisibility::enableBitfield2(void) {
+    mUnk0x0_bf2 = true;
 }
 
 void CPlaneVisibility::setPlaneMain(GXPlaneMask plane) {
@@ -65,17 +68,18 @@ void CPlaneVisibility::setPalSub(u16 palette) {
     mBgPalSub = palette;
 }
 
-void CPlaneVisibility::setPalette(u16* src, u32 offset, u32 size) {
+void CPlaneVisibility::setPalette(u16 *src, u32 offset, u32 size) {
     if (offset != 0) {
         if (!mIsSubEngine) {
-            func_0202eff0(src, offset, size);
+            GX_LoadBGPltt(src, offset, size);
         } else {
-            func_0202f044(src, offset, size);
+            GXS_LoadBGPltt(src, offset, size);
         }
     } else {
         setPalMain(src[0]);
-        if (size >= 2)
-            setPalette(&src[1],offset+2, size-2);
+        if (size >= sizeof(*src)) {
+            setPalette(&src[1], offset + sizeof(*src), size - sizeof(*src));
+        }
     }
 }
 
@@ -83,6 +87,6 @@ void CPlaneVisibility::setFading(bool fading) {
     mFading = fading;
 }
 
-bool CPlaneVisibility::getFading() {
+bool CPlaneVisibility::getFading(void) {
     return mFading | mUnk0x0_bf2;
 }

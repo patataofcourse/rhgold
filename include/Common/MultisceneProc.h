@@ -12,7 +12,7 @@ public:
     // TODO: move to its own TU
     class CSub0xa4 {
     public:
-        CSub0xa4(CMultisceneProc*);
+        CSub0xa4(CMultisceneProc *);
     private:
         char pad[0x680];
     };

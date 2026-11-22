@@ -18,7 +18,7 @@ CMultisceneProc::CMultisceneProc(int a) : CProc(a) {
     mUnk0x8d4 = 0;
     func_02009d98(1, 1);
     func_0200b9a0(1);
-    func_0200b3f0(this);
+    func_0200b3f0((void *)this);
     func_02008aec(1);
     func_ov000_02280630();
 

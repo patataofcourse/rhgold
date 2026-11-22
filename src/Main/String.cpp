@@ -82,24 +82,24 @@ char *strStr(char *str, char *substr) {
     return NULL;
 }
 
-void str020016f4(char *dest, char *arg1, char *arg2, char *src, int arg4) {
-    int arg2Len = strLen(arg2);
-    int srcLen = strLen(src);
-    arg4--;
+void strReplace(char *dest, char *src, char *substr, char *substrRep, int len) {
+    int subLen = strLen(substr);
+    int subRepLen = strLen(substrRep);
+    len--;
 
-    while (*arg1) {
-        if (strCmpN(arg1, arg2, arg2Len)) {
-            *dest++ = *arg1++;
-            arg4--;
+    while (*src) {
+        if (strCmpN(src, substr, subLen)) {
+            *dest++ = *src++;
+            len--;
         } else {
-            for (int i = 0; i < srcLen; i++) {
-                dest[i] = src[i];
+            for (int i = 0; i < subRepLen; i++) {
+                dest[i] = substrRep[i];
             }
-            dest += srcLen;
-            arg1 += arg2Len;
-            arg4 -= srcLen;
+            dest += subRepLen;
+            src += subLen;
+            len -= subRepLen;
         }
-        if (arg4 < 0) {
+        if (len < 0) {
             OS_Panic("");
         }
     }

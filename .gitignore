@@ -20,3 +20,4 @@ build.ninja
 /wibo-*
 ghidra/exports
 ghidra/*$py.class
+.venv/

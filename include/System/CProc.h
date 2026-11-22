@@ -2,53 +2,53 @@
 #define _SYSTEM_CPROC_H_
 
 #include "global.h"
-#include "CProcState.h"
+#include "TickFlow.h"
 
 class CProc {
 public:
-    CProc(int tfID);
+    CProc(s32 tfID);
     virtual ~CProc(void);
 
-    int handleCommands(CProcState *state);
+    BOOL handleCommands(CTickFlow *tickFlow);
 
-    CProcState *createTickFlow(CProcState *state, TickFlow *entry, u32 initRest);
-    bool findTickFlowIndex(int index);
-    int gotoLabel(CProcState *state, u32 label);
-    int func_02014d8c(CProcState*, int, int, int, int, int, int, int, int, int, int); // goto??? prob for ifs
-    void stackPush(CProcState *state);
-    void stackPop(CProcState *state);
+    CTickFlow *createTickFlow(CTickFlow *tickFlow, TickFlowCode *entry, s32 initRest);
+    bool findTickFlowIndex(s32 index);
+    s32 gotoLabel(CTickFlow *tickFlow, u32 label);
+    u32 func_02014d8c(CTickFlow *tickFlow, u32, u32, u32, u32, u32, u32, u32, u32, u32, BOOL); // goto??? prob for ifs
+    void stackPush(CTickFlow *tickFlow);
+    void stackPop(CTickFlow *tickFlow);
 
     u32 tempoFromSpeed(s32);
 
     // unknown functions
-    int func_02013b08(int);
-    void func_02013dcc(TickFlow*);
-    CProcState *func_02013e48(TickFlow*);
-    int func_02013f3c(s32, s32);
-    int func_02013f80(u32);
+    BOOL func_02013b08(void);
+    void func_02013dcc(void);
+    CTickFlow *func_02013e48(TickFlowCode *);
+    s32 func_02013f3c(s32, s32);
+    s32 func_02013f80(u32);
     void func_02013fbc(u16);
-    void func_02013fec(int);
-    void func_0201408c(int);
-    void func_02014160(int);
-    void func_020142ec(int, int);
-    void func_02014310(int, int);
-    void func_02014320(int);
-    void func_02014408(int, int);
+    void func_02013fec(s32);
+    void func_0201408c(s32);
+    void func_02014160(s32);
+    void func_020142ec(s32, s32);
+    void func_02014310(s32, s32);
+    void func_02014320(s32);
+    void func_02014408(s32, s32);
     void func_02014454(u32);
-    void func_02014520(int, u32, u32, s32);
-    void func_02014588(int, int, u32, u32, s32);
-    void func_020145f4(int, u16, u32);
+    void func_02014520(s32, u32, u32, s32);
+    void func_02014588(s32, s32, u32, u32, s32);
+    void func_020145f4(s32, u16, u32);
     void func_02014620(void);
-    int func_02014880(int);
+    BOOL func_02014880(void);
     s32 func_020144c0(void);
     void func_02014374(void);
-    CProcState *func_020144c8(void);
+    CTickFlow *func_020144c8(void);
     void func_02014980(void);
     void func_020149a8(void);
     void func_02014b4c(void);
     void func_02014c8c(void);
-    int func_02014ca4(CProcState*);
-    void func_02013d6c(CProcState*);
+    BOOL func_02014ca4(CTickFlow *);
+    void func_02013d6c(CTickFlow *);
     
 
     enum Commands {
@@ -62,10 +62,10 @@ public:
     };
 
 protected:
-    virtual int update(void);
-    virtual int handleProcCommands(u32 cmd, u32 arg0, u32 *args);
+    virtual BOOL update(void);
+    virtual BOOL handleProcCommands(u32 cmd, u32 arg0, u32 *args);
 
-    int mTickFlowId;
+    s32 mTickFlowId;
 
 private:
     void init(void);
@@ -77,29 +77,29 @@ private:
     u16 mSpeedStrm;
     s16 mVolume;
     void *mSndHandle;
-    char pad0x20[0x10];
+    u8 pad0x20[0x10];
     s32 mUnk0x30; // some sort of tempo thing?
-    char pad0x34[4];
-    int mStrmHandle;
+    u8 pad0x34[4];
+    int mStrmHandle; // TODO
     s32 mCurrentStrmId;
-    char pad0x40[0x10];
-    char mUnk0x50[4];
+    u8 pad0x40[0x10];
+    u8 mUnk0x50[4];
     u32 mUnk0x54;
     u16 mSpeedSeq;
     void *mCurrentSndHandle;
-    CProcState *mLastProcState;
+    CTickFlow *mTickFlowHead;
     BOOL mHaltedProcess;
-    int mUnk0x68;
+    BOOL mUnk0x68;
     s32 mUnk0x6c;
     u16 mUnk0x70;
     u16 mUnk0x72;
     s32 mUnk0x74;
     s32 mUnk0x78;
-    int mTickFlowIndex;
+    s32 mTickFlowIndex;
     s32 mUnk0x80;
-    CProcState *mProcState;
+    CTickFlow *mTickFlowCurProc;
     void *mUnk0x88;
-    int mUnk0x8c;
+    s32 mUnk0x8c;
     u32 mTempo;
 };
 
