@@ -11,7 +11,7 @@ extern "C" {
 #ifdef SDK_ARM9
 #include <nitro/spi/ARM9/tp.h>
 // #include <nitro/spi/ARM9/mic.h>
-// #include <nitro/spi/ARM9/pm.h>
+#include <nitro/spi/ARM9/pm.h>
 #include <nitro/spi/ARM9/spi.h>
 #else
 // #include <nitro/spi/ARM7/spi.h>

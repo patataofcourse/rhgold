@@ -2,6 +2,7 @@
 #define _GLOBAL_H_
 
 #include <nitro.h>
+#include <nnsys.h>
 
 #include "unk_funcs.h"
 

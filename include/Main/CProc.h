@@ -64,12 +64,12 @@ private:
     s32 mGameSpeed1;
     u8 mState;
     u16 mSpeedStrm;
-    s16 mVolume;
+    u16 mVolume;
     void *mSndHandle;
     u8 pad0x20[0x10];
     s32 mUnk0x30; // some sort of tempo thing?
     u8 pad0x34[4];
-    int mStrmHandle; // TODO
+    NNSSndStrmHandle mStrmHandle;
     s32 mCurrentStrmId;
     u8 pad0x40[0x10];
     u8 mUnk0x50[4];

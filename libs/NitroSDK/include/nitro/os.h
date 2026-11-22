@@ -15,11 +15,11 @@ extern "C" {
 #include <nitro/os/common/printf.h>
 // #include <nitro/os/common/emulator.h>
 // #include <nitro/os/common/message.h>
-// #include <nitro/os/common/mutex.h>
+#include <nitro/os/common/mutex.h>
 // #include <nitro/os/common/exception.h>
 // #include <nitro/os/common/init.h>
 #include <nitro/os/common/arena.h>
-// #include <nitro/os/common/alloc.h>
+#include <nitro/os/common/alloc.h>
 // #include <nitro/os/common/tick.h>
 // #include <nitro/os/common/alarm.h>
 #include <nitro/os/common/valarm.h>

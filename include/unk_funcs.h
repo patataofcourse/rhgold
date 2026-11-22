@@ -10,9 +10,6 @@ typedef struct TempoInfo {
     int effects; // ?
 } TempoInfo;
 
-typedef struct SndArc {} SndArc;
-SndArc *NNS_SndArcSetCurrent(SndArc *);
-
 u32 func_02004d48(u32 arg0);
 void func_02008aec(int);
 void func_02009d98(int, int);
@@ -33,10 +30,6 @@ void *func_0200c198(void);
 void func_0200c1c0(void *);
 u32 func_020014e0(void);
 TempoInfo *func_02015c14(int);
-void func_0202a480(int *, int);
-void func_0202a4e0(int *, u16, int);
-void func_0202a540(int *);
-void func_0202a55c(int *);
 
 #ifdef __cplusplus
 };

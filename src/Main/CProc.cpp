@@ -184,11 +184,11 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             break;
         }
         case TF_028: {
-            func_02014454(INT_TO_FIXED(func_02015dd8(args[1], 48)) / arg0);
+            func_02014454(INT_TO_FIXED(func_02015dd8(args[1], 48)) / (s32)arg0);
             break;
         }
         case TF_019: {
-            SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
+            NNSSndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             switch(arg0) {
                 case 0:
                     func_0200c648(args[1], tickFlow->mUnk0xcc);
@@ -207,14 +207,14 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             break;
         }
         case TF_01A: {
-            SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
+            NNSSndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             func_02013fec(arg0);
             NNS_SndArcSetCurrent(arc);
             break;
         }
         case TF_025: {
             s32 tmp2 = func_02013f80(150);
-            SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
+            NNSSndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             func_0200c378(mSndHandle, arg0);
             func_02013fbc(FX_Whole(((INT_TO_FIXED(tmp2) / mSpeedSeq) * 150)));
             NNS_SndArcSetCurrent(arc);
@@ -222,7 +222,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
         }
         case TF_02F: {
             s32 tmp = func_02013f80(150);
-            SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
+            NNSSndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             s32 tmp3 = mUnk0x30;
             if (tmp3 <= 0) {
                 tmp3 = 120;
@@ -266,7 +266,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
         }
         case TF_01F:
         case TF_020: {
-            SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
+            NNSSndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             u32 a0 = (u32)arg0 / 128;
             u32 a2 = arg0 & 0x7f;
             u32 a1 = args[1] & 0xffff;
@@ -280,7 +280,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             break;
         }
         case TF_021: {
-            SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
+            NNSSndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
 
             func_020145f4(arg0, args[1], (s32)args[1] >> 16);
 
@@ -320,7 +320,7 @@ CProc::CProc(s32 tfID) {
     mTickFlowCurProc = NULL;
     mSndHandle = func_0200c198();
     mCurrentSndHandle = NULL;
-    func_0202a55c(&mStrmHandle);
+    NNS_SndStrmHandleInit(&mStrmHandle);
     init();
 }
 
@@ -332,7 +332,7 @@ CProc::~CProc(void) {
         tickFlow = lastTickFlow;
     }
     func_0200c1c0(mSndHandle);
-    func_0202a480(&mStrmHandle, 0);
+    NNS_SndArcStrmStop(&mStrmHandle, 0);
 
 }
 
@@ -517,7 +517,7 @@ CTickFlow *CProc::func_020144c8(void) {
 
 
 void CProc::func_020142ec(s32 arg0, s32 arg1) {
-    func_0202a540(&mStrmHandle);
+    NNS_SndArcStrmSetChannelPan(&mStrmHandle, arg0, arg1);
     mUnk0x50[arg0] = arg1;
 }
 
@@ -544,7 +544,7 @@ void CProc::func_02014374(void) {
     mVolume = tmp;
     
     func_0200c49c(mSndHandle, mVolume);
-    func_0202a4e0(&mStrmHandle, mVolume, 0);
+    NNS_SndArcStrmMoveVolume(&mStrmHandle, mVolume, 0);
 }
 
 // THIS MATCHES: objdiff bugs out

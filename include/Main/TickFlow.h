@@ -22,7 +22,7 @@ public:
     s32 mUnk0xbc;
     BOOL mUnk0xc0;
     CTickFlow *mPrev;
-    SndArc *mUnk0xc8;
+    NNSSndArc *mUnk0xc8;
     s32 mUnk0xcc;
     s32 mUnk0xd0[0x10];
     TickFlowCode **mUnk0x110;
