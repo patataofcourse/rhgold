@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_STRING_H_
-#define _SYSTEM_STRING_H_
+#ifndef _MAIN_STRING_H_
+#define _MAIN_STRING_H_
 
 #include "global.h"
 

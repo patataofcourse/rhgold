@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_CBRIGHTNESS_H_
-#define _SYSTEM_CBRIGHTNESS_H_
+#ifndef _MAIN_CBRIGHTNESS_H_
+#define _MAIN_CBRIGHTNESS_H_
 
 #include "global.h"
 

@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_TICKFLOW_H_
-#define _SYSTEM_TICKFLOW_H_
+#ifndef _MAIN_TICKFLOW_H_
+#define _MAIN_TICKFLOW_H_
 
 #include "global.h"
 #include "TickFlowDecl.h"

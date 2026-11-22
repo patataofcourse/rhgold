@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_CPROC_H_
-#define _SYSTEM_CPROC_H_
+#ifndef _MAIN_CPROC_H_
+#define _MAIN_CPROC_H_
 
 #include "global.h"
 #include "TickFlow.h"
@@ -49,17 +49,6 @@ public:
     void func_02014c8c(void);
     BOOL func_02014ca4(CTickFlow *);
     void func_02013d6c(CTickFlow *);
-    
-
-    enum Commands {
-        Spawn = 0,
-        Rest = 1,
-        CallFunc = 2,
-        StoreList = 0x22,
-        SpawnList = 0x23,
-        RestCondvar = 0x26,
-        UnkCmd0x2d = 0x2d,
-    };
 
 protected:
     virtual BOOL update(void);

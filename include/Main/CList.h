@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_CLIST_H_
-#define _SYSTEM_CLIST_H_
+#ifndef _MAIN_CLIST_H_
+#define _MAIN_CLIST_H_
 
 #include "global.h"
 

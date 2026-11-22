@@ -1,9 +1,6 @@
-#include "System/CProc.h"
+#include "Main/CProc.h"
 
-// TODO: figure out compiler stuff: version, flags, etc
-// TODO: unfuck the tmp vars
-// TODO: fixed point lololol (look at << 8 and >> 8)
-// TODO: there is probably more wrong shit
+// TODO: Needs some more cleanup probably
 BOOL CProc::handleCommands(CTickFlow *tickFlow) {
     mTickFlowCurProc = tickFlow;
 
@@ -16,16 +13,18 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
     u32 arg0 = opInt >> 14;
 
     switch (cmd) {
-        case StoreList:
+        case TF_022: {
             tickFlow->mUnk0x110 = (TickFlowCode **)args[1];
             break;
-        case Spawn:
+        }
+        case TF_000: {
             CTickFlow *newFlow = createTickFlow(tickFlow, (TickFlowCode *)args[1], tickFlow->mCurrentRest);
             newFlow->mUnk0xc0 = TRUE;
             mUnk0x68 = TRUE;
             mUnk0x80 = -1;
             break;
-        case SpawnList:
+        }
+        case TF_023: {
             if (tickFlow->mUnk0x110 == NULL) {
                 OS_Panic("");
             }
@@ -38,37 +37,48 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             mUnk0x80 = -1;
             
             break;
-        case UnkCmd0x2d:
+        }
+        case TF_02D: {
             mUnk0x80 = arg0;
             break;
-        case Rest:
+        }
+        case TF_001: {
             tickFlow->mCurrentRest += INT_TO_FIXED(arg0);
             break;
-        case RestCondvar:
+        }
+        case TF_026: {
             tickFlow->mCurrentRest += INT_TO_FIXED(tickFlow->mCondvar);
             break;
-        case 0x27:
+        }
+        case TF_027: {
             tickFlow->mCurrentRest += INT_TO_FIXED(func_02015c14(arg0)->effects);
             break;
-        case CallFunc:
+        }
+        case TF_002: {
             ((void(*)(u32))(args[1]))(args[2]);
             break;
-        case 4:
+        }
+        case TF_004: {
             tickFlow->mNextInstructionPos = gotoLabel(tickFlow, arg0);
             break;
-        case 5:
+        }
+        case TF_005: {
             tickFlow->mCondvar = args[1];
             break;
-        case 6:
+        }
+        case TF_006: {
             tickFlow->mCondvar += args[1];
             break;
-        case 7:
+        }
+        case TF_007: {
             stackPush(tickFlow);
             break;
-        case 8:
+        }
+        case TF_008: {
             stackPop(tickFlow);
             break;
-        case 9:
+        }
+        case TF_009: {
             s32 condvar = tickFlow->mCondvar;
             s32 value = args[1];
 
@@ -99,23 +109,28 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
                 tickFlow->mNextInstructionPos = func_02014d8c(tickFlow, 10, 0, 11, 0, 11, 0, 9, 11, tickFlow->mNextInstructionPos, 1);
             }
             break;
-        case 0xa:
+        }
+        case TF_00A: {
             tickFlow->mNextInstructionPos = func_02014d8c(tickFlow, 11, 0, 11, 0, 11, 0, 9, 11, tickFlow->mNextInstructionPos, 1);
             break;
-        case 0xc:
+        }
+        case TF_00C: {
             tickFlow->mNextInstructionPos = func_02014d8c(tickFlow, 13, tickFlow->mCondvar, 15, 0, 16, 0, 12, 16, tickFlow->mNextInstructionPos, 1);
             break;
-        case 0xe:
+        }
+        case TF_00E: {
             tickFlow->mNextInstructionPos = func_02014d8c(tickFlow, 16, 0, 16, 0, 16, 0, 12, 16, tickFlow->mNextInstructionPos, 1);
             break;
-        case 0x11:
+        }
+        case TF_011: {
             tickFlow->mExecCodeStack[tickFlow->mExecStackPos] = tickFlow->mCode;
             tickFlow->mExecInstPosStack[tickFlow->mExecStackPos] = tickFlow->mNextInstructionPos;
             tickFlow->mExecStackPos++;
             tickFlow->mCode = (TickFlowCode *)args[1];
             tickFlow->mNextInstructionPos = 0;
             break;
-        case 0x24:
+        }
+        case TF_024: {
             if (tickFlow->mUnk0x110 == NULL) {
                 OS_Panic("");
             }
@@ -129,26 +144,33 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             tickFlow->mCode = tickFlow->mUnk0x110[arg0];
             tickFlow->mNextInstructionPos = 0;
             break;
-        case 0x12:
+        }
+        case TF_012: {
             tickFlow->mExecStackPos--;
             tickFlow->mCode = tickFlow->mExecCodeStack[tickFlow->mExecStackPos];
             tickFlow->mNextInstructionPos = tickFlow->mExecInstPosStack[tickFlow->mExecStackPos];
             break;
-        case 0x13:
+        }
+        case TF_013: {
             return TRUE;
-        case 0x14:
+        }
+        case TF_014: {
             tickFlow->mCondvar = func_02004d48(arg0);
             break;
-        case 0x15:
+        }
+        case TF_015: {
             mHaltedProcess = TRUE;
             break;
-        case 0x16:
+        }
+        case TF_016: {
             func_02013fbc(arg0);
             break;
-        case 0x17:
+        }
+        case TF_017: {
             func_02014454(arg0);
             break;
-        case 0x18: {
+        }
+        case TF_018: {
             s32 tmp4 = args[3];
             s32 tmp = func_020144c0() * args[1];
             if (tmp4 >= FIXED_TO_INT(tmp)) {
@@ -161,10 +183,11 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             func_02014454(tmp4);
             break;
         }
-        case 0x28:
+        case TF_028: {
             func_02014454(INT_TO_FIXED(func_02015dd8(args[1], 48)) / arg0);
             break;
-        case 0x19: {
+        }
+        case TF_019: {
             SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             switch(arg0) {
                 case 0:
@@ -183,13 +206,13 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             NNS_SndArcSetCurrent(arc);
             break;
         }
-        case 0x1a: {
+        case TF_01A: {
             SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             func_02013fec(arg0);
             NNS_SndArcSetCurrent(arc);
             break;
         }
-        case 0x25: {
+        case TF_025: {
             s32 tmp2 = func_02013f80(150);
             SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             func_0200c378(mSndHandle, arg0);
@@ -197,7 +220,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             NNS_SndArcSetCurrent(arc);
             break;
         }
-        case 0x2f: {
+        case TF_02F: {
             s32 tmp = func_02013f80(150);
             SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             s32 tmp3 = mUnk0x30;
@@ -209,32 +232,40 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             NNS_SndArcSetCurrent(arc);
             break;
         }
-        case 0x1b:
+        case TF_01B: {
             func_0201408c(arg0);
             break;
-        case 0x1c:
+        }
+        case TF_01C: {
             func_02013fbc(func_02015dd8(arg0, 48));
             break;
-        case 0x2a:
+        }
+        case TF_02A: {
             func_02014160(arg0);
             break;
-        case 0x30:
+        }
+        case TF_030: {
             func_02014160(INT_TO_FIXED(arg0) / mGameSpeed);
             break;
-        case 0x2b:
+        }
+        case TF_02B: {
             func_020142ec(arg0, args[1]);
             break;
-        case 0x2c:
+        }
+        case TF_02C: {
             func_02014310(arg0, args[1]);
             break;
-        case 0x1d:
+        }
+        case TF_01D: {
             func_02014320(arg0);
             break;
-        case 0x1e:
+        }
+        case TF_01E: {
             func_02014408(arg0, args[1]);
             break;
-        case 0x1f:
-        case 0x20: {
+        }
+        case TF_01F:
+        case TF_020: {
             SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             u32 a0 = (u32)arg0 / 128;
             u32 a2 = arg0 & 0x7f;
@@ -248,7 +279,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             NNS_SndArcSetCurrent(arc);
             break;
         }
-        case 0x21: {
+        case TF_021: {
             SndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
 
             func_020145f4(arg0, args[1], (s32)args[1] >> 16);
@@ -256,23 +287,27 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             NNS_SndArcSetCurrent(arc);
             break;
         }
-        case 0x29:
+        case TF_029: {
             tickFlow->mCurrentRest -= INT_TO_FIXED(arg0);
             break;
-        case 0x2e:
+        }
+        case TF_02E: {
             func_02014620();
             break;
+        }
         
         // non-existent commands
-        case 3:
-        case 0xb:
-        case 0xd:
-        case 0xf:
-        case 0x10:
+        case TF_003:
+        case TF_00B:
+        case TF_00D:
+        case TF_00F:
+        case TF_010: {
             break;
+        }
 
-        default:    
+        default: {
             return handleProcCommands(cmd, arg0, &args[1]);
+        }
     };
     return FALSE;
 }
@@ -464,11 +499,10 @@ CTickFlow *CProc::func_02013e48(TickFlowCode *tickFlowCode) {
 }
 
 u32 CProc::tempoFromSpeed(s32 speed) {
-    // does the 0x80 mean there's fixed point here too...?
     return FIXED_TO_INT(((speed * (60 * 60)) / 48) + INT_TO_FIXED(0.5));
 }
 
-// finds some tickflow going down the chain somehow?
+// Finds a category/priority 0 TickFlow object (?)
 CTickFlow *CProc::func_020144c8(void) {
     CTickFlow *temp = mTickFlowHead;
     while (temp != NULL) {

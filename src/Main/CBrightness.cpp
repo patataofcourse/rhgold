@@ -1,6 +1,6 @@
 #include "global.h"
 
-#include "System/CBrightness.h"
+#include "Main/CBrightness.h"
 
 void CBrightness::init(BOOL isSubScreen) {
     mIsSubScreen = isSubScreen;

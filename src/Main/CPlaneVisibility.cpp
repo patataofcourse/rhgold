@@ -1,9 +1,4 @@
-#include "global.h"
-#include "unk_funcs.h"
-
-#include <nitro.h>
-
-#include "System/CPlaneVisibility.h"
+#include "Main/CPlaneVisibility.h"
 
 CPlaneVisibility::CPlaneVisibility(bool isSub) {
     mUpdate = false;

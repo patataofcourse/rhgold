@@ -1,7 +1,7 @@
 #ifndef _COMMON_MULTISCENEPROC_H_
 #define _COMMON_MULTISCENEPROC_H_
 
-#include "System/CProc.h"
+#include "Main/CProc.h"
 
 class CMultisceneProc : public CProc {
 public:
