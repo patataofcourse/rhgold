@@ -41,7 +41,7 @@ public:
     void func_02013fec(s32 seqNo);
     void func_02014074(u32 track, s32 volume);
     void func_0201408c(s32 strmNo);
-    void func_02014160(s32 fadeSpeed);
+    void func_02014160(s32 fadeFrame);
     BOOL func_020141ac(void);
     void func_020141f4(void);
     void func_02014258(void);
@@ -94,10 +94,10 @@ public:
         mNext = proc;
     }
     s32 getIndex(void) {
-        return mUnk0x8c;
+        return mIndex;
     }
     void setIndex(s32 index) {
-        mUnk0x8c = index;
+        mIndex = index;
     }
 
 protected:
@@ -106,10 +106,10 @@ protected:
 
     s32 mTickFlowId;
     u32 mVBlankCount;
-    s32 mGameSpeed;
-    s32 mGameSpeed1;
+    s32 mTicksPerFrame;
+    s32 mAverageTicksPerFrame;
     u8 mCurrentBGMType;
-    u16 mSpeedStrm;
+    u16 mTempo;
     u16 mVolume;
     void *mSndHandle;
     u8 pad0x20[0xc];
@@ -119,10 +119,12 @@ protected:
     u8 pad0x34[4];
     NNSSndStrmHandle mStrmHandle;
     s32 mCurrentStrmId;
-    u8 pad0x40[0x10];
-    u8 mUnk0x50[4];
+    u8 pad0x40[4];
+    u32 mPlayingPos;
+    u8 pad48[8];
+    s8 mChannelPan[2];
     u32 mUnk0x54;
-    u16 mSpeedSeq;
+    u16 mSpeed;
     void *mCurrentSndHandle;
     CTickFlow *mTickFlowHead;
     BOOL mExecPaused;
@@ -136,8 +138,8 @@ protected:
     s32 mUnk0x80;
     CTickFlow *mTickFlowCurProc;
     CProc *mNext;
-    s32 mUnk0x8c;
-    u32 mTempo;
+    s32 mIndex;
+    u32 mAverageTempo;
 };
 
 class CProcMan {

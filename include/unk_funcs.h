@@ -20,7 +20,7 @@ void func_0200b9a0(int);
 void *func_0200c198(void);
 void func_0200c1c0(void *);
 void func_0200c378(void *, int);
-void func_0200c49c(void *, u16);
+void func_0200c49c(void *, s32);
 void func_0200c4a8(void *, u32, s32);
 void func_0200c648(int, void *);
 void func_0200c654(int, void *);

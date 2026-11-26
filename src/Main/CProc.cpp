@@ -238,7 +238,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             s32 tmp2 = func_02013f80(150);
             NNSSndArc *arc = NNS_SndArcSetCurrent(tickFlow->mUnk0xc8);
             func_0200c378(mSndHandle, arg0);
-            func_02013fbc(FX_Whole(((INT_TO_FIXED(tmp2) / mSpeedSeq) * 150)));
+            func_02013fbc(FX_Whole(((INT_TO_FIXED(tmp2) / mSpeed) * 150)));
             NNS_SndArcSetCurrent(arc);
             break;
         }
@@ -250,7 +250,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
                 tmp3 = 120;
             }
             func_0200c378(mSndHandle, func_02013f3c(arg0, tmp3));
-            func_02013fbc(FX_Whole(((INT_TO_FIXED(tmp) / mSpeedSeq) * 150)));
+            func_02013fbc(FX_Whole(((INT_TO_FIXED(tmp) / mSpeed) * 150)));
             NNS_SndArcSetCurrent(arc);
             break;
         }
@@ -267,7 +267,7 @@ BOOL CProc::handleCommands(CTickFlow *tickFlow) {
             break;
         }
         case TF_030: {
-            func_02014160(INT_TO_FIXED(arg0) / mGameSpeed);
+            func_02014160(INT_TO_FIXED(arg0) / mTicksPerFrame);
             break;
         }
         case TF_02B: {
@@ -338,7 +338,7 @@ CProc::CProc(s32 tfID) {
     mTickFlowId = tfID;
     mVBlankCount = func_020014e0();
     mNext = NULL;
-    mUnk0x8c = 0;
+    mIndex = 0;
     mTickFlowCurProc = NULL;
     mSndHandle = func_0200c198();
     mCurrentSndHandle = NULL;
@@ -363,8 +363,8 @@ BOOL CProc::func_02013b08(void) {
         return TRUE;
     }
     
-    if (mGameSpeed1 != 0) {
-        mTempo = getTempoFromTicksPerFrame(mGameSpeed1);
+    if (mAverageTicksPerFrame != 0) {
+        mAverageTempo = getTempoFromTicksPerFrame(mAverageTicksPerFrame);
     }
 
     if (update()) {
@@ -382,15 +382,15 @@ BOOL CProc::update(void) {
 void CProc::init(void) {
     mTickFlowHead = NULL;
     mExecPaused = FALSE;
-    mGameSpeed1 = 0;
-    mGameSpeed = 0;
+    mAverageTicksPerFrame = 0;
+    mTicksPerFrame = 0;
     mCurrentBGMType = eProcBGMType_0;
-    mTempo = mSpeedStrm = 120;
+    mAverageTempo = mTempo = 120;
     mVolume = 127;
     mUnk0x6c = FALSE;
     mUnk0x54 = 0;
     mCurrentStrmId = -1;
-    mSpeedSeq = INT_TO_FIXED(1.0);
+    mSpeed = INT_TO_FIXED(1.0);
     mTickFlowIndex = 1;
     mUnk0x80 = -1;
 }
@@ -583,17 +583,17 @@ u32 CProc::getTempoFromTicksPerFrame(s32 ticksPerFrame) {
 }
 
 s32 CProc::func_02013f80(s32 tempo) {
-    return TOFX32(mGameSpeed1) / func_02013f14(tempo);
+    return TOFX32(mAverageTicksPerFrame) / func_02013f14(tempo);
 }
 
 s32 CProc::func_02013fa0(s32 tempo) {
-    return TOFX32(func_02013f14(tempo)) / mGameSpeed1;
+    return TOFX32(func_02013f14(tempo)) / mAverageTicksPerFrame;
 }
 
 void CProc::func_02013fbc(u16 tempo) {
     mCurrentBGMType = eProcBGMType_0;
-    mSpeedStrm = tempo;
-    mGameSpeed = func_02013f14(FIXED_TO_INT(mSpeedStrm * mSpeedSeq));
+    mTempo = tempo;
+    mTicksPerFrame = func_02013f14(FIXED_TO_INT(mTempo * mSpeed));
 }
 
 void CProc::func_02013fec(s32 seqNo) {
@@ -610,12 +610,19 @@ void CProc::func_0201408c(s32 strmNo) {
 
 }
 
-void CProc::func_02014160(s32 fadeSpeed) {
-
+void CProc::func_02014160(s32 fadeFrame) {
+    s32 d = func_02013f80(150);
+    NNS_SndArcStrmStop(&mStrmHandle, fadeFrame);
+    func_02013fbc(FX_Whole((INT_TO_FIXED(d) / mSpeed) * 150));
 }
 
 BOOL CProc::func_020141ac(void) {
-
+    if (NNS_SndStrmHandleIsValid(&mStrmHandle)) {
+        if (NNS_SndArcStrmGetCurrentPlayingPos(&mStrmHandle) < NNS_SndArcStrmGetTimeLength(&mStrmHandle)) {
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 void CProc::func_020141f4(void) {
@@ -623,16 +630,35 @@ void CProc::func_020141f4(void) {
 }
 
 void CProc::func_02014258(void) {
+    if (mCurrentStrmId < 0) {
+        return;
+    }
 
+    mPlayingPos = NNS_SndArcStrmGetCurrentPlayingPos(&mStrmHandle);
+    if (mPlayingPos == 0) {
+        return;
+    }
+
+    NNS_SndArcStrmStop(&mStrmHandle, 4);
 }
 
 void CProc::func_02014290(void) {
+    if (mCurrentStrmId < 0) {
+        return;
+    }
+    if (mPlayingPos == 0) {
+        return;
+    }
 
+    NNS_SndArcStrmStart(&mStrmHandle, mCurrentStrmId, mPlayingPos);
+    NNS_SndArcStrmMoveVolume(&mStrmHandle, mVolume, 0);
+    NNS_SndArcStrmSetChannelPan(&mStrmHandle, 0, mChannelPan[0]);
+    NNS_SndArcStrmSetChannelPan(&mStrmHandle, 1, mChannelPan[1]);
 }
 
 void CProc::func_020142ec(s32 arg0, s32 arg1) {
     NNS_SndArcStrmSetChannelPan(&mStrmHandle, arg0, arg1);
-    mUnk0x50[arg0] = arg1;
+    mChannelPan[arg0] = arg1;
 }
 
 void CProc::func_02014310(s32 channel, s32 volume) {
@@ -640,7 +666,10 @@ void CProc::func_02014310(s32 channel, s32 volume) {
 }
 
 void CProc::func_02014320(s32 volume) {
-
+    mVolume = volume;
+    mUnk0x6c = FALSE;
+    func_0200c49c(mSndHandle, volume);
+    NNS_SndArcStrmMoveVolume(&mStrmHandle, volume, 0);
 }
 
 s32 CProc::func_02014354(BOOL notFading) {
@@ -655,7 +684,7 @@ void CProc::func_02014374(void) {
         return;
     }
     
-    mUnk0x74 += mGameSpeed;
+    mUnk0x74 += mTicksPerFrame;
 
     s32 tmp;
     if (mUnk0x78 <= FIXED_TO_INT(mUnk0x74)) {
@@ -677,7 +706,24 @@ void CProc::func_02014374(void) {
 }
 
 void CProc::func_02014408(s32 volume, s32 time) {
+    s32 volStart;
 
+    if (time) {
+        mUnk0x6c = TRUE;
+        mUnk0x70 = mVolume;
+        
+        volStart = volume;
+        if (volStart > 127) {
+            volStart = 127;
+        } else if (volStart < 0) {
+            volStart = 0;
+        }
+        mUnk0x72 = volStart;
+        mUnk0x74 = 0;
+        mUnk0x78 = time;
+    } else {
+        func_02014320(volume);
+    }
 }
 
 void CProc::func_02014454(s32 speed) {
@@ -685,7 +731,7 @@ void CProc::func_02014454(s32 speed) {
 }
 
 s32 CProc::func_020144c0(void) {
-    return mSpeedSeq;
+    return mSpeed;
 }
 
 CTickFlow *CProc::func_020144c8(void) {
@@ -889,6 +935,7 @@ BOOL CProc::func_02014880(void) {
 }
 
 void CProc::func_02014980(void) {
+    mAverageTicksPerFrame = mTicksPerFrame = func_02013f14(FIXED_TO_INT(mTempo * mSpeed));
 
 }
 
@@ -905,7 +952,25 @@ void CProc::func_02014c8c(void) {
 }
 
 BOOL CProc::func_02014ca4(CTickFlow *tickFlow) {
+    NNS_SndArcStrmGetCurrentPlayingPos(&mStrmHandle);
+    if (tickFlow->mUnk0xc0) {
+        return FALSE;
+    }
 
+    tickFlow->mCurrentRest -= mTicksPerFrame;
+    tickFlow->mUnk0xc0 = TRUE;
+    while (tickFlow->mCurrentRest < 0) {
+        mTickFlowCurProc = tickFlow;
+        BOOL ret = handleCommands(mTickFlowCurProc);
+        mTickFlowCurProc = NULL;
+        if (ret) {
+            return TRUE;
+        }
+        if (mExecPaused) {
+            return FALSE;
+        }
+    }
+    return FALSE;
 }
 
 s32 CProc::gotoLabel(CTickFlow *tickFlow, u32 label) {
