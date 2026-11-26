@@ -1,5 +1,5 @@
-#ifndef _SYSTEM_CPLANEVISIBILITY_H_
-#define _SYSTEM_CPLANEVISIBILITY_H_
+#ifndef _MAIN_CPLANEVISIBILITY_H_
+#define _MAIN_CPLANEVISIBILITY_H_
 
 #include "global.h"
 

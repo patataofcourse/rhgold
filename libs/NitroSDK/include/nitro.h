@@ -35,11 +35,11 @@
 #include <nitro/os.h>
 #include <nitro/mi.h>
 #include <nitro/pxi.h>
-// #include <nitro/snd.h>
+#include <nitro/snd.h>
 // #include <nitro/pad.h>
 #include <nitro/spi.h>
-// #include <nitro/card.h>
-// #include <nitro/fs.h>
+#include <nitro/card.h>
+#include <nitro/fs.h>
 // #include <nitro/rtc.h>
 #include <nitro/gx.h>
 // #include <nitro/wm.h>

@@ -2,6 +2,7 @@
 #define _GLOBAL_H_
 
 #include <nitro.h>
+#include <nnsys.h>
 
 #include "unk_funcs.h"
 
@@ -10,8 +11,9 @@
 
 // Q24.8 fixed point types
 typedef s32 s24_8;
-#define INT_TO_FIXED(x) ((s32)((x) * 256))
-#define FIXED_TO_INT(x) ((s32)((x) >> 8))
+#define INT_TO_FIXED(x)   ((s32)((x) * 256))
+#define INT_TO_FIXED_1(x) ((s32)(x) << 8)
+#define FIXED_TO_INT(x)   ((s32)((x) >> 8))
 
 // Length of array (unsigned/signed)
 #define NELEMU(a) ((sizeof((a)) / sizeof(*(a))))

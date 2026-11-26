@@ -1,4 +1,4 @@
-#include "System/TouchPad.h"
+#include "Main/TouchPad.h"
 
 struct TPManager {
     u16 unk0;

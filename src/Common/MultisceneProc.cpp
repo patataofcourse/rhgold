@@ -3,7 +3,7 @@
 
 #include <nitro.h>
 
-#include "System/CPlaneVisibility.h"
+#include "Main/CPlaneVisibility.h"
 
 #include "Common/MultisceneProc.h"
 

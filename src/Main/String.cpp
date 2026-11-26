@@ -1,4 +1,4 @@
-#include "System/String.h"
+#include "Main/String.h"
 #include <string.h>
 
 char *strCopy(char *dest, char *src) {
