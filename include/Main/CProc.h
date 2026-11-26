@@ -87,6 +87,19 @@ public:
     s32 func_02014ef4(s32 index);
     void func_02014f04(s32 index, s32 value);
 
+    CProc *getNext(void) {
+        return mNext;
+    }
+    void setNext(CProc *proc) {
+        mNext = proc;
+    }
+    s32 getIndex(void) {
+        return mUnk0x8c;
+    }
+    void setIndex(s32 index) {
+        mUnk0x8c = index;
+    }
+
 protected:
     virtual BOOL update(void);
     virtual BOOL handleCommands(u32 opcode, u32 arg0, const s32 *args);
@@ -125,6 +138,23 @@ protected:
     CProc *mNext;
     s32 mUnk0x8c;
     u32 mTempo;
+};
+
+class CProcMan {
+public:
+    CProcMan(void);
+    virtual ~CProcMan(void);
+    virtual void _08(void);
+    virtual s32 _0C(CProc *proc);
+    virtual BOOL _10(s32 index);
+
+protected:
+    void func_0201473c(void);
+    s32 func_020147a4(CProc *proc);
+    BOOL func_020147f4(s32 index);
+
+    s32 mProcCount;
+    CProc *mProcHead;
 };
 
 #endif

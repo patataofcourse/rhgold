@@ -736,6 +736,101 @@ void CProc::func_02014620(void) {
 
 }
 
+
+// Proc Manager
+CProcMan::CProcMan(void) {
+    mProcCount = 0;
+    mProcHead = NULL;
+}
+
+CProcMan::~CProcMan(void) {
+    CProc *current, *next;
+
+    current = mProcHead;
+    while (current != NULL) {
+        next = current->getNext();
+        delete current;
+        current = next;
+    }
+}
+
+void CProcMan::func_0201473c(void) {
+    CProc *current, *next, *t;
+
+    current = mProcHead;
+    t = NULL;
+    while (current != NULL) {
+        next = current->getNext();
+        if (current->func_02013b08() == TRUE) {
+            if (t != NULL) {
+                t->setNext(next);
+            } else {
+                mProcHead = next;
+            }
+            delete current;
+        } else {
+            t = current;
+        }
+        current = next;
+    }
+}
+
+s32 CProcMan::func_020147a4(CProc *proc) {
+    CProc *current, *next;
+
+    if (mProcHead != NULL) {
+        current = mProcHead;
+        for (next = current->getNext(); next != NULL; next = next->getNext()) {
+            current = next;
+        }
+        current->setNext(proc);
+    } else {
+        mProcHead = proc;
+    }
+    proc->setIndex(mProcCount);
+    mProcCount++;
+    return proc->getIndex();
+}
+
+BOOL CProcMan::func_020147f4(s32 index) {
+    CProc *current, *next, *t;
+    s32 currentIndex;
+
+    current = mProcHead;
+    t = NULL;
+    while (current != NULL) {
+        next = current->getNext();
+        
+        currentIndex = current->getIndex();
+        if (currentIndex == index) {
+            if (t != NULL) {
+                t->setNext(next);
+            } else {
+                mProcHead = next;
+            }
+            delete current;
+            return FALSE;
+        }
+        
+        t = current;
+        current = next;
+    }
+    return TRUE;
+}
+
+void CProcMan::_08(void) {
+    func_0201473c();
+}
+
+s32 CProcMan::_0C(CProc *proc) {
+    return func_020147a4(proc);
+}
+
+BOOL CProcMan::_10(s32 index) {
+    return func_020147f4(index);
+}
+
+
 // THIS MATCHES: objdiff bugs out
 BOOL CProc::func_02014880(void) {
     if (mExecPaused) {
